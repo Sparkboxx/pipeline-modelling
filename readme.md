@@ -16,7 +16,7 @@ A pipeline is any path (through code) that starts at a trigger or event and ends
 
 ## Basic Shapes
 
-There are 5 basic shapes: circles, double-squares, triangles, arrows and rectangles. If you can draw these shapes you can model data pipelines on a whiteboard or cobble sketches together in a tool like powerpoint or keynote. 
+There are a few basic shapes: circles, double-squares, triangles, arrows and rectangles. If you can draw these shapes you can model data pipelines on a whiteboard or cobble sketches together in a tool like powerpoint or keynote. 
 
 | Shape | Image | Description |
 | ----- | ----- | ----------- |
@@ -27,27 +27,12 @@ There are 5 basic shapes: circles, double-squares, triangles, arrows and rectang
 | Other      | ![other](./images/def_other.png)           | *Rectangle, no fill, identifier inside. Name optional.* <br><br> If it isn’t a processor, a data store or a trigger. It’s probably something else. Represented by a rectangle. There are some variations on the “other” icon, but if it fits, write the name of the system in the rectangle. |
 | External   | ![external](./images/def_external.png)     | *Rectangle, solid fill. Name required.* <br><br> Sometimes you simply don’t care, do you? When your boundaries are strong it’s often enough to model an external system as a black box.                                                                                      |
 
-## Modeling Rules
-
-There are some basic guidelines on the modelling of pipelines.
-
-*	Processors, data stores and external systems need names. 
-*	Names are optional for flows and triggers. 
-*	Names can be written down above or below the icon. Try to avoid putting a name on the side of the icon.
-*	If it can be avoided, do not rotate names. With a bit of creativity you can probably find a way to write a name above or below a shape.
-*	Try not to forget to put arrow markers on flow lines. That way it’s clear what the flow of data is. When data flows both ways, put 2 arrow heads on the flow line.
-
-![right](./images/modeling_right.png) 
-
-![wrong](./images/modeling_wrong.png)
-
 ## Processors
 
 A processor is a piece of software that takes takes input data, processes it and writes its output. A processor can be “always on”, or can be triggered by an event or manual action. A processor can take its input from a data store or from a queue or stream. Likewise its output. 
 
 ![Processor](./images/def_processor.png)
 ![Lambda Processor](./images/def_processor_lambda.png)
-
 
 ### Origin of the Symbol
 
@@ -135,5 +120,87 @@ naming is (roughly) as follows:
 
 
 
+## Flow
 
+Flow of data is represented by arrows. The data flows from the straight end towards the arrowhead. So if a processor requests data from a datastore you would see the arrow head attached to the processor. And if a processor writes data into a datastore, the arrowhead will be touching the datastore.
 
+### Origin of the Symbol
+
+It’s an arrow. The symbols to denote the different types are chosen in a way that you can add them to a line afterwards, and that removing them from a line doesn’t need a whiteboard wiper. (but might give you a bit of  paint on your finger)
+
+### Processor Types
+
+| flow type | image | description |
+| --------- | ----- | ----------- |
+| flow | ![flow](./images/def_flow.png) | *An arrow with 1 arrow head.* |
+| Asynchronous invocation | ![Asynchronous flow](./images/def_flow_async.png) | *Line marked with a capital A on the line. where the (imaginary) dash of the A lines up with the line and can be omitted.* |
+| Steaming or evented flow| ![Streaming flow](./images/def_flow_streaming.png) | *Line marked with a N on the line.* This line can be used to depict Kinesis streams, DynamoDB update streams, Kinesis Firehoses or streams on a Kafka topic.|
+| Synchronous | ![Synchonous flow](./images/def_flow_sync.png) | *A line with 2 arrow heads.* | 
+| Queued | ![Queued flow](./images/def_flow_queue.png) | *A line marked with a 90 degree angled "stop line" midway.* |
+
+### Synchronous or bi-directional?
+
+We make no difference. If you execute a process synchronously you are apparently interested in the result of that function, hence you both send (invoke) and receive (get the return value) of that function. 
+
+In cases where you fire and forget into a system but read back from that same system at a later point in time you can draw 2 arrows.
+
+### Limitations limitations
+
+Let the drawing teach you something about your models. If you need too many arrows, arrows start crossing or you start having more than 1 arrow between 2 components, take a look at your design. Can it be simplified?
+
+## Miscellaneous
+
+A couple of other icons have proven to be useful in designing and annotating pipelines.
+
+### User facing app
+
+Data pipelines tend to be a computer only business. However, humans often need to configure or change configurations or peek into the data. For that reason we have a user facing app icon. A square with a diagonal cross inside. It’s easy to draw and not easily confused with the external component and the data sources.
+
+![User Facing App](./images/def_misc_user_facing.png)
+
+### Other kinds of systems
+
+A rectangle. If possible with a description of the external system inside the rectangle, and possibly an extra annotation on the label. The example image shows an external Kafka system.
+By writing the name of the system in the rectangle you can use the label for an extra annotation. For example the name of the kafka stream.
+
+![Other](./images/def_misc_kafka.png)
+
+### Humans
+
+It’s nice to be able to put some humans in a picture, especially when you add names or roles to the picture.
+
+![Humans](./images/def_misc_human.png)
+
+### Annotations
+
+Sometimes you want to write just a little bit more than a processor or data store name. You can annotate any element in the picture by writing text and using a left and right outer line on a rectangle. Like shown next to this text.  In software packages it is enough just to provide the left and right edge of a box. On the whiteboard it helps to go “just a little around the corner” in order to have the human eye catch the box. 
+
+Why this shape? And why left and right? Because its easy to write your text first and annotate afterwards by drawing a “box without lines” around it. If you want to extend your text you only have to remove the top or bottom 2 small edges.
+
+![Annotations](./images/def_misc_annotations.png)
+
+### Lists and repetitions
+
+Sometimes you run a list of processors in a pipeline that all do the same. For processors this is depicted by overlapping circles, on a whiteboard often drawn as a spiral. Next to the spiral you can optionally annotate the list of processors with a bounding box with the top and bottom lines coloured.
+
+![Lists](./images/def_misc_lists.png)
+
+### Grouping
+
+Sometimes you want to group some items together. To indicate a separate AWS account or VPC, or indicate developer responsibilities. For grouping we use a dashed bounding box with a label attached to it on the outside.
+
+![Lists](./images/def_misc_grouping.png)
+
+## Modeling Rules
+
+There are some basic guidelines on the modelling of pipelines.
+
+*	Processors, data stores and external systems need names. 
+*	Names are optional for flows and triggers. 
+*	Names can be written down above or below the icon. Try to avoid putting a name on the side of the icon.
+*	If it can be avoided, do not rotate names. With a bit of creativity you can probably find a way to write a name above or below a shape.
+*	Try not to forget to put arrow markers on flow lines. That way it’s clear what the flow of data is. When data flows both ways, put 2 arrow heads on the flow line.
+
+![right](./images/modeling_right.png) 
+
+![wrong](./images/modeling_wrong.png)
