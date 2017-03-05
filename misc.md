@@ -5,6 +5,10 @@ A couple of other icons have proven to be useful in designing and annotating pip
 ## User facing app
 
 Data pipelines tend to be a computer only business. However, humans often need to configure or change configurations or peek into the data. For that reason we have a user facing app icon. A square with a diagonal cross inside. It’s easy to draw and not easily confused with the external component and the data sources.
+The origin is of the symbol lies in wireframing. When wireframing
+(web)applications, images are often displayed by a (grey) crossed out rectangle.
+And in our experience the majority of user facing applications are still
+webpages (as opposed to slack bots, CLIs or desktop software).
 
 ![User Facing App](./images/def_misc_user_facing.png)
 
