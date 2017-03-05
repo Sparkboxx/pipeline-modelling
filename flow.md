@@ -14,7 +14,7 @@ It’s an arrow. The symbols to denote the different types are chosen in a way t
 | Asynchronous invocation | ![Asynchronous flow](./images/def_flow_async.png) | *Line marked with a capital A on the line. where the (imaginary) dash of the A lines up with the line and can be omitted.* |
 | Steaming or evented flow| ![Streaming flow](./images/def_flow_streaming.png) | *Line marked with a N on the line.* This line can be used to depict Kinesis streams, DynamoDB update streams, Kinesis Firehoses or streams on a Kafka topic.|
 | Synchronous | ![Synchonous flow](./images/def_flow_sync.png) | *A line with 2 arrow heads.* | 
-| Queued | ![Queued flow](./images/def_flow_queue.png) | *A line marked with a 90 degree angled "stop line" midway.* |
+| Queued | ![Queued flow](./images/def_flow_queued.png) | *A line marked with a 90 degree angled "stop line" midway.* |
 
 ## Synchronous or bi-directional?
 
@@ -24,5 +24,5 @@ In cases where you fire and forget into a system but read back from that same sy
 
 ## Limitations limitations
 
-Let the drawing teach you something about your models. If you need too many arrows, arrows start crossing or you start having more than 1 arrow between 2 components, take a look at your design. Can it be simplified?
+Let your models tell you something about your models. If you need too many arrows, arrows start crossing or you start having more than 1 arrow between 2 components, take a look at your design. Can it be simplified?
 
