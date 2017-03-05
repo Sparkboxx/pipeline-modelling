@@ -14,6 +14,20 @@ A pipeline is any path (through code) that starts at a trigger or event and ends
 
 ![sample pipeline](./images/example_pipeline.png)
 
+## Creating Pipeline Models
+
+We created a set of figures to use when modeling your data pipelines with [draw.io](https://draw.io). 
+
+In order do use the figures in [draw.io](https://draw.io) follow the following steps:
+
+1. [Download data-pipeline-modeling.xml](./attachements/data-pipeline-modeling.xml)
+2. Go to [draw.io](https://draw.io) and select ```create new diagram``` or ```open existing diagram```.
+3. Search for the ```scratchpad``` in the left menu. It's probably on top.
+4. Click the small ```pencil``` icon, an overlay window shows up.
+5. Click the import button.
+6. Select the file you downloaded in step 1.
+7. Done.
+
 ## Basic Shapes
 
 There are a few basic shapes: circles, double-squares, triangles, arrows and rectangles. If you can draw these shapes you can model data pipelines on a whiteboard or cobble sketches together in a tool like powerpoint or keynote. 
