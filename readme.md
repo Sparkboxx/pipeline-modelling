@@ -20,7 +20,7 @@ We created a set of figures to use when modeling your data pipelines with [draw.
 
 In order to use the figures in [draw.io](https://draw.io) follow the following steps:
 
-1. [Download data-pipeline-modeling.xml](./attachements/data-pipeline-modeling.xml)
+1. [Download data-pipeline-modeling.xml](https://github.com/trivago/pipeline-modeling/attachements/data-pipeline-modeling.xml)
 2. Go to [draw.io](https://draw.io) and select ```create new diagram``` or ```open existing diagram``` and follow the wizard.
 3. Search for the ```scratchpad``` in the left menu. It's probably on top.
 4. Click the small ```pencil``` icon, an overlay window shows up.
