@@ -40,3 +40,6 @@ naming is (roughly) as follows:
 | Memcached          | MC     |
 | Oracle             | O      |
 
+## Tables
+
+The icon for a datastore is used to mark an individual table or collection. For example, if you indicate you want to store something in MySQL you use a datastore icon for each table you are accessing data from or writing into. Same goes for DynamoDB: you draw a data store for each table. For S3, you draw 1 data store icon per bucket. etc.
