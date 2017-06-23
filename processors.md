@@ -4,6 +4,7 @@ A processor is a piece of software that takes takes input data, processes it and
 
 ![Processor](./images/def_processor.png)
 ![Lambda Processor](./images/def_processor_lambda.png)
+![Kafka Stream Processor](./images/def_processor_kafka_stream.png)
 
 ## Origin of the Symbol
 
