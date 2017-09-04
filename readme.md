@@ -22,7 +22,7 @@ In order to use the figures in [draw.io](https://draw.io) follow the following s
 
 1. Go to [draw.io](https://draw.io) and create a new diagram.
 2. From the menu bar, select `File` > `Open Library from` > `URL`.
-3. Enter the following URL `https://raw.githubusercontent.com/trivago/pipeline-modeling/master/attachments/Data Pipeline.xml?token=AAC1o47QoBb55Gh2eR3Z4TJknaT8xK-nks5ZslKNwA%3D%3D`.
+3. Enter the following URL `https://raw.githubusercontent.com/trivago/pipeline-modeling/master/attachments/Data%20Pipeline.xml?token=AAC1oxNLrlUvaUqONvvM5ZOBDhlD7XSlks5Zti4jwA%3D%3D`.
 
 The shapes library on the left should now contain a section called Data Pipeline.
 
