@@ -1,6 +1,6 @@
 # Jekyll configuration for GitHub Pages
 title: Pipeline Modelling Language
-description: A visual modelling language for data pipelines
+description: A whiteboard friendly modelling language for data pipelines
 baseurl: "/pipeline-modelling"
 url: "https://sparkboxx.github.io"
 
@@ -29,3 +29,5 @@ defaults:
     values:
       layout: "page"
 
+aux_links:
+  Repository: https://github.com/sparkboxx/pipeline-modelling
