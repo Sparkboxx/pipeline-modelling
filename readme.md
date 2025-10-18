@@ -41,7 +41,7 @@ There are a few basic shapes: circles, double-squares, triangles, arrows and rec
 
 ## Document Source
 
-The source of this documentation can be found in [github](https://github.com/trivago/pipeline-modeling). This
-documentation is automatically built into [docs.trv.amsterdam/pipeline-modeling](http://docs.trv.amsterdam/pipeline-modeling).
+The source of this documentation can be found in [github](https://github.com/Sparkboxx/pipeline-modelling). This
+documentation is automatically built into [sparkboxx.github.io/pipeline-modelling](https://sparkboxx.github.io/pipeline-modelling/).
 
 
