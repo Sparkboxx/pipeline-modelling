@@ -10,7 +10,7 @@ highlighter: rouge
 theme: just-the-docs
 
 # Include/exclude files
-include:
+exclude:
   - readme.md
 
 # Plugins
