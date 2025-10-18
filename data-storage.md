@@ -1,3 +1,9 @@
+---
+layout: page
+title: Data Storage
+nav_order: 4
+---
+
 # Data Storage
 
 Sooner or later you want to retrieve or store some data somewhere. When modelling a pipeline it doesn’t always matter where. Especially when working at high abstraction levels you don’t want to make a choice of data store (just yet). We model a data store after a common symbol for a relational database table in UML, but don’t be fooled, the symbol just represent “a datastore” not a relational datastore specifically. 

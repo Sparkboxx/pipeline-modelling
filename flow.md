@@ -1,3 +1,9 @@
+---
+layout: page
+title: Flow
+nav_order: 5
+---
+
 # Flow
 
 Flow of data is represented by arrows. The data flows from the straight end towards the arrowhead. So if a processor requests data from a datastore you would see the arrow head attached to the processor. And if a processor writes data into a datastore, the arrowhead will be touching the datastore.

@@ -1,3 +1,9 @@
+---
+layout: page
+title: Triggers
+nav_order: 3
+---
+
 # Triggers
 
 Triggers are the starts of pipelines. A trigger can be manual, event or timed (e.g. cron).  

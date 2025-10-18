@@ -11,7 +11,7 @@ theme: minima
 
 # Include/exclude files
 include:
-  - README.md
+  - readme.md
 
 # Plugins
 plugins:

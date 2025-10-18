@@ -1,3 +1,9 @@
+---
+layout: page
+title: Processors
+nav_order: 2
+---
+
 # Processors
 
 A processor is a piece of software that takes takes input data, processes it and writes its output. A processor can be “always on”, or can be triggered by an event or manual action. A processor can take its input from a data store or from a queue or stream. Likewise its output. 

@@ -1,7 +1,7 @@
-@include(readme.md)
-@include(processors.md)
-@include(triggers.md)
-@include(data-storage.md)
-@include(flow.md)
-@include(misc.md)
-@include(rules.md)
+---
+layout: page
+title: Home
+nav_order: 1
+---
+
+{% include_relative readme.md %}

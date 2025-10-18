@@ -1,3 +1,9 @@
+---
+layout: page
+title: Miscellaneous
+nav_order: 6
+---
+
 # Miscellaneous
 
 A couple of other icons have proven to be useful in designing and annotating pipelines.

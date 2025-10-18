@@ -1,4 +1,10 @@
-# Modeling Rules
+---
+layout: page
+title: Rules
+nav_order: 7
+---
+
+# Rules
 
 There are some basic guidelines on the modelling of pipelines.
 
