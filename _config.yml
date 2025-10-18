@@ -1,0 +1,30 @@
+# Jekyll configuration for GitHub Pages
+title: Pipeline Modeling Language
+description: A visual modeling language for data pipelines
+baseurl: "/pipeline-modelling"
+url: "https://sparkboxx.github.io"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Include/exclude files
+include:
+  - README.md
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Collections
+collections_dir: .
+
+# Default layouts
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
