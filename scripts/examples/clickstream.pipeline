@@ -1,0 +1,23 @@
+title "Clickstream pipeline"
+
+app shop "web shop"
+other kafka KAFKA "clicks"
+lambda enrich PY "enrich"
+external geo "geo ip service"
+store raw S3 "raw clicks"
+store sessions D "sessions"
+list aggregators "aggregators"
+store warehouse RS "warehouse"
+trigger nightly L "nightly"
+processor export PY "export"
+external crm "CRM"
+
+shop -N-> kafka -N-> enrich
+enrich <-> geo
+enrich -> raw
+enrich -Q-> aggregators -> sessions
+nightly -> export
+sessions, raw -> export -> warehouse
+export -A-> crm "segments"
+
+group "streaming": kafka enrich aggregators
