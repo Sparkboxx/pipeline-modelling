@@ -54,6 +54,6 @@ node scripts/diagrams.mjs images
 ## Document Source
 
 The source of this documentation can be found in [github](https://github.com/Sparkboxx/pipeline-modelling). This
-documentation is automatically built into [pipelinediagrams.com](https://pipelinediagrams.com).
+documentation is automatically built into [pipeline-diagrams.com](https://pipeline-diagrams.com).
 
 

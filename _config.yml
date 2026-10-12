@@ -2,7 +2,7 @@
 title: Pipeline Diagrams
 description: Whiteboard-proof diagrams for data pipelines
 baseurl: ""
-url: "https://pipelinediagrams.com"
+url: "https://pipeline-diagrams.com"
 
 # Build settings
 markdown: kramdown
