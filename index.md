@@ -71,11 +71,13 @@ There are also symbols for [user facing apps, humans, annotations, lists and gro
 
 ## Use it in draw.io {#use-it-in-drawio}
 
-All shapes are available as a [draw.io](https://draw.io) library.
+All shapes are available as a [draw.io](https://app.diagrams.net) library. The quickest way: [open draw.io with the library loaded](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fpipeline-diagrams.com%2Fdownloads%2Fpipeline-diagrams.drawio.xml).
 
-1. Go to [draw.io](https://draw.io) and create a new diagram.
+Or add it to a diagram yourself:
+
+1. Go to [draw.io](https://app.diagrams.net) and create a new diagram.
 2. From the menu bar, select `File` › `Open Library from` › `URL`.
-3. Enter `https://raw.githubusercontent.com/Sparkboxx/pipeline-modelling/master/attachments/Data%20Pipeline.xml`.
+3. Enter `https://pipeline-diagrams.com/downloads/pipeline-diagrams.drawio.xml`.
 {: .steps }
 
-The shapes library on the left now contains a section called **Data Pipeline**.
+The shapes appear in a new section of the shapes panel on the left. Libraries for Excalidraw and an icon pack for PowerPoint, Keynote and Miro are on the [Templates & tools](templates.html) page.

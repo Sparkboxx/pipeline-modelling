@@ -1,0 +1,19 @@
+title "Reporting pipeline"
+
+trigger report M "create report"
+store items D "items"
+store stats R "statistics"
+store users P "user data"
+processor collector PY "data collector"
+lambda generator JS "html_report_generator"
+store reports S3 "reports"
+app portal "report portal"
+human analyst "analyst"
+
+report -> collector
+items, stats, users -> collector
+collector -A-> generator -> reports
+reports <-> portal
+analyst -> portal
+
+group "reporting pipeline": collector generator reports

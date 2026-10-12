@@ -486,3 +486,45 @@ blockquote.origin {
     }
   }
 }
+
+// --- Text diagram playground (templates page) ---------------------------------
+
+.playground {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1rem 0 1.5rem;
+
+  textarea {
+    width: 100%;
+    min-height: 18rem;
+    padding: 0.75rem 1rem;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--code);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    resize: vertical;
+  }
+}
+
+.pipeline-output {
+  @include whiteboard;
+
+  overflow-x: auto;
+  padding: 1rem;
+
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.pipeline-error {
+  color: #cf222e;
+  font-size: 0.85rem;
+  margin: 0;
+  min-height: 1.2em;
+}

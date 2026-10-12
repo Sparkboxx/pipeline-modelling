@@ -16,15 +16,15 @@ A pipeline is any path that manipulates and stores data. It starts at a trigger 
 
 ## Creating Pipeline Models
 
-We created a set of figures to use when modelling your data pipelines with [draw.io](https://draw.io). 
+All shapes are available as a [draw.io](https://app.diagrams.net) library. The quickest way: [open draw.io with the library loaded](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fpipeline-diagrams.com%2Fdownloads%2Fpipeline-diagrams.drawio.xml).
 
-In order to use the figures in [draw.io](https://draw.io) follow the following steps:
+Or add it to a diagram yourself:
 
-1. Go to [draw.io](https://draw.io) and create a new diagram.
+1. Go to [draw.io](https://app.diagrams.net) and create a new diagram.
 2. From the menu bar, select `File` > `Open Library from` > `URL`.
-3. Enter the following URL `https://raw.githubusercontent.com/Sparkboxx/pipeline-modelling/master/attachments/Data%20Pipeline.xml`.
+3. Enter `https://pipeline-diagrams.com/downloads/pipeline-diagrams.drawio.xml`.
 
-The shapes library on the left should now contain a section called Data Pipeline.
+The shapes appear in a new section of the shapes panel on the left. Libraries for Excalidraw and an icon pack for PowerPoint, Keynote and Miro are on the [Templates & tools](https://pipeline-diagrams.com/templates.html) page.
 
 ## Basic Shapes
 
