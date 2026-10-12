@@ -1,0 +1,6 @@
+{%- comment -%}
+  A diagram from images/ that follows the reader's light/dark preference.
+  Usage: {% include diagram.html name="def_processor" alt="Processor" %}
+{%- endcomment -%}
+{%- assign base = "/images/" | append: include.name -%}
+<picture class="diagram"><source srcset="{{ base | append: '-dark.svg' | relative_url }}" media="(prefers-color-scheme: dark)"><img src="{{ base | append: '.svg' | relative_url }}" alt="{{ include.alt }}"></picture>

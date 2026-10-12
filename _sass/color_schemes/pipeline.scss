@@ -1,0 +1,19 @@
+// Light base colors. Dark mode is layered on top in custom/custom.scss
+// with CSS variables, following the reader's system preference.
+$color-scheme: light;
+$body-background-color: #ffffff;
+$body-heading-color: #0f172a;
+$body-text-color: #334155;
+$link-color: #4f46e5;
+$nav-child-link-color: #475569;
+$sidebar-color: #f8fafc;
+$base-button-color: #f8fafc;
+$btn-primary-color: #4f46e5;
+$code-background-color: #f1f5f9;
+$feedback-color: darken($sidebar-color, 3%);
+$table-background-color: #ffffff;
+$search-background-color: #ffffff;
+$search-result-preview-color: #64748b;
+$border-color: #e2e8f0;
+
+@import "./vendor/OneLightJekyll/syntax";

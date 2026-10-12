@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="64" viewBox="0 0 200 64" role="img" aria-label="Synchronous flow">
+<title>Synchronous flow</title>
+<style>
+.s{fill:none;stroke:#e6edf3;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.d{stroke-dasharray:7 5}
+.h{fill:#e6edf3}
+.bg{fill:#0f1216}
+.x{fill:#3d444d;stroke:#e6edf3;stroke-width:1.6}
+text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;fill:#e6edf3}
+.l{font-size:12.5px;fill:#b7bdc8;text-anchor:middle}
+.k{font-size:15px;font-weight:600;text-anchor:middle;dominant-baseline:central}
+.t{font-size:12.5px}
+.ok{fill:#3fb950;font-size:12px;font-weight:700;letter-spacing:.1em}
+.no{fill:#f85149;font-size:12px;font-weight:700;letter-spacing:.1em}
+</style>
+<path class="s" d="M24 22L176 22"/><path class="h" d="M184 22L174 26L174 18Z"/><path class="h" d="M16 22L26 18L26 26Z"/><text class="l" x="100" y="52">synchronous</text>
+</svg>

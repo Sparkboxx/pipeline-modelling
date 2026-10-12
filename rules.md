@@ -14,7 +14,7 @@ There are some basic guidelines on the modelling of pipelines.
 *	If it can be avoided, do not rotate names. With a bit of creativity you can probably find a way to write a name above or below a shape.
 *	Try not to forget to put arrow markers on flow lines. That way it’s clear what the flow of data is. When data flows both ways, put 2 arrow heads on the flow line.
 
-![right](./images/modelling_right.png) 
+{% include diagram.html name="modelling_right" alt="right" %} 
 
-![wrong](./images/modelling_wrong.png)
+{% include diagram.html name="modelling_wrong" alt="wrong" %}
 

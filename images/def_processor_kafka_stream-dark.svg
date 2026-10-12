@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="116" viewBox="0 0 120 116" role="img" aria-label="Kafka stream processor">
+<title>Kafka stream processor</title>
+<style>
+.s{fill:none;stroke:#e6edf3;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.d{stroke-dasharray:7 5}
+.h{fill:#e6edf3}
+.bg{fill:#0f1216}
+.x{fill:#3d444d;stroke:#e6edf3;stroke-width:1.6}
+text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;fill:#e6edf3}
+.l{font-size:12.5px;fill:#b7bdc8;text-anchor:middle}
+.k{font-size:15px;font-weight:600;text-anchor:middle;dominant-baseline:central}
+.t{font-size:12.5px}
+.ok{fill:#3fb950;font-size:12px;font-weight:700;letter-spacing:.1em}
+.no{fill:#f85149;font-size:12px;font-weight:700;letter-spacing:.1em}
+</style>
+<circle class="s" cx="60" cy="36" r="28"/><text class="k" x="60" y="36">K</text><text class="l" x="60" y="82"><tspan x="60" dy="0">Kafka stream</tspan><tspan x="60" dy="15">processor</tspan></text>
+</svg>

@@ -1,17 +1,21 @@
 # Jekyll configuration for GitHub Pages
-title: Pipeline Modelling Language
-description: A whiteboard friendly modelling language for data pipelines
-baseurl: "/pipeline-modelling"
-url: "https://sparkboxx.github.io"
+title: Pipeline Diagrams
+description: Whiteboard-proof diagrams for data pipelines
+baseurl: ""
+url: "https://pipelinediagrams.com"
 
 # Build settings
 markdown: kramdown
 highlighter: rouge
 theme: just-the-docs
+color_scheme: pipeline
 
 # Include/exclude files
 exclude:
   - readme.md
+  - scripts/
+  - Gemfile
+  - Gemfile.lock
 
 # Plugins
 plugins:
@@ -30,4 +34,21 @@ defaults:
       layout: "page"
 
 aux_links:
-  Repository: https://github.com/sparkboxx/pipeline-modelling
+  GitHub: https://github.com/sparkboxx/pipeline-modelling
+
+# Theme options
+search_enabled: true
+heading_anchors: true
+back_to_top: true
+back_to_top_text: "Back to top"
+
+gh_edit_link: true
+gh_edit_link_text: "Edit this page on GitHub"
+gh_edit_repository: "https://github.com/sparkboxx/pipeline-modelling"
+gh_edit_branch: "master"
+gh_edit_view_mode: "tree"
+
+callouts:
+  origin:
+    title: Origin of the symbol
+    color: purple

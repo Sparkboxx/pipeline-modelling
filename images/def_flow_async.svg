@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="64" viewBox="0 0 200 64" role="img" aria-label="Asynchronous flow">
+<title>Asynchronous flow</title>
+<style>
+.s{fill:none;stroke:#1f2328;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.d{stroke-dasharray:7 5}
+.h{fill:#1f2328}
+.bg{fill:#ffffff}
+.x{fill:#d0d7de;stroke:#1f2328;stroke-width:1.6}
+text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;fill:#1f2328}
+.l{font-size:12.5px;fill:#424a53;text-anchor:middle}
+.k{font-size:15px;font-weight:600;text-anchor:middle;dominant-baseline:central}
+.t{font-size:12.5px}
+.ok{fill:#1a7f37;font-size:12px;font-weight:700;letter-spacing:.1em}
+.no{fill:#cf222e;font-size:12px;font-weight:700;letter-spacing:.1em}
+</style>
+<path class="s" d="M16 22L176 22"/><path class="h" d="M184 22L174 26L174 18Z"/><path class="s" transform="translate(100 22) rotate(0)" d="M-6 6L0 -10L6 6"/><text class="l" x="100" y="52">asynchronous</text>
+</svg>

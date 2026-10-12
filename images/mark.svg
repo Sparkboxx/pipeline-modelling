@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<style>.s{fill:none;stroke:#6366f1;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}</style>
+<path class="s" d="M11 22L19 40H3Z"/><circle class="s" cx="32" cy="32" r="8"/><rect class="s" x="47" y="22" width="14" height="20"/><path class="s" d="M47 27H61"/>
+<path class="s" d="M17 32H23M41 32H47"/>
+</svg>

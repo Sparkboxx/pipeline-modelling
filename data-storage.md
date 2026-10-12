@@ -10,15 +10,14 @@ Sooner or later you want to retrieve or store some data somewhere. When modellin
 
 We mark the type of the datastore by the first letter or a short abbreviation of the actual datastore. 
 
-![Data Store Examples](./images/data_storage_examples.png)
+{% include diagram.html name="data_storage_examples" alt="Data Store Examples" %}
 
-## Origin of the Symbol
-
-Modelled after the table and class icons in UML. It’s easy to draw on a whiteboard Start with something that comes close to a square and then at about 1/5th of the top, draw a horizontal line. In software, draw a square first, then position a small rectangle on top and join the shapes. That way you can write the letter of your datastore in the centre of the bottom rectangle.
+{: .origin }
+> Modelled after the table and class icons in UML. It’s easy to draw on a whiteboard: start with something that comes close to a square and then at about 1/5th of the top, draw a horizontal line. In software, draw a square first, then position a small rectangle on top and join the shapes. That way you can write the letter of your datastore in the centre of the bottom rectangle.
 
 ## Data Store Types
 
-Below is a non extensive list of data store types. As with the processors the
+Below is a non-exhaustive list of data store types. As with the processors the
 naming is (roughly) as follows:
 
 * Use the first letter of the data store, capitalized. Unless the datastore has
@@ -26,7 +25,7 @@ naming is (roughly) as follows:
 * If the resulting letter is ambiguous, this is no problem if it's clear (to you
   and your team) from the diagram what the data store is. 
 * To disambiguate add an extra letter, or a '.'.
-* For Aurora, add the the A after the database type.
+* For Aurora, add the A after the database type.
 
 | Data store         | Symbol |
 | ----------         | ------ |
@@ -38,7 +37,6 @@ naming is (roughly) as follows:
 | RedShift           | RS     |
 | MySQL or Memcached | M      |
 | MySQL              | M.     |
-| Memcached          | MD     |
 | Microsoft SQL      | MS     |
 | Aurora             | A      |
 | Aurora MySQL       | MA     |
