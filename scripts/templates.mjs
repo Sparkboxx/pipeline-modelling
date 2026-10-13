@@ -5,7 +5,7 @@
 //   - assets/js/pipeline-diagrams.js, the text renderer for the browser, and the
 //     same code as an Obsidian plugin (integrations/obsidian/main.js)
 //   - the "pd" icon pack for Mermaid, and the agent guide as a download and as a
-//     Claude skill (integrations/claude-skill/)
+//     Claude skill (integrations/claude-skill/, and .claude/skills/ for this repository)
 // Usage: node scripts/templates.mjs downloads
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
@@ -413,17 +413,21 @@ module.exports = class PipelineDiagramsPlugin extends Plugin {
   // the icon pack for Mermaid's icon nodes (toMermaid with icons: true)
   writeFileSync(join(out, "pipeline-diagrams-icons.json"), JSON.stringify(iconPack(), null, 2) + "\n");
 
-  // the agent guide, as a download and as a Claude skill
+  // the agent guide, as a download and as a Claude skill: one copy in the
+  // package (integrations/), one for Claude Code in this repository (.claude/)
   const guide = readFileSync(new URL("../integrations/agent-guide.md", here), "utf8");
   writeFileSync(join(out, "pipeline-diagrams-agent-guide.md"), guide);
-  const skillDir = new URL("../integrations/claude-skill/pipeline-diagrams/", here);
-  mkdirSync(skillDir, { recursive: true });
-  writeFileSync(new URL("SKILL.md", skillDir), `---
+  const skill = `---
 name: pipeline-diagrams
 description: Draw data pipeline diagrams (processors, data stores, triggers, flows, groups) with the Pipeline Diagrams text format in a \`\`\`pipeline code block. Use when asked to draw, sketch, model or explain a data pipeline, ETL job, event stream or data flow between systems.
 ---
 
-${guide}`);
+${guide}`;
+  for (const dir of ["../integrations/claude-skill/pipeline-diagrams/", "../.claude/skills/pipeline-diagrams/"]) {
+    const skillDir = new URL(dir, here);
+    mkdirSync(skillDir, { recursive: true });
+    writeFileSync(new URL("SKILL.md", skillDir), skill);
+  }
 }
 
 // --- a minimal zip writer (stored, no compression) ------------------------------

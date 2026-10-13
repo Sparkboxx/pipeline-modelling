@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test)",
+      "Bash(npm run build)",
+      "Bash(node --test:*)",
+      "Bash(node scripts/diagrams.mjs:*)",
+      "Bash(node scripts/templates.mjs:*)",
+      "Bash(node scripts/render-pipeline.mjs:*)",
+      "Bash(node scripts/render-markdown.mjs:*)",
+      "Bash(bundle exec jekyll build:*)",
+      "Bash(bundle exec jekyll serve:*)",
+      "Bash(npm pack --dry-run:*)"
+    ],
+    "deny": [
+      "Bash(npm publish:*)"
+    ]
+  }
+}
