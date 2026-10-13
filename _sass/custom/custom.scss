@@ -533,6 +533,7 @@ blockquote.origin {
 }
 
 .pipeline-error {
+  white-space: pre-line;
   color: #cf222e;
   font-size: 0.85rem;
   margin: 0;
@@ -560,9 +561,12 @@ blockquote.origin {
   }
 }
 
-.pipeline-example {
+pre:has(> code.language-pipeline) + pipeline-diagram {
+  @include whiteboard;
+
   border-top: 0;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   margin: 0 0 1.5rem;
+  padding: 1rem;
 }

@@ -487,7 +487,10 @@ export function layout(model) {
   const extraGap = Array(nr).fill(0);
   for (const l of dag) {
     if (!l.e.notes.length) continue;
-    const need = l.e.notes.map((nt) => noteSize(nt.lines)).reduce((s, b) => s + (LR ? b.w + 30 : b.h + 20), 0) + (LR ? textWidth(l.e.name) / 2 : 0);
+    // the notes start at the middle of the flow, so the gap must hold them twice
+    const sizes = l.e.notes.map((nt) => noteSize(nt.lines));
+    const need = LR ? 2 * (14 + textWidth(l.e.name) / 2 + sizes.reduce((s, b) => s + b.w + NOTE_GAP, 0) + 10) - GAP_MAIN
+      : 2 * (sizes.reduce((s, b) => s + b.h + NOTE_GAP, 0) + 14) - GAP_MAIN;
     const r = rank.get(l.a);
     extraGap[r] = Math.max(extraGap[r], need);
   }
@@ -799,14 +802,16 @@ export function render(src, { pad = 24 } = {}) {
         : `<text class="l" x="${f(mid[0] + (e.mark ? 14 : 8))}" y="${f(mid[1] + 4)}" style="text-anchor:start">${esc(e.name)}</text>`;
       bounds.push(LR ? [mid[0] - nameW / 2, mid[1] - 30, mid[0] + nameW / 2, mid[1] + (uturn ? 24 : 0)] : [mid[0], mid[1] - 8, mid[0] + 14 + nameW, mid[1] + 8]);
     }
-    // notes on a flow: above it (left to right) or beside it (top to bottom)
+    // notes on a flow: above it, right of the middle (left to right), or
+    // beside it, below the flow's name (top to bottom)
     let off = 0;
     for (const nt of e.notes) {
       const s = noteSize(nt.lines);
-      const x = LR ? mid[0] + 14 + nameW / 2 + off : mid[0] + 14 + (nameW ? nameW + 12 : 0);
-      const y = LR ? mid[1] - 16 - s.h : mid[1] - s.h / 2 + off;
+      const x = LR ? mid[0] + 14 + nameW / 2 + off : mid[0] + 24;
+      const y = LR ? mid[1] - 16 - s.h : mid[1] + 12 + off;
       body += bracket(x, y, s.w, s.h, s.lines);
-      body += `<path class="s" d="M${f(mid[0] + 3)} ${f(mid[1] - 3)}L${f(x)} ${f(y + s.h / 2)}"/>`;
+      body += LR ? `<path class="s" d="M${f(mid[0] + 3)} ${f(mid[1] - 3)}L${f(x)} ${f(y + s.h / 2)}"/>`
+        : `<path class="s" d="M${f(mid[0] + 3)} ${f(mid[1] + 6)}L${f(x)} ${f(y + s.h / 2)}"/>`;
       bounds.push([x, y, x + s.w, y + s.h]);
       off += LR ? s.w + NOTE_GAP : s.h + NOTE_GAP;
     }

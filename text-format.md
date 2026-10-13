@@ -9,12 +9,7 @@ nav_order: 9
 
 A small text language for Pipeline Diagrams. You write the diagram as plain text, in a code block marked `pipeline` in Markdown or in an agent conversation, and a renderer draws it with the shapes from this site.
 
-**Status: draft 0.1, for review.** Each feature is marked:
-
-- <span class="label label-green">Available</span> works in the current parser (`scripts/pipeline-dsl.mjs`).
-- <span class="label label-yellow">Proposed</span> is a suggestion for the next version. Nothing is decided yet.
-
-The examples marked Available are rendered live on this page by the same code that renders them everywhere else.
+**Version 0.2.** Every example on this page is rendered live, right below its text, by the same code that renders it everywhere else.
 
 1. TOC
 {:toc}
@@ -25,75 +20,74 @@ The examples marked Available are rendered live on this page by the same code th
 - **Easy to write for people and agents.** Few keywords, one way to say each thing, error messages that say how to fix the problem.
 - **Diff friendly.** One statement per line, no coordinates. Layout is automatic.
 - **Faithful to the notation.** Every shape and flow type on this site can be expressed.
-- **Works where it can't be rendered.** A converter to Mermaid gives a rough version wherever Mermaid works (GitHub, Notion, chat tools). <span class="label label-yellow">Proposed</span>
+- **Works where it can't be rendered.** A converter to [Mermaid](#mermaid) gives a version for GitHub, Notion and chat tools.
 
 ## A first example
 
 ```pipeline
 title "Reporting pipeline"
 
-trigger report M "create report"
+trigger report manual "create report"
 store items D "items"
 store stats R "statistics"
 store users P "user data"
-processor collector "data collector"
+processor collector PY "data collector"
 lambda generator JS "html_report_generator"
 store reports S3 "reports"
 
 report -> collector
 items, stats, users -> collector
 collector -A-> generator -> reports
+note collector "m4.xlarge\nmin: 0, max: 10"
 ```
 
-Shapes are declared first, with a short id. Flows then connect the ids.
-
-## Embedding
-
-| Where | How | Status |
-| ----- | --- | ------ |
-| Markdown | A fenced code block with the language `pipeline`. | <span class="label label-green">Available</span> on this site |
-| Files | `.pipeline` files, UTF-8. Render with `node scripts/render-pipeline.mjs file.pipeline out/`. | <span class="label label-green">Available</span> |
-| Web pages | `assets/js/pipeline-diagrams.js` exposes `PipelineDiagrams.render(text)`, which returns `{ light, dark }` SVG strings. | <span class="label label-green">Available</span> |
-| Other sites, Obsidian, Docusaurus, MkDocs | An npm package with a `<pipeline-diagram>` web component and Markdown plugins. | <span class="label label-yellow">Proposed</span> |
-| GitHub | GitHub only renders Mermaid. A GitHub Action could render `pipeline` blocks to SVG files, and the Mermaid converter gives a fallback. | <span class="label label-yellow">Proposed</span> |
+Shapes are declared with a short id. Flows then connect the ids.
 
 ## Lines, comments and text
 
-<span class="label label-green">Available</span>
-
 - One statement per line. Empty lines are ignored.
-- `#` starts a comment that runs to the end of the line, except inside quotes.
-- Text in double quotes is a name. `\n` inside a name starts a new line.
-- Keywords are lowercase and case sensitive.
-- An **id** is any word without spaces, commas, colons or quotes, e.g. `collector`, `user_data`, `s3-raw`. Ids are case sensitive. Keywords can be used as ids, but it is confusing.
+- `#` starts a comment, at the start of a line or after a space. So `C#` as a code keeps its `#`. Lines starting with `%%` (Mermaid's comments) are ignored too.
+- Text in double quotes is a name. `\n` starts a new line, `\"` is a quote.
+- Keywords are lowercase.
+- An **id** starts with a letter and uses letters, digits, `_` and `-`, e.g. `collector`, `user_data`, `s3-raw`. Ids are case sensitive.
 
 ```pipeline
 # Names can span two lines
-processor parser "parse\nclick events"   # comment after a statement
+processor parser C# "parse\nclick events"   # a comment after a statement
+processor quoted "the \"best\" one"
 ```
-
-<span class="label label-yellow">Proposed</span> changes:
-
-- **A comment starts at `#` only at the start of a line or after a space.** Today `processor x C# "x"` loses the `#` and the code becomes `C`.
-- **`\"` for a quote inside a name.** Today a name can't contain a double quote.
-- **Ids are restricted** to letters, digits, `_` and `-`, starting with a letter. That keeps them easy to read and to convert to Mermaid.
 
 ## Statements
 
-| Statement | Example | Status |
-| --------- | ------- | ------ |
-| `title "text"` | `title "Reporting pipeline"` | <span class="label label-green">Available</span> |
-| `kind id [CODE] ["name"]` | `store items S3 "items"` | <span class="label label-green">Available</span> |
-| `a ARROW b ["name"]` | `collector -A-> generator "nightly"` | <span class="label label-green">Available</span> |
-| `group "name": a b c` | `group "streaming": kafka enrich` | <span class="label label-green">Available</span> |
-| `note id "text"` | `note collector "m4.xlarge\nmin: 0, max: 10"` | <span class="label label-green">Available</span> |
-| `direction LR` | `direction TB` | <span class="label label-yellow">Proposed</span> |
+| Statement | Example |
+| --------- | ------- |
+| `kind id [CODE] ["name"]` | `store items S3 "items"` |
+| `a ARROW b` | `collector -A-> "nightly" generator` |
+| `group "name": a b c` | `group "streaming": kafka enrich` |
+| `group "name" {` … `}` | a block with shapes inside, can be nested |
+| `note [side] id "text"` | `note collector "m4.xlarge"` |
+| `note a ARROW b "text"` | `note collector -> generator "every hour"` |
+| `title "text"` | `title "Reporting pipeline"` |
+| `direction LR` or `TB` | `direction TB` |
 
 ### Title
 
-<span class="label label-green">Available</span> `title "text"` sets the diagram's accessible title (the SVG `<title>`). It is not drawn.
+`title "text"` is drawn above the diagram, and is its accessible title (the SVG `<title>`).
 
-<span class="label label-yellow">Proposed</span> Draw the title above the diagram when it is set, or add an option for it.
+### Direction
+
+`direction LR` (the default) lays the diagram out left to right, `direction TB` top to bottom (`TD` works too). In a top to bottom diagram, flows leave a shape below its name.
+
+```pipeline
+direction TB
+trigger nightly timed "nightly"
+processor export PY "export"
+store warehouse RS "warehouse"
+external crm "CRM"
+
+nightly -> export -> warehouse
+export -A-> "segments" crm
+```
 
 ## Shapes
 
@@ -104,59 +98,68 @@ kind id [CODE] ["name"]
 ```
 
 - The **code** goes inside the shape. It is a single word, see the codes for [processors](processors.html#letter-codes) and [data stores](data-storage.html#data-store-types).
-- The **name** goes below the shape.
-- Code and name can come in either order. Extra words are ignored.
-- When the name is left out, the id is used as the name. Triggers and "other" shapes stay unnamed instead, as names are optional for them.
-- Every id must be declared once. Declaring it twice is an error.
+- The **name** goes below the shape. When it is left out, the id is used. Triggers and "other" shapes stay unnamed instead, as names are optional for them.
+- Code and name can come in either order.
+- Every id is declared once.
 
-| Kind | Draws | Code | Example | Status |
-| ---- | ----- | ---- | ------- | ------ |
-| `processor` | Circle | Language, e.g. `PY`, `JS` | `processor enrich PY "enrich"` | <span class="label label-green">Available</span> |
-| `lambda` | Circle with lambda lines | Language, in the upper right segment | `lambda resize PY "resize"` | <span class="label label-green">Available</span> |
-| `store` | Data store | Store type, e.g. `S3`, `D`, `RS` | `store raw S3 "raw clicks"` | <span class="label label-green">Available</span> |
-| `trigger` | Triangle | `M` manual, `L` timed, `E` event | `trigger nightly L "nightly"` | <span class="label label-green">Available</span> |
-| `other` | Rectangle | The system name, drawn inside | `other kafka KAFKA "clicks"` | <span class="label label-green">Available</span> |
-| `external` | Grey filled rectangle | Not used | `external crm "CRM"` | <span class="label label-green">Available</span> |
-| `app` | User facing app (square with a cross) | Not used | `app portal "report portal"` | <span class="label label-green">Available</span> |
-| `human` | Human | Not used | `human analyst "analyst"` | <span class="label label-green">Available</span> |
-| `list` | Overlapping circles | Not used | `list aggregators "aggregators"` | <span class="label label-green">Available</span> |
+| Kind | Draws | Code | Example |
+| ---- | ----- | ---- | ------- |
+| `processor` | Circle | Language, e.g. `PY`, `JS` | `processor enrich PY "enrich"` |
+| `lambda` | Circle with lambda lines | Language, in the upper right segment | `lambda resize PY "resize"` |
+| `store` | Data store | Store type, e.g. `S3`, `D`, `RS` | `store raw S3 "raw clicks"` |
+| `trigger` | Triangle | `manual`, `timed`, `event` (or `M`, `L`, `E`) | `trigger nightly timed "nightly"` |
+| `other` | Rectangle | The system name, drawn inside | `other kafka KAFKA "clicks"` |
+| `external` | Grey filled rectangle | Not used | `external crm "CRM"` |
+| `app` | User facing app (square with a cross) | Not used | `app portal "report portal"` |
+| `human` | Human | Not used | `human analyst "analyst"` |
+| `list` | Overlapping circles, optionally with its members | Not used | `list workers "workers": a, b, c` |
 
 ```pipeline
 processor p PY "processor"
 lambda l JS "lambda"
 store s S3 "store"
-trigger t L "timed trigger"
+trigger t timed "timed trigger"
 other k KAFKA "stream name"
 external e "external"
 app a "user facing app"
 human h "human"
 list x "list"
+p -> l -> s
+t -> k -> e
+a -> h -> x
 ```
 
-<span class="label label-yellow">Proposed</span> changes:
+### Lists
 
-- **Trigger aliases.** Accept `manual`, `timed` and `event` as well as `M`, `L` and `E`, e.g. `trigger nightly timed "nightly"`. Easier to read, and harder for agents to get wrong.
-- **Warnings instead of silence.** Warn about a code on a kind that doesn't use one, and about extra words.
-- **List members.** `list aggregators "aggregators": by_country, by_device, by_hour` draws the bracketed list of processors from the [notation](misc.html#lists-and-repetitions). The members don't need to be declared.
-- **Code validation (warning only).** Warn about codes that aren't in the tables for processors and data stores, so typos are caught, while still allowing new codes.
+A list stands for a number of identical processors. After a colon, its members are drawn in brackets below it, as in the [notation](misc.html#lists-and-repetitions):
+
+```pipeline
+processor router "router"
+list aggregators "aggregators": by_country, by_device, by_hour
+router -Q-> aggregators
+```
+
+### Codes
+
+The codes from the processor and data store pages are known. Any other code still works, with a warning, so typos are caught. A warning also comes for a code on a kind that doesn't use one, and for extra words.
 
 ## Flows
 
-A flow connects two declared ids. The data flows in the direction of the arrow: `items -> collector` means the collector reads from items.
+A flow connects two shapes. The data flows in the direction of the arrow: `items -> collector` means the collector reads from items.
 
-| Arrow | Flow type | Draws | Status |
-| ----- | --------- | ----- | ------ |
-| `->` | Flow | Arrow | <span class="label label-green">Available</span> |
-| `<->` | Synchronous | Arrow heads on both ends | <span class="label label-green">Available</span> |
-| `-A->` | Asynchronous | "A" on the line | <span class="label label-green">Available</span> |
-| `-N->` | Streaming or evented | "N" on the line | <span class="label label-green">Available</span> |
-| `-Q->` | Queued | Tick across the line | <span class="label label-green">Available</span> |
+| Arrow | Flow type | Draws |
+| ----- | --------- | ----- |
+| `->` | Flow | Arrow |
+| `<->` | Synchronous | Arrow heads on both ends |
+| `-A->` | Asynchronous | "A" on the line |
+| `-N->` | Streaming or evented | "N" on the line |
+| `-Q->` | Queued | Tick across the line |
 
-<span class="label label-green">Available</span> Arrows need a space on both sides: `a -> b`, not `a->b`.
+Spaces around arrows are optional: `a->b` works too. There is no reversed arrow (`<-`), so there is only one way to write a flow.
 
 ### Chains and lists
 
-<span class="label label-green">Available</span> One line can hold a chain of flows, and a comma separated list on either side of an arrow connects every item:
+One line can hold a chain of flows, and a comma separated list on either side of an arrow connects every item:
 
 ```pipeline
 store items D "items"
@@ -173,57 +176,85 @@ This is the same as five separate flows: `items -> collector`, `stats -> collect
 
 ### Flow names
 
-<span class="label label-green">Available</span> A name in quotes at the end of the line is drawn next to the flow. In a chain it belongs to the **last** arrow only:
+A name in quotes right after an arrow belongs to that arrow. A name at the end of the line belongs to the last arrow:
 
 ```pipeline
 processor a "a"
 processor b "b"
 processor c "c"
-a -> b -A-> c "nightly"
+a -> "raw" b -A-> c "nightly"
 ```
 
-<span class="label label-yellow">Proposed</span> changes:
+### Flows to and from a group
 
-- **Allow arrows without spaces** (`a->b`), like Mermaid. Agents write it that way often.
-- **A name in the middle of a chain**: `a -> b -A-> "nightly" c`. Or keep the current rule and recommend one flow per line when flows have names.
-- **No reversed arrows** (`<-`). There is only one way to write a flow, so diagrams stay consistent. Listed here because it is a deliberate choice.
-- **Flows to and from a group**, e.g. `crm -> group "streaming"`. To be decided whether this is worth the extra rules.
+`group "name"` can be used as either end of a flow. The arrow then starts or ends at the group's box:
 
-<span class="label label-green">Available</span> A flow from a shape to itself is accepted but not drawn. <span class="label label-yellow">Proposed</span> Make it a warning.
+```pipeline
+external crm "CRM"
+group "VPC" {
+  processor api JS "api"
+  store orders P "orders"
+}
+crm -> group "VPC"
+api -> orders
+```
+
+### Flows back
+
+A flow against the direction of the diagram loops around everything in between, so it never crosses a shape:
+
+```pipeline
+processor fetch PY "fetch"
+processor parse PY "parse"
+processor load PY "load"
+fetch -> parse -> load
+load -A-> fetch "retry"
+```
+
+A flow from a shape to itself is not drawn, and gives a warning.
 
 ## Groups
 
-<span class="label label-green">Available</span> `group "name": a b c` draws a dashed box around the members, with the name outside the top right corner. The colon is optional, and members can be separated by spaces or commas. Members must be declared.
+A group draws a dashed box around its members, with the name outside the top right corner. There are two ways to write one:
+
+- **A list of members:** `group "name": a b c`. The colon is optional, and members can be separated by spaces or commas.
+- **A block:** `group "name" {`, the shapes inside it, and `}` on a line of its own. Blocks can be nested, e.g. a VPC inside an AWS account.
+
+```pipeline
+external crm "CRM"
+group "AWS account" {
+  group "VPC" {
+    processor api JS "api"
+    store orders P "orders"
+  }
+  lambda mailer PY "mailer"
+}
+crm -> api -> orders
+orders -Q-> mailer
+mailer -> crm "emails"
+```
+
+A list group inside a block is part of that block. A shape can be in one group, plus the groups around it.
+
+The layout keeps the members of a group together, and keeps other shapes out of its box:
 
 ```pipeline
 external shop "web shop"
 other kafka KAFKA "clicks"
 processor enrich PY "enrich"
 store raw S3 "raw clicks"
+processor audit "audit"
+store archive S3 "archive"
 
 shop -N-> kafka -N-> enrich -> raw
-group "streaming": kafka enrich
+shop -> audit -> archive
+raw -> archive
+group "streaming": kafka enrich raw
 ```
-
-**Known limitation:** the layout doesn't keep non-members out of the box. When a group's members aren't next to each other, the box can enclose other shapes.
-
-<span class="label label-yellow">Proposed</span> changes:
-
-- **The layout keeps group members together**, so a box never encloses a non-member.
-- **Block syntax**, declaring shapes inside the group:
-
-```text
-group "streaming" {
-  other kafka KAFKA "clicks"
-  processor enrich PY "enrich"
-}
-```
-
-- **Nested groups**, e.g. a VPC inside an AWS account.
 
 ## Annotations
 
-<span class="label label-green">Available</span> `note` adds an [annotation](misc.html#annotations) to a shape: text between brackets, linked to the shape by a line.
+`note` adds an [annotation](misc.html#annotations) to a shape: text between brackets, linked to the shape by a line.
 
 For a short note, put the text in quotes. `\n` starts a new line:
 
@@ -232,7 +263,7 @@ processor collector PY "data collector"
 note collector "m4.xlarge\nmin: 0, max: 10"
 ```
 
-For a longer note, end the line with a colon and put the text on the indented lines below. Each line is shown as it is, so the dashes are up to you:
+For a longer note, end the line with a colon and put the text on the lines below, indented further than the `note` line. Each line is shown as it is, so the dashes are up to you. The note ends at the first line that isn't indented further, or at an empty line:
 
 ```pipeline
 processor workers "workers"
@@ -243,163 +274,257 @@ note workers:
   - AMI: ami-1234abcd
 ```
 
-The note ends at the first line that isn't indented, or at an empty line.
+### Placement
 
-**Placement is automatic.** A note goes to the right of its shape when nothing connects on that side, as in the notation. When flows leave the shape to the right, the note goes above it instead, so it never pushes the pipeline out of line:
+By default a note goes to the right of its shape when nothing connects on that side, as in the notation. When flows leave the shape to the right, the note goes above it, so it never pushes the pipeline out of line. To choose yourself, put `left`, `right`, `above` or `below` after `note`:
 
 ```pipeline
-trigger report M "create report"
-store items D "items"
-processor collector PY "data collector"
-lambda generator JS "html_report_generator"
+processor collector PY "collector"
 store reports S3 "reports"
-
-report -> collector
-items -> collector -A-> generator -> reports
-
-note collector "m4.xlarge\nmin: 0, max: 10"
-note reports:
+collector -> reports
+note left collector "starts at 6:00"
+note above collector "m4.xlarge"
+note below reports:
   - kept for 90 days
   - public read
 ```
 
 A shape can have more than one note; they stack. One note per shape reads best.
 
-<span class="label label-yellow">Proposed</span> changes:
+### Notes on flows
 
-- **Notes on flows**, e.g. `note collector -> generator "every hour"`. Today a flow can only have a short name.
-- **A choice of side**, e.g. `note left collector "…"`, for the rare diagram where the automatic placement doesn't fit.
+`note a ARROW b "text"` puts a note on the flow from `a` to `b`. The arrow in the note doesn't have to match the flow's arrow.
+
+```pipeline
+processor collector PY "collector"
+store reports S3 "reports"
+collector -> reports
+note collector -> reports "every hour"
+```
 
 ## Layout
 
-<span class="label label-green">Available</span> The layout is automatic and runs left to right:
+The layout is automatic. There are no coordinates.
 
-- Each shape gets a column by its longest path from a source. Shapes without incoming flows sit right before the first shape they feed, so data stores sit next to their reader.
-- Within a column, shapes are ordered and placed to keep flows as straight as possible.
-- Cycles are allowed. They don't affect the columns.
-- Shapes and their names don't overlap each other. Columns move apart when flows between them are steep.
+- Shapes are placed in columns by their longest path from a source: left to right, or top to bottom with `direction TB`. Shapes without incoming flows sit right before the first shape they feed, so data stores sit next to their reader.
+- Within a column, shapes are ordered and placed to keep flows as straight as possible. Members of a group stay together.
+- Flows are smooth curves that leave a shape on one side and enter the next on the other side, so they don't cross the names under shapes. A flow that skips columns passes between the shapes in them.
+- Flows back loop around the diagram.
+- Shapes, names and notes don't overlap.
 
-**Known limitation:** flows are straight lines, so a flow can still cross the name under a shape (see "data collector" in the first example).
+Changing the order of statements can change the order of shapes within a column. Very large diagrams with many crossing flows are still easier to read when split up.
 
-There are no coordinates. Changing the order of statements can change the order of shapes within a column.
+## Errors and warnings
 
-<span class="label label-yellow">Proposed</span> changes:
-
-- **`direction TB`** for top to bottom, `direction LR` (the default) for left to right. Same keywords as Mermaid.
-- **Curved or routed flows** that go around shapes. Today flows are straight lines and can cross shapes in busy diagrams.
-
-## Errors
-
-<span class="label label-green">Available</span> Errors stop rendering and give the line number and a suggestion:
+Errors stop rendering. All of them are reported at once, sorted by line, each with a suggestion:
 
 | Mistake | Message |
 | ------- | ------- |
-| Undeclared id | `line 2: "b" is not declared. Add e.g.: processor b "b"` |
-| Declared twice | `line 2: "a" is declared twice` |
-| Unknown statement | `line 1: can't read "procesor a". Expected a declaration (processor, lambda, …), a flow (a -> b), group or title` |
+| Undeclared id | `line 3: "c" is not declared. Add e.g.: processor c "c"` |
+| A typo in an id | `line 6: "colector" is not declared. Add e.g.: processor colector "colector", or did you mean collector?` |
+| A typo in a keyword | `line 1: "procesor" is not a statement. Did you mean processor?` |
+| Declared twice | `line 2: "a" is declared twice (first on line 1)` |
+| Invalid id | `line 1: "1abc" is not a valid id. An id starts with a letter and uses letters, digits, _ and -` |
 | Missing id | `line 1: store needs an id, e.g. store my_store "my store"` |
-| Group without a name | `line 3: group needs a quoted name: group "name": a b c` |
-| Group member not declared | `line 3: group member "x" is not declared` |
+| Missing quote | `line 1: a name is missing its closing quote (")` |
+| Reversed arrow | `line 3: "<-" is not supported. Write the flow the other way round, e.g. b -> a` |
 | Arrow without a side | `line 4: a flow needs something on both sides of the arrow` |
-| Note without a shape | `line 5: note needs the id of a shape: note collector "text"` |
-| Note on an undeclared id | `line 5: note on "x", which is not declared` |
+| Two names on one arrow | `line 4: this flow already has a name` |
+| Unknown group | `line 2: there is no group "nope"` |
+| Group without a name | `line 3: group needs a name in quotes: group "name": a b, or group "name" {` |
+| Group not closed | `line 3: group "g" is not closed. Add "}" on a line of its own` |
+| Shape in two groups | `line 3: "a" is already in group "g1"` |
+| Members on a shape that isn't a list | `line 1: only a list has members after ":", e.g. list workers "workers": a, b, c` |
+| Note on an undeclared id | `line 5: note on "x" is not declared. …` |
+| Note on a flow that doesn't exist | `line 5: there is no flow a -> b to put this note on` |
 | Note without text | `line 5: note c needs text: note c "text", or end the line with ":" and indent the lines below it` |
-| Empty note block | `line 5: note c has no text. Indent the lines below it, or use: note c "text"` |
+| Invalid direction | `line 1: direction is LR (left to right) or TB (top to bottom)` |
 
-<span class="label label-yellow">Proposed</span> changes:
+Warnings don't stop rendering:
 
-- **Report all errors at once** instead of stopping at the first one.
-- **Suggest the closest keyword**, e.g. `"procesor" is not a kind. Did you mean processor?`
-- **Warnings that don't stop rendering**, for the cases listed above.
+| Situation | Message |
+| --------- | ------- |
+| Unknown code | `line 3: unknown store code "S4". Known codes: D P S3 R RD RS M M. MC MS A MA PA O` |
+| Code on a kind that doesn't use one | `line 1: external doesn't use a code, so "X" is ignored` |
+| Extra words | `line 4: extra words are ignored: extra` |
+| Flow to itself | `line 2: a flow from "a" to itself is not drawn` |
+| Empty group | `line 3: group "g" is empty` |
 
-## Mermaid fallback
+## Tools
 
-<span class="label label-yellow">Proposed</span> A converter that turns a `pipeline` block into a `mermaid` block, so a diagram shows up anywhere Mermaid is rendered. There are two levels:
+### On a web page
+
+Load the script once, then write diagrams in a `<pipeline-diagram>` element, or point it at a file:
+
+```html
+<script src="https://pipeline-diagrams.com/assets/js/pipeline-diagrams.js"></script>
+
+<pipeline-diagram>
+  processor a PY "collector"
+  store b S3 "reports"
+  a -> b
+</pipeline-diagram>
+
+<pipeline-diagram src="reporting.pipeline"></pipeline-diagram>
+```
+
+The diagram follows the reader's light or dark mode (set `theme="light"` or `theme="dark"` to fix it), shows errors in place, and lists warnings in its tooltip. Its styles live in a shadow root, so they never mix with the page's.
+
+To turn ```` ```pipeline ```` code blocks into diagrams, call `PipelineDiagrams.renderAll()` after the page has loaded. This page does exactly that. The script also exposes `parse`, `check`, `render` and `toMermaid`.
+
+### Command line
+
+```sh
+node scripts/render-pipeline.mjs diagram.pipeline out/        # out/diagram.svg and out/diagram-dark.svg
+node scripts/render-pipeline.mjs diagram.pipeline --check     # errors and warnings only
+node scripts/render-pipeline.mjs diagram.pipeline --mermaid   # print the Mermaid version
+cat diagram.pipeline | node scripts/render-pipeline.mjs -     # SVG to stdout
+```
+
+### Markdown
+
+- **markdown-it:** `md.use(pipelineDiagrams)`, from `integrations/markdown-it.mjs`.
+- **remark:** `.use(remarkPipelineDiagrams)`, from `integrations/remark.mjs`. Keep raw HTML, e.g. with `rehype-raw`.
+
+Both replace a `pipeline` block with a `<picture>` holding the light and the dark SVG.
+
+For other Markdown tools, load the script on the page and call `renderAll`. These two setups are untested:
+
+- **MkDocs Material:** add a `pipeline` custom fence with `fence_div_format` to `pymdownx.superfences`. Add the script to `extra_javascript`, plus one line: `document$.subscribe(() => PipelineDiagrams.renderAll("div.pipeline", { replace: true }))`.
+- **Docusaurus:** add the script to `scripts`, and a client module whose `onRouteDidUpdate` calls `PipelineDiagrams.renderAll()`.
+
+### GitHub
+
+GitHub renders Mermaid, but not this format. The GitHub Action in this repository fixes that. It renders every `pipeline` block in your Markdown files to SVG files, and puts a `<picture>` right after each block, between two HTML comments. Running it again updates them in place. With `mermaid: true` it inserts a Mermaid version instead, so no image files are needed.
+
+```yaml
+name: Diagrams
+on:
+  push:
+    paths: ["**.md"]
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: Sparkboxx/pipeline-modelling@master
+        with:
+          paths: docs        # files or folders, default: the whole repository
+          out: docs/diagrams # where the SVG files go
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || (git commit -m "Render pipeline diagrams" && git push)
+```
+
+With `check: true` the action changes nothing, and fails when a diagram has errors or its images are out of date. That's useful for pull requests. Locally: `node scripts/render-markdown.mjs docs --out docs/diagrams`.
+
+### Obsidian
+
+Copy `integrations/obsidian/` to `.obsidian/plugins/pipeline-diagrams/` in your vault, and turn the plugin on under Community plugins. The plugin renders `pipeline` code blocks, and follows Obsidian's light or dark theme.
+
+### Agents
+
+- **The guide:** [pipeline-diagrams-agent-guide.md]({{ '/downloads/pipeline-diagrams-agent-guide.md' | relative_url }}) explains the format in about a page, with an example and a fallback to Mermaid. Give it to any agent.
+- **A Claude skill:** `integrations/claude-skill/pipeline-diagrams/` holds the same guide as a skill. Copy it to `~/.claude/skills/` (or a project's `.claude/skills/`), and Claude uses it when asked to draw a pipeline.
+- **An MCP server:** `integrations/mcp/server.mjs` gives any MCP client four tools: `render_pipeline`, `check_pipeline`, `pipeline_to_mermaid` and `pipeline_guide`. The checks let an agent fix its own mistakes before showing a diagram. For Claude Code:
+
+```sh
+claude mcp add pipeline-diagrams -- node /path/to/pipeline-modelling/integrations/mcp/server.mjs
+```
+
+### npm
+
+`package.json` makes the repository an npm package called `pipeline-diagrams`. It has the parser and renderer, the Mermaid converter, the browser bundle, the Markdown plugins, the command line tools and the MCP server. It isn't published yet.
+
+## Mermaid
+
+The converter turns a `pipeline` block into a Mermaid flowchart, for places that render Mermaid but not this format. It's available on the command line (`--mermaid`), from the MCP server, as `PipelineDiagrams.toMermaid(text)` in the browser, and in the GitHub Action. There are two levels:
 
 | Level | Mermaid used | Looks like | Works on |
 | ----- | ------------ | ---------- | -------- |
-| Basic | Standard shapes: `tri`, `circle`, `div-rect`, `rect` | The right shapes, but names inside, and no lambda lines, app or human | Any Mermaid 11.3 or newer |
-| Full | Icon nodes from a Pipeline Diagrams icon pack, with the name below | Close to the real notation | Where the icon pack can be loaded: our site, the Mermaid CLI, our own tools. Not GitHub. |
+| Standard shapes | `tri`, `circle`, `div-rect`, `rect`, `win-pane`, `procs`, `braces` | The right shapes, with codes and names inside | Any Mermaid 11.3 or newer |
+| Icons (`--icons`) | Icon nodes from the "pd" icon pack, with the name below | Close to the real notation | Where the icon pack can be loaded: your own site, or the Mermaid CLI. Not GitHub. |
 
-For example, the basic level turns `store items D "items"` into `items@{ shape: div-rect, label: "D<br>items" }`, and `a -A-> b` into `a -- A --> b`.
+How the shapes translate:
 
-## For agents
+| Pipeline Diagrams | Mermaid |
+| ----------------- | ------- |
+| `processor x PY "name"` | `x@{ shape: circle, label: "PY<br>name" }` |
+| `lambda x PY "name"` | `x@{ shape: circle, label: "λ PY<br>name" }` |
+| `store x S3 "name"` | `x@{ shape: div-rect, label: "S3<br>name" }` |
+| `trigger x timed "name"` | `x@{ shape: tri, label: "L<br>name" }` |
+| `other x KAFKA "name"` | `x@{ shape: rect, label: "KAFKA<br>name" }` |
+| `external x "name"` | a grey `rect` |
+| `app x "name"` | `win-pane` |
+| `human x "name"` | `stadium` with 👤 |
+| `list x "name": a, b` | `procs`, with the members in the label |
+| `a -A-> b "name"` | <code>a --&gt;&#124;"A: name"&#124; b</code> |
+| `a <-> b` | `a <--> b` |
+| groups | `subgraph`, nested like the blocks |
+| notes on shapes | a `braces` comment shape, linked with `-.-` |
+| notes on flows | added to the flow's label |
+| `title`, `direction` | front matter title, `flowchart LR` or `TB` |
 
-<span class="label label-yellow">Proposed</span>
+To use the icons, register the pack before rendering:
 
-- **A short prompt or skill** with the grammar and two examples. The format is small enough to fit in a few hundred words.
-- **An MCP tool** `render_pipeline` that takes the text and returns the SVG, or the errors so the agent can fix them.
-- **A fallback rule:** if the conversation can't render `pipeline` blocks, output the Mermaid version.
+```js
+mermaid.registerIconPacks([{
+  name: "pd",
+  loader: () => fetch("https://pipeline-diagrams.com/downloads/pipeline-diagrams-icons.json").then((r) => r.json()),
+}]);
+```
 
 ## Grammar
 
-<span class="label label-green">Available</span> The current grammar, informally:
-
 ```text
 file        = { line "\n" } ;
-line        = [ statement ] [ comment ] ;
-comment     = "#" { any character } ;
-statement   = title | declaration | flow | group | note ;
+line        = [ statement ] [ comment ] | "%%" { any character } ;
+comment     = "#" { any character } ;         (* at the start of a line or after a space *)
+statement   = title | direction | declaration | flow | group | "}" | note ;
 
 title       = "title" string ;
-declaration = kind id [ code ] [ string ] ;      (* code and string in any order *)
+direction   = "direction" ( "LR" | "TB" | "TD" ) ;
+declaration = kind id [ code ] [ string ] [ ":" item { [ "," ] item } ] ;   (* code and string in any order; items only for list *)
 kind        = "processor" | "lambda" | "store" | "trigger" | "other"
             | "external" | "app" | "human" | "list" ;
-flow        = ids arrow ids { arrow ids } [ string ] ;
-ids         = id { "," id } ;
-arrow       = "->" | "<->" | "-A->" | "-N->" | "-Q->" ;    (* spaces around arrows *)
-group       = "group" string [ ":" ] id { [ "," ] id } ;
-note        = "note" id string
-            | "note" id ":" "\n" indented { "\n" indented } ;  (* indented: a line starting with a space or tab *)
+flow        = ends arrow [ string ] ends { arrow [ string ] ends } [ string ] ;
+ends        = end { "," end } ;
+end         = id | "group" string ;
+arrow       = "->" | "<->" | "-A->" | "-N->" | "-Q->" ;    (* spaces around arrows are optional *)
+group       = "group" string ( "{" | [ ":" ] id { [ "," ] id } ) ;
+note        = "note" [ side ] target ( string | ":" "\n" indented { "\n" indented } ) ;
+side        = "left" | "right" | "above" | "below" ;
+target      = id | id arrow id ;
+indented    = a line indented further than the note line ;
 
-id          = word ;
+id          = letter { letter | digit | "_" | "-" } ;
 code        = word ;
-word        = { any character except space, ",", ":", '"' } ;
-string      = '"' { any character except '"' } '"' ;     (* \n is a line break *)
+item        = word | string ;
+word        = { any character except space, ",", ":", "{", "}", '"' } ;
+string      = '"' { any character except '"' | "\" any character } '"' ;   (* \n is a line break *)
 ```
 
-## Decisions to review
+## Decisions
 
-The questions that shape the next version:
+These choices shaped version 0.2. Each one is easy to revisit:
 
-1. **Language name.** `pipeline` as the code block language and `.pipeline` as the file extension?
-2. **Comment character.** `#` (common in config files) or `%%` (Mermaid's)?
-3. **Kind names.** `app` for "user facing app" and `lambda` as its own kind, or `processor x PY lambda`?
-4. **Trigger aliases.** Allow `manual`, `timed` and `event` next to `M`, `L` and `E`?
-5. **Default names.** Use the id as the name when there is none, or leave the shape unnamed?
-6. **Spaces around arrows.** Keep them required, or allow `a->b`?
-7. **Flow names in chains.** Last arrow only (today), or allow a name in the middle?
-8. **Groups.** Keep `group "name": a b`, add the block syntax, or both? Nested groups?
-9. **List members.** Add `list name: a, b, c` in the next version? (Annotations are now available.)
-10. **Unknown codes and extra words.** Ignore them, warn, or fail?
-11. **Mermaid fallback.** Basic level only, or also the icon pack?
+1. **Language name:** `pipeline` for code blocks, `.pipeline` for files.
+2. **Comments:** `#`, at the start of a line or after a space, so `C#` works. Mermaid's `%%` is accepted too.
+3. **Kinds:** `lambda` stays its own kind, and `app` is the user facing app.
+4. **Triggers:** `manual`, `timed` and `event` are allowed next to `M`, `L` and `E`.
+5. **Default names:** a shape without a name shows its id, except triggers and "other" shapes.
+6. **Arrows:** spaces around arrows are optional, and there are no reversed arrows.
+7. **Flow names:** right after an arrow, or at the end of the line for the last arrow.
+8. **Groups:** both the member list and the block, and blocks can be nested.
+9. **Codes:** unknown codes give a warning, not an error, so new codes can be used right away.
+10. **Mermaid:** both levels, standard shapes and icons.
 
 <script src="{{ '/assets/js/pipeline-diagrams.js' | relative_url }}"></script>
 <script>
 /* Render every pipeline block on this page right below its source. */
-(function () {
-  if (!window.PipelineDiagrams) return;
-  var dark = window.matchMedia("(prefers-color-scheme: dark)");
-  var blocks = Array.prototype.slice.call(document.querySelectorAll("pre > code.language-pipeline"));
-  var outputs = blocks.map(function (code) {
-    var pre = code.parentNode;
-    var out = document.createElement("div");
-    out.className = "pipeline-output pipeline-example";
-    pre.parentNode.insertBefore(out, pre.nextSibling);
-    return { source: code.textContent, out: out };
-  });
-  function draw() {
-    outputs.forEach(function (o) {
-      try {
-        var svg = window.PipelineDiagrams.render(o.source);
-        o.out.innerHTML = dark.matches ? svg.dark : svg.light;
-      } catch (e) {
-        o.out.innerHTML = '<p class="pipeline-error"></p>';
-        o.out.firstChild.textContent = e.message;
-      }
-    });
-  }
-  if (dark.addEventListener) dark.addEventListener("change", draw);
-  draw();
-})();
+if (window.PipelineDiagrams) window.PipelineDiagrams.renderAll("pre > code.language-pipeline");
 </script>
