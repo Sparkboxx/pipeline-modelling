@@ -8,6 +8,7 @@
 //   store items S3 "items"
 //   list workers "workers": a, b, c        a list with its members
 //   report -> collector                    flows: ->  <->  -A->  -N->  -Q->
+//   collector <- report                    or reversed: <-  <-A-  <-N-  <-Q-
 //   items, stats -> collector -A-> "nightly" generator -> reports
 //   crm -> group "streaming"               flows to and from a group
 //   group "streaming": kafka enrich        or a block:  group "streaming" { ... }
@@ -20,8 +21,12 @@ export const VERSION = "0.2.0";
 export const KINDS = ["processor", "lambda", "store", "trigger", "other", "external", "app", "human", "list"];
 export const KEYWORDS = [...KINDS, "title", "direction", "group", "note"];
 export const SIDES = ["left", "right", "above", "below"];
-const ARROWS = { "->": {}, "<->": { both: true }, "-A->": { mark: "A" }, "-N->": { mark: "N" }, "-Q->": { mark: "Q" } };
-const ARROW_RE = /^(<->|-[ANQ]->|->|<-)/;
+const ARROWS = {
+  "->": {}, "<->": { both: true }, "-A->": { mark: "A" }, "-N->": { mark: "N" }, "-Q->": { mark: "Q" },
+  // reversed: a <- b is the same flow as b -> a
+  "<-": { rev: true }, "<-A-": { mark: "A", rev: true }, "<-N-": { mark: "N", rev: true }, "<-Q-": { mark: "Q", rev: true },
+};
+const ARROW_RE = /^(<->|<-[ANQ]-|-[ANQ]->|<-|->)/;
 const ID_RE = /^[A-Za-z][A-Za-z0-9_-]*$/;
 
 // letter codes from the processor and data store pages; others give a warning
@@ -79,9 +84,11 @@ function tokenize(raw) {
       i = j;
       continue;
     }
+    const both = raw.slice(i).match(/^<-([ANQ])->/);
+    if (both) return { error: `"<-${both[1]}->" points both ways. Use -${both[1]}-> or <-${both[1]}-, or <-> for a synchronous flow` };
     const arrow = raw.slice(i).match(ARROW_RE);
     if (arrow) {
-      tokens.push({ t: arrow[1] === "<-" ? "rev" : "arrow", v: arrow[1] });
+      tokens.push({ t: "arrow", v: arrow[1] });
       i += arrow[1].length;
       continue;
     }
@@ -138,7 +145,7 @@ export function parse(src) {
       continue;
     }
 
-    if (kw === "group" && !tokens.some((t) => t.t === "arrow" || t.t === "rev")) {
+    if (kw === "group" && !tokens.some((t) => t.t === "arrow")) {
       if (tokens[1]?.t !== "str") { err(n, 'group needs a name in quotes: group "name": a b, or group "name" {'); continue; }
       const g = { id: groups.length, name: tokens[1].v, parent, children: [], nodes: [], line: n };
       groups.push(g);
@@ -166,7 +173,8 @@ export function parse(src) {
       if (rest[0]?.t === "word" && SIDES.includes(rest[0].v) && rest[1]?.t === "word") side = rest.shift().v;
       let target = null;
       if (rest[0]?.t === "word" && rest[1]?.t === "arrow" && rest[2]?.t === "word") {
-        target = { from: rest[0].v, to: rest[2].v, arrow: rest[1].v };
+        const rev = ARROWS[rest[1].v].rev;
+        target = { from: rest[rev ? 2 : 0].v, to: rest[rev ? 0 : 2].v, arrow: rev ? "->" : rest[1].v };
         rest = rest.slice(3);
       } else if (rest[0]?.t === "word") {
         target = { id: rest[0].v };
@@ -223,7 +231,7 @@ export function parse(src) {
       continue;
     }
 
-    if (!tokens.some((t) => t.t === "arrow" || t.t === "rev")) {
+    if (!tokens.some((t) => t.t === "arrow")) {
       const hint = kw && closest(kw, KEYWORDS);
       err(n, hint ? `"${kw}" is not a statement. Did you mean ${hint}?`
         : `can't read this line. Expected a shape (${KINDS.join(", ")}), a flow (a -> b), group, note, title or direction`);
@@ -237,7 +245,6 @@ export function parse(src) {
     const segments = [[]], arrows = [], names = [];
     for (let j = 0; j < tokens.length; j++) {
       const t = tokens[j];
-      if (t.t === "rev") return err(n, '"<-" is not supported. Write the flow the other way round, e.g. b -> a');
       if (t.t === "arrow") { arrows.push(ARROWS[t.v]); names.push(""); segments.push([]); continue; }
       if (t.t === "str") {
         if (tokens[j - 1]?.t === "arrow") { names[names.length - 1] = t.v; continue; }
@@ -254,8 +261,12 @@ export function parse(src) {
       return err(n, `unexpected "${t.v}" in a flow`);
     }
     if (segments.some((s) => !s.length)) return err(n, "a flow needs something on both sides of the arrow");
-    arrows.forEach((op, k) => {
-      for (const a of segments[k]) for (const b of segments[k + 1]) edges.push({ from: { ...a }, to: { ...b }, ...op, name: names[k], notes: [], line: n });
+    arrows.forEach(({ rev, ...op }, k) => {
+      for (const a of segments[k])
+        for (const b of segments[k + 1]) {
+          const [from, to] = rev ? [b, a] : [a, b];
+          edges.push({ from: { ...from }, to: { ...to }, ...op, name: names[k], notes: [], line: n });
+        }
     });
   }
 

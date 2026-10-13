@@ -103,8 +103,15 @@ test("flow names: after an arrow or at the end of the line", () => {
   assert.match(errorsOf('processor a\nprocessor b\na -> "x" b "y"')[0], /already has a name/);
 });
 
-test("reversed arrows are refused with a fix", () => {
-  assert.match(errorsOf("processor a\nprocessor b\nb <- a")[0], /Write the flow the other way round/);
+test("reversed arrows: a <- b is b -> a, in chains and notes", () => {
+  const base = "processor a\nprocessor b\nprocessor c\n";
+  assert.deepEqual(flows(parse(base + "a <- b")), [["b", "a", "", ""]]);
+  assert.deepEqual(flows(parse(base + 'a<-A-b "nightly"')), [["b", "a", "A", "nightly"]]);
+  assert.deepEqual(flows(parse(base + "a <- b -> c")), [["b", "a", "", ""], ["b", "c", "", ""]]);
+  assert.deepEqual(flows(parse(base + "a, b <-Q- c")), [["c", "a", "Q", ""], ["c", "b", "Q", ""]]);
+  assert.deepEqual(flows(parse(base + 'group "g": a\ngroup "g" <-N- b')), [["b", "group:g", "N", ""]]);
+  assert.deepEqual(parse(base + 'b -> a\nnote a <- b "x"').edges[0].notes.map((n) => n.lines), [["x"]]);
+  assert.match(errorsOf(base + "a <-A-> b")[0], /points both ways/);
 });
 
 test("flows to and from a group", () => {

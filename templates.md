@@ -96,7 +96,7 @@ One statement per line: declare the shapes, then connect them. The [Text format]
 | Statement | Example |
 | --------- | ------- |
 | Shape: `kind id [CODE] ["name"]` | `store items S3 "items"`, `trigger nightly timed "nightly"` |
-| Flows: `->` `<->` `-A->` `-N->` `-Q->` | `items, stats -> collector -A-> "nightly" generator` |
+| Flows: `->` `<->` `-A->` `-N->` `-Q->`, or reversed: `<-` `<-A-` … | `items, stats -> collector -A-> "nightly" generator` |
 | Group | `group "streaming": kafka enrich`, or a block `group "AWS" { … }` |
 | Note | `note collector "m4.xlarge"`, `note left a "…"`, `note a -> b "hourly"` |
 | Layout | `title "Reporting pipeline"`, `direction TB` |

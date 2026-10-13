@@ -155,7 +155,21 @@ A flow connects two shapes. The data flows in the direction of the arrow: `items
 | `-N->` | Streaming or evented | "N" on the line |
 | `-Q->` | Queued | Tick across the line |
 
-Spaces around arrows are optional: `a->b` works too. There is no reversed arrow (`<-`), so there is only one way to write a flow.
+Spaces around arrows are optional: `a->b` works too.
+
+### Reversed arrows
+
+Every arrow can also point the other way: `<-`, `<-A-`, `<-N-` and `<-Q-`. `a <- b` is the same flow as `b -> a`, so when a flow points the wrong way, you only change the arrow:
+
+```pipeline
+store reports S3 "reports"
+processor collector PY "collector"
+store items D "items"
+
+reports <- collector <-A- items
+```
+
+Both directions can be mixed in one chain. `<->` stays the synchronous flow; an arrow that points both ways with a mark, like `<-A->`, is an error.
 
 ### Chains and lists
 
@@ -327,7 +341,7 @@ Errors stop rendering. All of them are reported at once, sorted by line, each wi
 | Invalid id | `line 1: "1abc" is not a valid id. An id starts with a letter and uses letters, digits, _ and -` |
 | Missing id | `line 1: store needs an id, e.g. store my_store "my store"` |
 | Missing quote | `line 1: a name is missing its closing quote (")` |
-| Reversed arrow | `line 3: "<-" is not supported. Write the flow the other way round, e.g. b -> a` |
+| Marked arrow pointing both ways | `line 3: "<-A->" points both ways. Use -A-> or <-A-, or <-> for a synchronous flow` |
 | Arrow without a side | `line 4: a flow needs something on both sides of the arrow` |
 | Two names on one arrow | `line 4: this flow already has a name` |
 | Unknown group | `line 2: there is no group "nope"` |
@@ -494,7 +508,8 @@ kind        = "processor" | "lambda" | "store" | "trigger" | "other"
 flow        = ends arrow [ string ] ends { arrow [ string ] ends } [ string ] ;
 ends        = end { "," end } ;
 end         = id | "group" string ;
-arrow       = "->" | "<->" | "-A->" | "-N->" | "-Q->" ;    (* spaces around arrows are optional *)
+arrow       = "->" | "<->" | "-A->" | "-N->" | "-Q->"
+            | "<-" | "<-A-" | "<-N-" | "<-Q-" ;            (* reversed: a <- b is b -> a; spaces are optional *)
 group       = "group" string ( "{" | [ ":" ] id { [ "," ] id } ) ;
 note        = "note" [ side ] target ( string | ":" "\n" indented { "\n" indented } ) ;
 side        = "left" | "right" | "above" | "below" ;
@@ -517,7 +532,7 @@ These choices shaped version 0.2. Each one is easy to revisit:
 3. **Kinds:** `lambda` stays its own kind, and `app` is the user facing app.
 4. **Triggers:** `manual`, `timed` and `event` are allowed next to `M`, `L` and `E`.
 5. **Default names:** a shape without a name shows its id, except triggers and "other" shapes.
-6. **Arrows:** spaces around arrows are optional, and there are no reversed arrows.
+6. **Arrows:** spaces around arrows are optional, and every arrow can be reversed (`a <- b` is `b -> a`), so a flow in the wrong direction is a one-character fix.
 7. **Flow names:** right after an arrow, or at the end of the line for the last arrow.
 8. **Groups:** both the member list and the block, and blocks can be nested.
 9. **Codes:** unknown codes give a warning, not an error, so new codes can be used right away.

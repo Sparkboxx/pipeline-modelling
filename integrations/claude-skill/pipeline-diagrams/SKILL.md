@@ -43,6 +43,8 @@ Flows (the arrow head is where the data goes):
 | `a -N-> b` | streaming or evented (Kinesis, Kafka, DynamoDB streams) |
 | `a -Q-> b` | queued (SQS) |
 
+Every arrow can also be written reversed: `a <- b` is the same flow as `b -> a` (also `<-A-`, `<-N-`, `<-Q-`).
+
 - Chains and lists: `items, stats -> collector -A-> report -> html, pdf`
 - Flow names: right after the arrow or at the end of the line: `a -A-> "nightly" b`, `a -> b "nightly"`
 - Groups (an AWS account, a VPC, a team): `group "streaming": kafka enrich`, or a block that can be nested:
@@ -83,7 +85,7 @@ note export "m5.large"
 - Declare every shape once, before or after the flows that use it. Ids start with a letter and use letters, digits, `_` and `-`.
 - One kind of thing per shape: a data store per table or bucket, a processor per program.
 - Keep names short; put details in a note.
-- There is no `<-`. Write the flow the other way round.
+- When a flow points the wrong way, reverse its arrow (`->` becomes `<-`).
 - Errors name the line and say how to fix it, e.g. `line 4: "users" is not declared. Add e.g.: processor users "users"`. Fix them and try again.
 
 ## When the diagram can't be rendered
