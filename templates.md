@@ -91,48 +91,35 @@ Edit the text and the diagram follows:
 
 ### The format
 
-One statement per line. `#` starts a comment.
+One statement per line: declare the shapes, then connect them. The [Text format](text-format.html) page has the full specification with live examples.
 
-| Statement | Example | Meaning |
-| --------- | ------- | ------- |
-| `kind id [CODE] ["name"]` | `store items S3 "items"` | Declares a shape. The code is the letter code inside the shape, the name goes below it. |
-| `a -> b` | `report -> collector` | Flow. |
-| `a <-> b` | `reports <-> portal` | Synchronous flow. |
-| `a -A-> b` | `collector -A-> generator` | Asynchronous flow. |
-| `a -N-> b` | `kafka -N-> enrich` | Streaming or evented flow. |
-| `a -Q-> b` | `enrich -Q-> workers` | Queued flow. |
-| `a, b -> c -> d "name"` | `items, stats -> collector` | Lists and chains. A quoted name at the end labels the last flow. |
-| `group "name": a b c` | `group "vpc": collector reports` | Dashed grouping box around the shapes. |
-| `title "text"` | `title "Reporting pipeline"` | Title for screen readers. |
+| Statement | Example |
+| --------- | ------- |
+| Shape: `kind id [CODE] ["name"]` | `store items S3 "items"`, `trigger nightly timed "nightly"` |
+| Flows: `->` `<->` `-A->` `-N->` `-Q->`, or reversed: `<-` `<-A-` … | `items, stats -> collector -A-> "nightly" generator` |
+| Group | `group "streaming": kafka enrich`, or a block `group "AWS" { … }` |
+| Note | `note collector "m4.xlarge"`, `note left a "…"`, `note a -> b "hourly"` |
+| Layout | `title "Reporting pipeline"`, `direction TB` |
 
-Kinds: `processor`, `lambda`, `store`, `trigger`, `other` (the code is the text inside, e.g. `other kafka KAFKA "clicks"`), `external`, `app` (user facing app), `human` and `list`.
+Kinds: `processor`, `lambda`, `store`, `trigger`, `other`, `external`, `app` (user facing app), `human` and `list`.
 
-### Use it with agents
+### Where you can use it
 
-Give your agent this page, or just the table above, and ask it to write a ` ```pipeline ` block. The renderer gives clear errors (`line 4: "users" is not declared`), so an agent can fix its own mistakes. To turn a file into SVG (a light and a dark version):
+- **This site and any web page:** the `<pipeline-diagram>` element.
+- **Markdown tools:** plugins for markdown-it and remark, and Obsidian.
+- **GitHub:** a GitHub Action that renders the diagrams to images, or converts them to Mermaid.
+- **Agents:** a guide and a Claude skill, and an MCP server that renders and checks diagrams.
 
-```sh
-node scripts/render-pipeline.mjs my-pipeline.pipeline images/
-```
-
-The renderer is a proof of concept. The layout is simple (left to right, straight arrows), so large diagrams with many crossing flows will need a hand-drawn version. Annotations are not supported yet.
+See [Tools](text-format.html#tools) for how to set each one up.
 
 ### What about Mermaid?
 
-Mermaid is rendered by GitHub, GitLab, Notion, Obsidian and many wikis, and agents already know it. Since Mermaid 11.3 flowcharts have enough shapes to come close:
+Mermaid is rendered by GitHub, GitLab, Notion and many wikis, and agents already know it. The converter turns a `pipeline` block into Mermaid in two ways:
 
-```text
-flowchart LR
-  report@{ shape: tri, label: "M" }
-  items@{ shape: div-rect, label: "D" }
-  collector@{ shape: circle, label: "PY" }
-  reports@{ shape: div-rect, label: "S3" }
-  report --> collector
-  items --> collector
-  collector -- A --> reports
-```
+- **Standard Mermaid shapes**, which work everywhere: a triangle, a circle and a "divided rectangle" come close to our trigger, processor and data store. Names sit inside the shapes, though.
+- **Our own icons**, with names below the shapes. These look much closer to the notation, but only work where you can load the icon pack.
 
-A triangle for triggers, a circle for processors and a "divided rectangle" that looks like our data store. What you lose: names can't go below the shapes (a shape has one label, so it's the code or the name), there are no lambda lines, no user facing app or human, and the flow marks become text labels. Good enough where Mermaid is the only option. Mermaid can also load a complete custom diagram type (`registerExternalDiagrams`), so our renderer could become a Mermaid plugin, but that only works on sites where you control the Mermaid setup, not on GitHub.
+See [Mermaid](text-format.html#mermaid) for details.
 
 ## All options compared
 
@@ -141,8 +128,8 @@ A triangle for triggers, a circle for processors and a "divided rectangle" that 
 | **draw.io library** | Shape library, opened by URL | Yes: native shapes, text, attached arrows | Yes, free, no account | Done | Use it |
 | **Excalidraw library** | Hand-drawn shapes for a whiteboard tool | Yes: native elements, bound text | Yes, free, no account | Done | Use it |
 | **Icon pack (SVG)** | Files for slides and other tools | Partly: PowerPoint and Keynote can convert SVG to shapes; codes and names are text boxes | Yes | Done | Use it |
-| **Text format** | Diagrams in markdown, written by people or agents | It's text | Yes | Done (proof of concept) | Develop further |
-| **Mermaid** | Rendered on GitHub, Notion and wikis | It's text | Yes | Small: a style guide | Document as a fallback |
+| **Text format** | Diagrams in markdown, written by people or agents | It's text | Yes | Done | Use it |
+| **Mermaid** | Rendered on GitHub, Notion and wikis | It's text | Yes | Done: a converter and an icon pack | Use it as the fallback |
 | **Miro** | Custom shape pack or a template board | Shape packs: only recolor and resize | Shape packs need Business or Enterprise | Small | Icon pack is enough |
 | **Figma / FigJam** | Components in a Community file | Yes, as components | Anyone can duplicate a Community file; publishing a team library needs a paid plan | Medium, manual | Later, if asked for |
 | **PowerPoint template (.pptx)** | Slides with native, editable shapes | Yes | Yes | Medium (generate with a library like PptxGenJS) | Later, if asked for |
@@ -171,7 +158,7 @@ If the text format proves popular, a small editor that shows the text and the di
 ## Recommendation
 
 1. **Now:** the draw.io library, the Excalidraw library and the icon pack (all on this page). Point the draw.io link on the home page to the new library.
-2. **Next:** keep improving the text format, since it's what agents can use. Add annotations and a top-to-bottom layout, and render ` ```pipeline ` blocks on this site automatically. Submit the Excalidraw library to libraries.excalidraw.com for one-click install. Publish a short Mermaid style guide for places where only Mermaid renders.
+2. **Next:** the text format with its tools and the Mermaid converter are done (see [Text format](text-format.html)). Still to do: submit the Excalidraw library to libraries.excalidraw.com for one-click install, and publish the npm package.
 3. **Later, if there's demand:** a Figma Community file, a generated PowerPoint template, a Miro template board.
 4. **Only if the text format takes off:** our own editor, based on Excalidraw or React Flow.
 
@@ -200,7 +187,7 @@ node scripts/templates.mjs downloads
     try {
       last = window.PipelineDiagrams.render(source.value);
       output.innerHTML = dark.matches ? last.dark : last.light;
-      error.textContent = "";
+      error.textContent = last.warnings.map(function (w) { return "line " + w.line + ": " + w.message; }).join("\n");
     } catch (e) {
       error.textContent = e.message;
     }

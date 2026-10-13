@@ -1,0 +1,35 @@
+name: Pipeline Diagrams
+description: Render ```pipeline diagrams in Markdown files to SVG images (or Mermaid), so GitHub shows them
+branding:
+  icon: git-merge
+  color: purple
+inputs:
+  paths:
+    description: Markdown files or folders to scan, separated by spaces
+    default: "."
+  out:
+    description: Folder for the generated SVG files
+    default: "diagrams"
+  mermaid:
+    description: "Insert a Mermaid version after each diagram instead of SVG images (true or false)"
+    default: "false"
+  check:
+    description: "Change nothing; fail when a diagram has errors or the generated images are out of date (true or false)"
+    default: "false"
+runs:
+  using: composite
+  steps:
+    - name: Render pipeline diagrams
+      shell: bash
+      env:
+        INPUT_PATHS: ${{ inputs.paths }}
+        INPUT_OUT: ${{ inputs.out }}
+        INPUT_MERMAID: ${{ inputs.mermaid }}
+        INPUT_CHECK: ${{ inputs.check }}
+      run: |
+        args=()
+        [ "$INPUT_MERMAID" = "true" ] && args+=(--mermaid)
+        [ "$INPUT_CHECK" = "true" ] && args+=(--check)
+        # word splitting on purpose: paths are separated by spaces
+        # shellcheck disable=SC2086
+        node "$GITHUB_ACTION_PATH/scripts/render-markdown.mjs" $INPUT_PATHS --out "$INPUT_OUT" "${args[@]}"

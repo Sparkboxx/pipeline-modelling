@@ -111,6 +111,16 @@ a:hover {
   }
 }
 
+// Show code exactly as typed: no "->" turning into an arrow glyph.
+code,
+pre,
+kbd,
+samp,
+textarea {
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
+}
+
 // --- Layout chrome ------------------------------------------------------------
 
 .side-bar {
@@ -523,8 +533,40 @@ blockquote.origin {
 }
 
 .pipeline-error {
+  white-space: pre-line;
   color: #cf222e;
   font-size: 0.85rem;
   margin: 0;
   min-height: 1.2em;
+}
+
+// --- Text format page: rendered example under each pipeline block --------------
+// Rouge doesn't know the pipeline language, so these blocks are a bare <pre>.
+
+.main-content pre:has(> code.language-pipeline) {
+  background-color: var(--code);
+  border: 1px solid var(--border);
+  border-radius: 8px 8px 0 0;
+  margin: 1rem 0 0;
+  overflow-x: auto;
+  padding: 0.75rem 1rem;
+
+  code {
+    background: none;
+    border: 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    padding: 0;
+    white-space: pre;
+  }
+}
+
+pre:has(> code.language-pipeline) + pipeline-diagram {
+  @include whiteboard;
+
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin: 0 0 1.5rem;
+  padding: 1rem;
 }

@@ -16,6 +16,9 @@ exclude:
   - scripts/
   - Gemfile
   - Gemfile.lock
+  - package.json
+  - action.yml
+  - integrations/
 
 # Plugins
 plugins:

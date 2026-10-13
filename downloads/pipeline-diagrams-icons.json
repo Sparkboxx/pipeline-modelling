@@ -1,0 +1,187 @@
+{
+  "prefix": "pd",
+  "width": 64,
+  "height": 64,
+  "icons": {
+    "processor": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/>"
+    },
+    "processor-p": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">P</text>"
+    },
+    "processor-r": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">R</text>"
+    },
+    "processor-j": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">J</text>"
+    },
+    "processor-c": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">C</text>"
+    },
+    "processor-php": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"14\" font-weight=\"700\" fill=\"currentColor\">PHP</text>"
+    },
+    "processor-py": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">PY</text>"
+    },
+    "processor-r-dot": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">R.</text>"
+    },
+    "processor-rb": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">RB</text>"
+    },
+    "processor-js": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">JS</text>"
+    },
+    "processor-j-dot": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">J.</text>"
+    },
+    "processor-l-dot": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">L.</text>"
+    },
+    "processor-c-dot": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">C.</text>"
+    },
+    "processor-cplus": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">C+</text>"
+    },
+    "processor-csharp": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">C#</text>"
+    },
+    "processor-l": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">L</text>"
+    },
+    "processor-q": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">Q</text>"
+    },
+    "processor-lambda": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">λ</text>"
+    },
+    "processor-ln": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">LN</text>"
+    },
+    "processor-lp": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">LP</text>"
+    },
+    "processor-lc": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">LC</text>"
+    },
+    "processor-k": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><text x=\"32\" y=\"32\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">K</text>"
+    },
+    "lambda": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/>"
+    },
+    "lambda-p": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">P</text>"
+    },
+    "lambda-r": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">R</text>"
+    },
+    "lambda-j": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">J</text>"
+    },
+    "lambda-c": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">C</text>"
+    },
+    "lambda-php": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">PHP</text>"
+    },
+    "lambda-py": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">PY</text>"
+    },
+    "lambda-r-dot": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">R.</text>"
+    },
+    "lambda-rb": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">RB</text>"
+    },
+    "lambda-js": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">JS</text>"
+    },
+    "lambda-j-dot": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">J.</text>"
+    },
+    "lambda-l-dot": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">L.</text>"
+    },
+    "lambda-c-dot": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">C.</text>"
+    },
+    "lambda-cplus": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">C+</text>"
+    },
+    "lambda-csharp": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"32\" r=\"26\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M13.6 13.6L50.4 50.4M32 32L13.6 50.4\"/><text x=\"43\" y=\"23\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"12\" font-weight=\"700\" fill=\"currentColor\">C#</text>"
+    },
+    "store": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/>"
+    },
+    "store-d": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">D</text>"
+    },
+    "store-p": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">P</text>"
+    },
+    "store-s3": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">S3</text>"
+    },
+    "store-r": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">R</text>"
+    },
+    "store-rd": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">RD</text>"
+    },
+    "store-rs": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">RS</text>"
+    },
+    "store-m": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">M</text>"
+    },
+    "store-m-dot": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">M.</text>"
+    },
+    "store-mc": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">MC</text>"
+    },
+    "store-ms": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">MS</text>"
+    },
+    "store-a": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">A</text>"
+    },
+    "store-ma": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">MA</text>"
+    },
+    "store-pa": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">PA</text>"
+    },
+    "store-o": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">O</text>"
+    },
+    "trigger": {
+      "body": "<path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M32 5L60 58H4Z\"/>"
+    },
+    "trigger-m": {
+      "body": "<path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M32 5L60 58H4Z\"/><text x=\"32\" y=\"42\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">M</text>"
+    },
+    "trigger-l": {
+      "body": "<path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M32 5L60 58H4Z\"/><text x=\"32\" y=\"42\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">L</text>"
+    },
+    "trigger-e": {
+      "body": "<path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M32 5L60 58H4Z\"/><text x=\"32\" y=\"42\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">E</text>"
+    },
+    "external": {
+      "body": "<rect x=\"7\" y=\"7\" width=\"50\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.25\" stroke=\"currentColor\" stroke-width=\"2\"/>"
+    },
+    "app": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"7\" y=\"7\" width=\"50\" height=\"50\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M7 7L57 57M57 7L7 57\"/>"
+    },
+    "human": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"32\" cy=\"17\" r=\"12\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M9 59V50A23 18 0 0 1 55 50V59Z\"/>"
+    },
+    "list": {
+      "body": "<circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"14\" cy=\"32\" r=\"12\"/><circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"26\" cy=\"32\" r=\"12\"/><circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"38\" cy=\"32\" r=\"12\"/><circle fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" cx=\"50\" cy=\"32\" r=\"12\"/>"
+    }
+  }
+}
