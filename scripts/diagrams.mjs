@@ -2,7 +2,7 @@
 // Usage: node scripts/diagrams.mjs images
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
-import { THEMES, style, f, label, processor, store, trigger, flow, edge, bracket, other, external, app, human } from "./shapes.mjs";
+import { THEMES, style, f, label, processor, store, trigger, flow, edge, bracket, other, external, internal, app, human } from "./shapes.mjs";
 
 const out = process.argv[2];
 mkdirSync(out, { recursive: true });
@@ -31,6 +31,8 @@ svg("def_trigger_timed", 120, 104, "Timed trigger", trigger(60, 8, { code: "L", 
 svg("def_trigger_event", 120, 104, "Event trigger", trigger(60, 8, { code: "E", name: "event" }));
 svg("def_external", 140, 100, "External system",
   external(70, 8, { name: "external system" }));
+svg("def_internal", 140, 100, "Internal system",
+  internal(70, 8, { name: "internal system" }));
 svg("def_other", 140, 100, "Other",
   other(70, 8, { code: "NAME", name: "other" }));
 

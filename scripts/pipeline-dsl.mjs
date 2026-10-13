@@ -15,10 +15,10 @@
 //   note collector "m4.xlarge\nmin: 0"     or  note collector:  + indented lines
 //   note left reports "kept 90 days"       sides: left, right, above, below
 //   note collector -> reports "hourly"     a note on a flow
-import { THEMES, style, f, esc, label, bracket, head, MARKS, processor, store, trigger, other, external, app, human } from "./shapes.mjs";
+import { THEMES, style, f, esc, label, bracket, head, MARKS, processor, store, trigger, other, external, internal, app, human } from "./shapes.mjs";
 
 export const VERSION = "0.2.4";
-export const KINDS = ["processor", "lambda", "store", "trigger", "other", "external", "app", "human", "list"];
+export const KINDS = ["processor", "lambda", "store", "trigger", "other", "external", "internal", "app", "human", "list"];
 export const KEYWORDS = [...KINDS, "title", "direction", "group", "note"];
 export const SIDES = ["left", "right", "above", "below"];
 const ARROWS = {
@@ -38,7 +38,7 @@ export const CODES = {
   trigger: ["M", "L", "E"],
 };
 export const TRIGGER_ALIASES = { manual: "M", timed: "L", event: "E" };
-const NO_CODE = new Set(["external", "app", "human", "list"]);
+const NO_CODE = new Set(["external", "internal", "app", "human", "list"]);
 
 // --- helpers -------------------------------------------------------------------------
 
@@ -355,7 +355,7 @@ function measure(nd) {
   const [w, h] = {
     processor: [56, 56], lambda: [56, 56], store: [52, 60], trigger: [64, 60],
     other: [Math.max(108, textWidth(nd.code || "") * 1.3 + 28), 60],
-    external: [60, 60], app: [60, 60], human: [56, 62], list: [94, 40],
+    external: [60, 60], internal: [60, 60], app: [60, 60], human: [56, 62], list: [94, 40],
   }[nd.kind];
   const nameLines = nd.name ? nd.name.split("\n").length : 0;
   const list = nd.items?.length ? noteSize(nd.items) : null; // a list's members, in brackets below it
@@ -645,6 +645,7 @@ function shape(nd) {
     case "trigger": return trigger(cx, top, { w, h, ...o });
     case "other": return other(cx, top, { w, h, ...o });
     case "external": return external(cx, top, { w, h, name: nd.name });
+    case "internal": return internal(cx, top, { w, h, name: nd.name });
     case "app": return app(cx, top, { w, h, name: nd.name });
     case "human": return human(cx, top, { name: nd.name });
     case "list": {

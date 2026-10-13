@@ -130,6 +130,16 @@ export function external(cx, top, { w = 60, h = 60, name } = {}) {
   return s;
 }
 
+// internal system: (cx, top) anchored rectangle with one diagonal. Like an
+// external system it's a box we don't go into now, but it's ours: we can change it.
+export function internal(cx, top, { w = 60, h = 60, name } = {}) {
+  const x = cx - w / 2;
+  let s = `<rect class="s" x="${f(x)}" y="${top}" width="${w}" height="${h}"/>`;
+  s += `<path class="s" d="M${f(x)} ${top}L${f(x + w)} ${top + h}"/>`;
+  if (name) s += label(cx, top + h + 18, name);
+  return s;
+}
+
 // user facing app: (cx, top) anchored square with a cross
 export function app(cx, top, { w = 60, h = 60, name } = {}) {
   const x = cx - w / 2;
