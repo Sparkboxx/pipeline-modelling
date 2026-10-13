@@ -234,7 +234,7 @@ test("an empty diagram is a valid, empty SVG", () => {
 
 // every pipeline block in the docs must parse and render without errors
 test("all documented examples render", () => {
-  const files = ["text-format.md", "templates.md", "install.md", "index.md", "diagrams-as-code.md", "agents.md", "browser.md", "origin.md", "readme.md", "integrations/agent-guide.md"];
+  const files = ["text-format.md", "templates.md", "install.md", "index.md", "diagrams-as-code.md", "agents.md", "browser.md", "origin.md", "workshop.md", "readme.md", "integrations/agent-guide.md"];
   let count = 0;
   for (const f of files) {
     const md = readFileSync(join(root, f), "utf8");

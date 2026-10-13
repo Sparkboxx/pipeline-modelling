@@ -34,6 +34,7 @@ A test fails when the browser bundle is out of date, and every `pipeline` block 
 
 - **Diagrams on the site:** every image exists as `name.svg` (light) and `name-dark.svg`. Show them with `{% include diagram.html name="..." alt="..." %}`, never with `![]()`: Safari ignores dark-mode media queries inside an SVG used as an image, so the page picks the file with `<picture>`.
 - **Inline scripts in pages:** the theme compresses each page's HTML onto very few lines. A `//` comment then comments out the rest of the script: use `/* */`. Line breaks survive in `<pre>` and code blocks, but not in a `<textarea>`: put starting text in a hidden code block and copy it in with JavaScript (see `install.md`).
+- **Slides:** a page that loads `assets/js/slides.js` gets a "Present as slides" button (see `workshop.md`). Every h2 and h3 starts a slide; `{: .notes }` marks facilitator notes (on the page, not on slides), `{: .page-only }` and `{: .slides-only }` show content in one of the two only, and `{: .hidden-source }` on a `pipeline` block shows only its diagram.
 - **Live examples:** a ```` ```pipeline ```` block on a page is drawn by `PipelineDiagrams.renderAll()` when the page loads the bundle and calls it (see `text-format.md`).
 - **Language changes:** update the parser, the language reference (`text-format.md`, including the grammar and the error tables), the agent guide, and the tests together.
 - **Writing:** plain, short sentences, as on the existing pages. Name things the way the notation does: processor, data store, trigger, flow.
