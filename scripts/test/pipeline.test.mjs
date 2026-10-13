@@ -207,7 +207,7 @@ test("render gives a light and a dark SVG with the title", () => {
 
 // every pipeline block in the docs must parse and render without errors
 test("all documented examples render", () => {
-  const files = ["text-format.md", "templates.md", "integrations/agent-guide.md"];
+  const files = ["text-format.md", "templates.md", "readme.md", "integrations/agent-guide.md"];
   let count = 0;
   for (const f of files) {
     const md = readFileSync(join(root, f), "utf8");

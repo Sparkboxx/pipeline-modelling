@@ -39,6 +39,37 @@ There are a few basic shapes: circles, double-squares, triangles, arrows and rec
 | Other      | <picture><source srcset="./images/def_other-dark.svg" media="(prefers-color-scheme: dark)"><img src="./images/def_other.svg" alt="other"></picture>           | *Rectangle, no fill, identifier inside. Name optional.* <br><br> If it isn’t a processor, a data store or a trigger, it’s probably something else. Represented by a rectangle. There are some variations on the “other” icon, but if it fits, write the name of the system in the rectangle. |
 | External   | <picture><source srcset="./images/def_external-dark.svg" media="(prefers-color-scheme: dark)"><img src="./images/def_external.svg" alt="external"></picture>     | *Rectangle, solid fill. Name required.* <br><br> Sometimes you simply don’t care, do you? When your boundaries are strong it’s often enough to model an external system as a black box.                                                                                      |
 
+## Diagrams as text
+
+Pipeline Diagrams also has a small text format, so diagrams can live in Markdown, be reviewed in pull requests and be written by AI agents:
+
+```pipeline
+trigger report manual "create report"
+store items D "items"
+processor collector PY "data collector"
+store reports S3 "reports"
+
+report, items -> collector -> reports
+note collector "m4.xlarge"
+```
+
+The [specification](https://pipeline-diagrams.com/text-format.html) has every feature, with live examples. The npm package renders it:
+
+```sh
+npm install pipeline-diagrams
+```
+
+```js
+import { render, check } from "pipeline-diagrams";
+import { toMermaid } from "pipeline-diagrams/mermaid";
+
+const { light, dark, warnings } = render(text); // two SVG strings, for light and dark backgrounds
+const { errors } = check(text);                 // every error, with its line number and a fix
+const mermaid = toMermaid(text);                // for GitHub, Notion and chats
+```
+
+It also has command line tools (`npx pipeline-diagrams diagram.pipeline out/`), a `<pipeline-diagram>` web component, markdown-it and remark plugins, a GitHub Action and an MCP server for agents. See [Tools](https://pipeline-diagrams.com/text-format.html#tools).
+
 ## Diagrams
 
 The diagrams in `images/` are generated SVGs, each in a light (`name.svg`) and a
@@ -56,4 +87,6 @@ node scripts/diagrams.mjs images
 The source of this documentation can be found in [github](https://github.com/Sparkboxx/pipeline-modelling). This
 documentation is automatically built into [pipeline-diagrams.com](https://pipeline-diagrams.com).
 
+## License
 
+MIT, see [LICENSE](LICENSE).
