@@ -205,9 +205,17 @@ test("render gives a light and a dark SVG with the title", () => {
   assert.deepEqual(warnings, []);
 });
 
+test("an empty diagram is a valid, empty SVG", () => {
+  for (const src of ["", "# only a comment\n", 'title "Empty"']) {
+    const { light } = render(src);
+    assert.doesNotMatch(light, /Infinity|NaN/);
+    assert.match(light, /viewBox="-?\d+(\.\d+)? -?\d+(\.\d+)? \d+ \d+"/);
+  }
+});
+
 // every pipeline block in the docs must parse and render without errors
 test("all documented examples render", () => {
-  const files = ["text-format.md", "templates.md", "readme.md", "integrations/agent-guide.md"];
+  const files = ["text-format.md", "templates.md", "install.md", "index.md", "readme.md", "integrations/agent-guide.md"];
   let count = 0;
   for (const f of files) {
     const md = readFileSync(join(root, f), "utf8");

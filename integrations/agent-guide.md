@@ -82,6 +82,7 @@ note export "m5.large"
 - Keep names short; put details in a note.
 - When a flow points the wrong way, reverse its arrow (`->` becomes `<-`).
 - Errors name the line and say how to fix it, e.g. `line 4: "users" is not declared. Add e.g.: processor users "users"`. Fix them and try again.
+- If you can run commands, check a diagram before showing it: `npx -y pipeline-diagrams diagram.pipeline --check` (or render it: `npx -y pipeline-diagrams diagram.pipeline out/`). With the MCP server, use `check_pipeline` and `render_pipeline`.
 
 ## When the diagram can't be rendered
 

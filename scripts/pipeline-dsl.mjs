@@ -17,7 +17,7 @@
 //   note collector -> reports "hourly"     a note on a flow
 import { THEMES, style, f, esc, label, bracket, head, MARKS, processor, store, trigger, other, external, app, human } from "./shapes.mjs";
 
-export const VERSION = "0.2.0";
+export const VERSION = "0.2.1";
 export const KINDS = ["processor", "lambda", "store", "trigger", "other", "external", "app", "human", "list"];
 export const KEYWORDS = [...KINDS, "title", "direction", "group", "note"];
 export const SIDES = ["left", "right", "above", "below"];
@@ -830,6 +830,7 @@ export function render(src, { pad = 24 } = {}) {
   }
 
   // fit the view box around everything, with the title on top
+  if (!bounds.length) bounds.push([0, 0, 0, 0]); // an empty diagram
   let minX = Math.min(...bounds.map((b) => b[0])) - pad, minY = Math.min(...bounds.map((b) => b[1])) - pad;
   const maxX = Math.max(...bounds.map((b) => b[2])) + pad, maxY = Math.max(...bounds.map((b) => b[3])) + pad;
   if (model.title) {

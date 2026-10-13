@@ -1,7 +1,8 @@
 ---
 layout: page
 title: Rules
-nav_order: 7
+parent: Notation
+nav_order: 6
 ---
 
 # Rules

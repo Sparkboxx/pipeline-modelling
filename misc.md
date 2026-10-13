@@ -1,7 +1,8 @@
 ---
 layout: page
 title: Miscellaneous
-nav_order: 6
+parent: Notation
+nav_order: 5
 ---
 
 # Miscellaneous

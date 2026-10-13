@@ -1,7 +1,8 @@
 ---
 layout: page
 title: Triggers
-nav_order: 3
+parent: Notation
+nav_order: 2
 ---
 
 # Triggers
