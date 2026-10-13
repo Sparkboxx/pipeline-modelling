@@ -6,9 +6,9 @@ nav_order: 4
 
 # Workshop: pipelines on paper
 
-A hands-on workshop of two and a half hours for teams: model your own data pipelines with pen and paper, name them, colour in the details, and find out what would break first. No laptops and no agents, just whiteboards, paper and markers.
+Draw your own pipelines on paper. Name them, add details, find what breaks first. No laptops.
 
-This page is the whole workshop: read it to prepare, or present it as slides with the button above. Notes marked *Facilitator* are only on the page, not on the slides.
+A workshop of two and a half hours, for groups of 2 to 4. This page is the whole workshop: read it to prepare, or present it as slides with the button above. Notes marked *Facilitator* are only on the page.
 {: .page-only }
 
 ## Schedule
@@ -16,63 +16,55 @@ This page is the whole workshop: read it to prepare, or present it as slides wit
 | Time | Part | Minutes |
 | ---- | ---- | ------- |
 | 0:00 | [The shapes](#the-shapes) | 20 |
-| 0:20 | [Exercise 1: sketch a full pipeline](#exercise-1-sketch-a-full-pipeline) | 30 |
+| 0:20 | [Exercise 1: draw one full pipeline](#exercise-1-draw-one-full-pipeline) | 30 |
 | 0:50 | [Review in pairs](#review-in-pairs) | 15 |
-| 1:05 | [Exercise 2: name it, colour it in, ask what if](#exercise-2-name-it-colour-it-in-ask-what-if) | 45 |
+| 1:05 | [Exercise 2: name it, colour it in, break it](#exercise-2-same-groups-same-drawing) | 45 |
 | 1:50 | [Central review](#central-review) | 30 |
 | 2:20 | [Questions](#questions) | 10 |
-|      | **Total** | **2 h 30** |
 
-**You need:** a whiteboard or A3 paper per group, markers in three colours (black for the structure, blue for details, red for "what if"), sticky notes, and a printed [shape sheet](notation.html). Groups of 2 to 4 people, each with a real system they know.
+You need: a whiteboard or A3 paper per group, markers in black, blue and red, and sticky notes. Each group brings a system they know. All shapes are on [the notation pages](notation.html).
 
-Ask every group before the workshop to bring a system they work on: a reporting job, an import, an event stream, a nightly export. Real systems give the best discussions. For groups without one, use the [practice scenario](#practice-scenario).
+Ask every group to bring a real system: a reporting job, an import, an event stream, a nightly export. Real systems give the best discussions. For groups without one, use the [practice scenario](#practice-scenario).
 {: .notes }
 
 ## The shapes
-
-### The idea
-
-- Simple shapes anyone can draw in seconds.
-- **Sketch first:** where does data come from, what processes it, where does it end up?
-- **Colour in later:** once the team agrees, add the details.
-
-<span class="timebox">20 minutes</span>
-
-Keep the introduction short and visual: about two minutes per slide. People learn the shapes by using them in the first exercise, not by listening. Aim to start sketching within 20 minutes.
-{: .notes }
 
 ### Shapes
 
 | Shape | Means |
 | ----- | ----- |
-| {% include diagram.html name="def_processor" alt="Processor" %} | **Processor:** software that takes data in, transforms it and writes it out |
-| {% include diagram.html name="def_data_store" alt="Data store" %} | **Data store:** one table, bucket or collection |
-| {% include diagram.html name="def_trigger" alt="Trigger" %} | **Trigger:** what starts a pipeline: manual, timed or an event |
-| {% include diagram.html name="def_external" alt="External system" %} | **External system:** a black box outside your boundary |
-| {% include diagram.html name="def_misc_human" alt="Human" %} | **Human:** someone who starts, reads or changes something |
+| {% include diagram.html name="def_processor" alt="Processor" %} | Processor: software that takes data in, changes it and writes it out |
+| {% include diagram.html name="def_data_store" alt="Data store" %} | Data store: one table, bucket or collection |
+| {% include diagram.html name="def_trigger" alt="Trigger" %} | Trigger: what starts a pipeline |
+| {% include diagram.html name="def_external" alt="External system" %} | External system: something you don't own (a payment provider, a partner API) |
+| {% include diagram.html name="def_misc_human" alt="Human" %} | Human: someone who starts, reads or changes something |
 
-### Flows
+Keep the introduction short and visual: about two minutes per slide. People learn the shapes by using them in the first exercise, not by listening. Aim to start drawing within 20 minutes.
+{: .notes }
 
-| Line | Means |
-| ---- | ----- |
-| {% include diagram.html name="def_flow" alt="Flow" %} | Data goes from here to there |
-| {% include diagram.html name="def_flow_sync" alt="Synchronous flow" %} | Synchronous: a request and its answer |
-| {% include diagram.html name="def_flow_async" alt="Asynchronous flow" %} | Asynchronous |
-| {% include diagram.html name="def_flow_queued" alt="Queued flow" %} | Through a queue |
-| {% include diagram.html name="def_flow_streaming" alt="Streaming flow" %} | Streaming or evented |
+### Arrows
 
-The arrow head is where the data goes. A process that reads from a data store has the arrow head at the process.
+{% include diagram.html name="def_flow" alt="An arrow" %}
+
+- Arrow head = where the data goes.
+- Reading from a table? The arrow points at the processor.
+- Every line has an arrow head.
+
+The read direction is the one people get wrong: code that queries a database feels like an arrow towards the database, but the data flows to the processor. Data both ways gets two arrow heads. The other rules (names below shapes, never rotated) are on the [Rules](rules.html) page.
 {: .notes }
 
 ### A pipeline
 
-{% include diagram.html name="example_pipeline" alt="Example pipeline: a 'create report' trigger starts a data collector that reads items, statistics and user data, then an html_report_generator writes to the reports store" %}
+{% include diagram.html name="example_pipeline" alt="Example pipeline: a 'create report' trigger starts a data collector that reads items, statistics and user data, then a report generator writes to the reports store" %}
 
-- Starts at a **trigger, human, external system or data store**.
-- Ends in a **data store or external system**.
-- Solves a **clear problem** or achieves a clear task.
+- Starts: trigger, human, external system or data store.
+- Ends: data store or external system.
+- A full pipeline solves one clear problem.
 
-### Sketch first
+### Sketch first, colour in later
+
+<div class="side-by-side" markdown="1">
+<div markdown="1">
 
 ```pipeline
 store raw "raw data"
@@ -84,188 +76,129 @@ raw -> clean -> enrich -> report
 ```
 {: .hidden-source }
 
-"Data goes from here to there." No details yet: agree on this first.
+Sketch first: data goes from here to there.
 
-### Colour in later
+</div>
+<div markdown="1">
 
 ```pipeline
 trigger nightly timed "nightly"
 store raw S3 "raw data"
 processor clean PY "clean"
-lambda enrich JS "enrich"
-store report RS "report"
+processor enrich PY "enrich"
+store report S3 "report"
 
 nightly -> clean
 raw -> clean -Q-> enrich -A-> report
-note clean "m5.large\nspot instances"
+note clean "spot instances"
 ```
 {: .hidden-source }
 
-Is it immediate, asynchronous, queued? Which language? Which kind of store? How does it scale?
+Colour in later, in blue: PY = Python, S3 = bucket.
 
-### The rules
+</div>
+</div>
 
-- Every processor, data store and external system has a **name**.
-- Names go **below** a shape, never rotated.
-- Every line has an **arrow head**. Data both ways: two heads.
+Exercise 1 is black only: no codes, no arrow marks yet.
 
-See [Rules](rules.html) for examples of right and wrong.
-{: .notes }
+## Exercise 1: draw one full pipeline
 
-## Exercise 1: sketch a full pipeline
+<span class="dot black" aria-label="black marker"></span><span class="timebox">30 minutes</span> Black marker.
 
-<span class="timebox">30 minutes</span> Groups of 2 to 4, one whiteboard or sheet per group, black marker only.
+- <span class="icons">{% include icon.html name="trigger" alt="trigger" %}{% include icon.html name="human" alt="human" %}{% include icon.html name="external" alt="external system" %}{% include icon.html name="data-store" alt="data store" %}</span> Start: trigger, human, external system or data store.
+- <span class="icons">{% include icon.html name="processor" alt="processor" %}</span> Processed? Processor.
+- <span class="icons">{% include icon.html name="data-store" alt="data store" %}</span> Stored? One data store per table.
+- Too messy? One data store for the whole database first, split later.
+- <span class="icons">{% include icon.html name="data-store" alt="data store" %}{% include icon.html name="external" alt="external system" %}</span> End: data store or external system.
+- Done when: it starts and ends right, and you can say what problem it solves.
+{: .icon-list }
 
-### 1. Pick a starting point
-
-Start your flow with:
-
-- a **data source** (a data store),
-- a **trigger**,
-- a **human**,
-- or an **external system**.
-
-### 2. Follow the data
-
-- Reason through the steps the data takes.
-- Is it **processed**? Draw a circle.
-- Is it **stored**? Draw a data store box.
-- **Draw lines** between data stores, processors and triggers.
-
-### 3. One box per table
-
-- Draw a data store box per **table** (or bucket) you read from or write to.
-- Too messy? Draw one box for the **whole database** first, and split it into tables later.
-
-### 4. Check the ends
-
-- A flow **starts** with a trigger, a human, an external system or a data store.
-- A flow **ends** in a data store or an external system.
-- A flow that ends in a circle isn't finished: where does the result go?
-
-### 5. Is it a full pipeline?
-
-- A full pipeline **solves a clear problem** or achieves a clear task.
-- A model between two data stores that solves nothing by itself is a **sub-pipeline**: a section of a bigger one.
-- **Goal:** model one full pipeline, from start to end.
-
-Walk around and look for the common mistakes: lines without arrow heads, names next to shapes, one box for everything, circles that write nowhere, and groups that dive into details too early. Keep everyone at the sketch level: no codes, no queues, no languages yet.
+Walk around and look for the common mistakes: lines without arrow heads, names next to shapes, one data store for everything, processors that write nowhere, and groups that add codes or queues already. Keep everyone at the sketch level.
 {: .notes }
 
 ## Review in pairs
 
-<span class="timebox">15 minutes</span> Two groups together, about 7 minutes each.
+<span class="timebox">15 minutes</span> Two groups together.
 
-- **Explain** your pipeline to the other group in two minutes.
-- The other group **checks**: does it start and end right? Does every shape have a name and every line an arrow head? One box per table?
-- Is it a **full pipeline**? What problem does it solve?
-- Leave **one question** for the other group, on a sticky note.
+- Explain it in 2 minutes.
+- Listeners: find one thing that's wrong or missing.
+- Check: start, end, names, arrow heads.
+- Write it on a sticky note.
 
-Pair groups that work on different systems: explaining a pipeline to outsiders shows quickly where it is unclear.
+Pair groups that work on different systems: explaining a pipeline to outsiders shows quickly where it is unclear. If listeners are stuck, give them the checks out loud as hints.
 {: .notes }
 
-## Exercise 2: name it, colour it in, ask what if
+## Exercise 2: same groups, same drawing
 
-<span class="timebox">45 minutes</span> Same groups, same drawing. Blue marker for details, red for "what if".
-
-### 1. Name the paths
+### <span class="dot black" aria-label="black marker"></span>Name it
 
 <span class="timebox">10 minutes</span>
 
-- Find **every path** from a starting point to an end point.
-- Give **each section a name**.
-- Flows from data store to data store, and from trigger to data store, can always be named.
+- Name every path from start to end.
+- Short names: "order import", not "flow 1".
+- Full pipeline, or part of a bigger one?
 
-Naming the paths is where a team's vocabulary comes from. Encourage short, specific names ("order import", "nightly scoring") over generic ones ("data flow 1").
+Naming the paths is where a team's vocabulary comes from. A path that solves nothing on its own is a sub-pipeline: part of a bigger one.
 {: .notes }
 
-### 2. Full or sub?
-
-<span class="timebox">5 minutes</span>
-
-For every named path, ask:
-
-- Is this a **full pipeline**: does it solve a problem or achieve a goal?
-- Or is it a **sub-pipeline**: a section of a bigger one?
-
-### 3. Colour it in: what is this really?
+### <span class="dot blue" aria-label="blue marker"></span>What is this really?
 
 <span class="timebox">10 minutes</span>
 
-Look at **every box, circle, arrow and trigger** in the current situation and ask: *"What is this really?"*
+| Arrow | Means |
+| ----- | ----- |
+| {% include diagram.html name="def_flow_sync" alt="Request and answer" %} | Request and answer |
+| {% include diagram.html name="def_flow_async" alt="Asynchronous" %} | Asynchronous: send, don't wait |
+| {% include diagram.html name="def_flow_queued" alt="Queue" %} | Queue (SQS, RabbitMQ) |
+| {% include diagram.html name="def_flow_streaming" alt="Stream of events" %} | Stream of events (Kafka) |
 
-- **Circles:** an instance or a serverless function? Which language? How does it scale?
-- **Boxes:** which database or bucket? Which table?
-- **Arrows:** immediate, asynchronous, queued or streaming?
-- **Triggers:** manual, timed or an event?
+- Processor: which language? How does it scale?
+- Data store: which database? Which table?
+- Trigger: manual, timed or event?
 
-Add the answers as [letter codes](processors.html#letter-codes), flow marks and short notes, in blue.
+Say "switch to blue" out loud. Groups write the answers as [letter codes](processors.html#letter-codes) (PY, JS, [S3, D, P](data-storage.html#data-store-types)), arrow marks, and short notes.
 {: .notes }
 
-### 4. What if?
+### <span class="dot red" aria-label="red marker"></span>Break it
 
-<span class="timebox">5 minutes</span>
+<span class="timebox">25 minutes</span>
 
-With the full overview in front of you, ask, in red:
+- One arrow becomes a queue: what breaks?
+- 10x the data: what breaks first? Mark it.
+- What could stop for a day without anyone noticing?
 
-- What if we made **every arrow event-driven**?
-- What if we turned **every arrow into a queue**?
-- What if we moved things from **manual to timed**?
-
-### 5. Ten times the data
-
-<span class="timebox">5 minutes</span>
-
-- What if we had to process **10x more data**?
-- **Which line or circle** would have to change first?
-- Mark the bottleneck.
-
-### 6. How do we watch it?
-
-<span class="timebox">10 minutes</span>
-
-How do we monitor the whole pipeline? Do we track:
-
-- **each data store**?
-- **compute** and **scale**?
-- **queue timings**?
-- **costs**?
-- **overall timing**, for the full pipeline and for the sub-pipelines?
-
-Groups can mark what is monitored today with a small symbol next to the shape, and what is missing in red. This step often leads to the most concrete follow-ups after the workshop.
+Say "switch to red" out loud. For groups that finish early: what if it ran on a timer instead of by hand? What if a queue stopped being one? For the last question, go through what is watched today: each data store, compute and scale, queue timings, cost, and the overall timing of the full pipeline and its parts. Mark what is missing in red.
 {: .notes }
 
 ## Central review
 
-<span class="timebox">30 minutes</span> Each group, 3 to 4 minutes, at their whiteboard:
+<span class="timebox">30 minutes</span> 3 minutes per group: your path names, your 10x bottleneck, your silent arrow.
 
-- Your **full pipeline** and its **names**.
-- One **"what if"** that changed your view.
-- Your **10x bottleneck**.
-- One gap in **monitoring**.
-
-Questions to ask each group: Where is the bottleneck? Which line would you change first, and what would it cost? What surprised you? Which names would you use from now on? Collect the names and the gaps on a shared board: they are the vocabulary and the to-do list the team takes home.
+Questions to ask each group: Which arrow would you change first, and what would it cost? Which what-if changed your view? Which names will you use from now on? Collect the names and the gaps on a shared board: they are the vocabulary and the to-do list the team takes home.
 {: .notes }
 
 ## Questions
 
 <span class="timebox">10 minutes</span>
 
-- Questions, and what to try next week.
-- **Take a photo** of every whiteboard.
-- Want your drawing as a diagram? [Type it as text](diagrams-as-code.html), or ask an AI agent to draw the same pipeline from the code and compare it with your sketch.
+- Take a photo of every whiteboard.
+- What will you try next week?
+- Next: [type it as text](diagrams-as-code.html).
+
+Want to compare? Ask an AI agent to draw the same pipeline from the code, and put it next to your sketch.
+{: .page-only }
 
 ## Practice scenario
 
 For groups without a system of their own: a webshop.
 
-- Customers place **orders on the website**; the orders are stored in an **orders database**.
-- A **payment provider** confirms each payment.
-- A **confirmation email** is sent for every paid order.
-- Every night, orders are **exported to the data warehouse**.
-- **Analysts** read a sales dashboard built on the warehouse.
+- Customers order on the website.
+- Orders go into an orders database.
+- A payment provider confirms each payment.
+- Every paid order gets a confirmation email.
+- Every night, orders go to the data warehouse, for the analysts' dashboard.
 
-Things to discover: the order flow and the reporting flow are separate full pipelines; the email is asynchronous (or queued); the nightly export is a timed trigger; at 10x orders, the export and the dashboard queries are the first to feel it.
+Things to discover: the order flow and the reporting flow are separate full pipelines; the email is asynchronous (or queued); the nightly export has a timed trigger; at 10x orders, the export and the dashboard queries feel it first.
 {: .notes }
 
 <script src="{{ '/assets/js/pipeline-diagrams.js' | relative_url }}"></script>

@@ -33,7 +33,7 @@ button,label.button{font:inherit;font-size:13px;padding:6px 12px;border:1px soli
 trigger report manual "create report"
 store items D "items"
 processor collector PY "data collector"
-lambda generator JS "html_report_generator"
+lambda generator JS "report generator"
 store reports S3 "reports"
 
 report, items -&gt; collector -A-&gt; generator -&gt; reports

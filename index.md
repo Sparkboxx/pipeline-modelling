@@ -15,7 +15,7 @@ permalink: /
     <a class="btn" href="#draw-it-in-a-tool">Drawing tools</a>
   </div>
   <figure class="hero-figure">
-    {% include diagram.html name="example_pipeline" alt="Example pipeline: a 'create report' trigger starts a data collector that reads items, statistics and user data, then an html_report_generator writes to the reports store" %}
+    {% include diagram.html name="example_pipeline" alt="Example pipeline: a 'create report' trigger starts a data collector that reads items, statistics and user data, then a report generator writes to the reports store" %}
   </figure>
 </div>
 
@@ -37,7 +37,7 @@ Describe a diagram in a few lines, and let it draw itself: in Markdown next to y
 trigger report manual "create report"
 store items D "items"
 processor collector PY "data collector"
-lambda generator JS "html_report_generator"
+lambda generator JS "report generator"
 store reports S3 "reports"
 
 report, items -> collector -A-> generator -> reports

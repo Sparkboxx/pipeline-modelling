@@ -754,7 +754,7 @@ html.deck-open {
   }
 
   td img {
-    max-height: 11vh;
+    max-height: 7.5vh;
     max-width: 16vw;
   }
 
@@ -805,4 +805,64 @@ html.deck-open {
     text-align: center;
     color: var(--muted);
   }
+}
+
+// marker colours on exercise slides: <span class="dot black|blue|red" aria-label="black marker"></span>
+.dot {
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+  margin-right: 0.4em;
+  vertical-align: 0.05em;
+
+  &.black { background: var(--heading); }
+  &.blue { background: #2563eb; }
+  &.red { background: #dc2626; }
+}
+
+// a list with small shape icons in front of the lines
+.icon-list {
+  list-style: none;
+  padding-left: 0;
+
+  > li {
+    padding-left: 0;
+
+    &::before {
+      content: none !important;
+    }
+  }
+
+  picture img {
+    display: inline-block;
+    height: 1.7em;
+    width: auto;
+    vertical-align: middle;
+    margin-right: 0.35em;
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+}
+
+// two pictures side by side (one column on phones)
+.side-by-side {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+
+  pipeline-diagram {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 40rem) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.deck .slide .icon-list picture img {
+  max-height: none;
+  height: 1.6em;
 }

@@ -22,7 +22,7 @@
   function copyDiagrams(from, to) {
     var a = from.querySelectorAll ? from.querySelectorAll("pipeline-diagram") : [];
     var b = to.querySelectorAll ? to.querySelectorAll("pipeline-diagram") : [];
-    for (var i = 0; i < a.length && i < b.length; i++) b[i].source = a[i].source;
+    for (var i = 0; i < a.length && i < b.length; i++) { b[i].setAttribute("fit", ""); b[i].source = a[i].source; }
   }
 
   function clean(node) {

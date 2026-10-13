@@ -1,0 +1,5 @@
+{%- comment -%}
+  A small shape icon from the icon pack, for light and dark mode.
+  Usage: {% include icon.html name="processor" alt="processor" %}
+{%- endcomment -%}
+<picture class="icon"><source srcset="{{ '/downloads/icons/light-lines/' | append: include.name | append: '.svg' | relative_url }}" media="(prefers-color-scheme: dark)"><img src="{{ '/downloads/icons/dark-lines/' | append: include.name | append: '.svg' | relative_url }}" alt="{{ include.alt }}"></picture>

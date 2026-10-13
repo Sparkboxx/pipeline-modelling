@@ -33,7 +33,7 @@ store items D "items"
 store stats R "statistics"
 store users P "user data"
 processor collector PY "data collector"
-lambda generator JS "html_report_generator"
+lambda generator JS "report generator"
 store reports S3 "reports"
 
 report -> collector
