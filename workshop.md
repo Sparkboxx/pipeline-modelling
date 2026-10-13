@@ -190,6 +190,7 @@ Want to compare? Ask an AI agent to draw the same pipeline from the code, and pu
 {: .page-only }
 
 ## Practice scenario
+{: .page-only }
 
 For groups without a system of their own: a webshop.
 
@@ -200,6 +201,15 @@ For groups without a system of their own: a webshop.
 - Every night, orders go to the data warehouse, for the analysts' dashboard.
 
 Things to discover: the order flow and the reporting flow are separate full pipelines; the email is asynchronous (or queued); the nightly export has a timed trigger; at 10x orders, the export and the dashboard queries feel it first.
+{: .notes }
+
+## Evaluation
+
+<p class="qr"><a href="https://meetingevaluator.com/s/tqUEVHADkt"><img src="{{ '/images/workshop-evaluation-qr.svg' | relative_url }}" alt="QR code to the evaluation form" width="240" height="240"></a></p>
+
+How was this workshop? Scan the code, or go to [meetingevaluator.com/s/tqUEVHADkt](https://meetingevaluator.com/s/tqUEVHADkt).
+
+Leave this slide up at the end, while people pack up.
 {: .notes }
 
 <script src="{{ '/assets/js/pipeline-diagrams.js' | relative_url }}"></script>
