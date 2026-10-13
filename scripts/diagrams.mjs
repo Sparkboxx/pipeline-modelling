@@ -76,7 +76,7 @@ function reportingPipeline(dy, grouped) {
   }
   s += trigger(56, row - 34, { w: 72, h: 68, name: "create report" });
   s += processor(260, row, { r: col.r, name: "data collector" });
-  s += processor(480, row, { r: col.r, name: "html_report_generator" });
+  s += processor(480, row, { r: col.r, name: "report generator" });
   s += store(690, row - 34, { h: 68, name: "reports" });
   s += flow(80, row, 260 - col.r - 4, row);
   s += flow(260 + col.r + 4, row, 480 - col.r - 4, row);

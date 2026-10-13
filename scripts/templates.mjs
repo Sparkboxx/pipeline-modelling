@@ -400,7 +400,7 @@ window.PipelineDiagrams = ${api};
 trigger report manual "create report"
 store items D "items"
 processor collector PY "data collector"
-lambda generator JS "html_report_generator"
+lambda generator JS "report generator"
 store reports S3 "reports"
 
 report, items -> collector -A-> generator -> reports
