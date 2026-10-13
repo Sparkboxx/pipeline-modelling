@@ -17,7 +17,7 @@
 //   note collector -> reports "hourly"     a note on a flow
 import { THEMES, style, f, esc, label, bracket, head, MARKS, processor, store, trigger, other, external, app, human } from "./shapes.mjs";
 
-export const VERSION = "0.2.2";
+export const VERSION = "0.2.3";
 export const KINDS = ["processor", "lambda", "store", "trigger", "other", "external", "app", "human", "list"];
 export const KEYWORDS = [...KINDS, "title", "direction", "group", "note"];
 export const SIDES = ["left", "right", "above", "below"];
@@ -34,7 +34,7 @@ const LANGUAGES = ["P", "R", "J", "C", "PHP", "PY", "R.", "RB", "JS", "J.", "L."
 export const CODES = {
   processor: [...LANGUAGES, "L", "Q", "λ", "LN", "LP", "LC", "K"],
   lambda: LANGUAGES,
-  store: ["D", "P", "S3", "R", "RD", "RS", "M", "M.", "MC", "MS", "A", "MA", "PA", "O"],
+  store: ["D", "P", "S3", "R", "RD", "RS", "M", "M.", "MC", "MS", "A", "MA", "PA", "O", "SM", "SSM"],
   trigger: ["M", "L", "E"],
 };
 export const TRIGGER_ALIASES = { manual: "M", timed: "L", event: "E" };
@@ -297,6 +297,18 @@ export function parse(src) {
       }
     }
     if (e.from.node && e.from.node === e.to.node) warn(e.line, `a flow from "${e.from.id}" to itself is not drawn`);
+  }
+  // a request and its response drawn as two arrows make a loop back across the diagram
+  const plain = (e) => e.from.node && e.to.node && !e.both && !e.mark;
+  const told = new Set();
+  for (const e of edges) {
+    if (!plain(e) || e.from.node === e.to.node) continue;
+    const back = edges.find((x) => plain(x) && x.from.node === e.to.node && x.to.node === e.from.node);
+    const key = [e.from.id, e.to.id].sort().join(" ");
+    if (!back || told.has(key)) continue;
+    told.add(key);
+    const later = back.line > e.line ? back : e;
+    warn(later.line, `flows go both ways between "${e.from.id}" and "${e.to.id}". For a request and its response, use one synchronous flow: ${e.from.id} <-> ${e.to.id}`);
   }
   for (const nt of notes) {
     const note = { side: nt.side, lines: nt.lines, line: nt.line };
@@ -803,6 +815,7 @@ export function render(src, { pad = 24 } = {}) {
     } else {
       const via = l?.via ? l.via.map((d) => [d.cx, d.cy]) : [];
       drawn = curve([p0, ...via, p3], LR, e);
+      for (const [x, y] of via) bounds.push([x - 10, y - 10, x + 10, y + 10]);
     }
     const { svg, mid } = drawn;
     body += svg;

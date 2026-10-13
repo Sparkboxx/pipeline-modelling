@@ -20,7 +20,7 @@ Flow of data is represented by arrows. The data flows from the straight end towa
 | Asynchronous invocation | {% include diagram.html name="def_flow_async" alt="Asynchronous flow" %} | *Line marked with a capital A on the line. where the (imaginary) dash of the A lines up with the line and can be omitted.* |
 | Streaming or evented flow | {% include diagram.html name="def_flow_streaming" alt="Streaming flow" %} | *Line marked with a N on the line.* This line can be used to depict Kinesis streams, DynamoDB update streams, Kinesis Firehoses or streams on a Kafka topic.|
 | Synchronous | {% include diagram.html name="def_flow_sync" alt="Synchronous flow" %} | *A line with 2 arrow heads.* | 
-| Queued | {% include diagram.html name="def_flow_queued" alt="Queued flow" %} | *A line marked with a 90 degree angled "stop line" midway.* |
+| Queued | {% include diagram.html name="def_flow_queued" alt="Queued flow" %} | *A line marked with a 90 degree angled "stop line" midway.* A queue, like SQS, is a flow and not a data store: put the name of the queue on the line. |
 
 ## Synchronous or bi-directional?
 

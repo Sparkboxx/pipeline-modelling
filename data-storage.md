@@ -44,6 +44,8 @@ naming is (roughly) as follows:
 | Aurora Postgres    | PA     |
 | Memcached          | MC     |
 | Oracle             | O      |
+| Secrets Manager    | SM     |
+| SSM Parameter Store | SSM   |
 
 ## Tables
 

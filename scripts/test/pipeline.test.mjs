@@ -120,6 +120,25 @@ test("flows to and from a group", () => {
   assert.match(errorsOf('processor a\na -> group "nope"')[0], /there is no group "nope"/);
 });
 
+test("plain flows both ways suggest one synchronous flow", () => {
+  const w = warningsOf("processor api\nstore db P\napi -> db\ndb -> api");
+  assert.equal(w.length, 1);
+  assert.match(w[0], /^4: flows go both ways between "api" and "db". For a request and its response, use one synchronous flow: api <-> db/);
+  assert.deepEqual(warningsOf("processor a\nprocessor b\na -> b\nb -A-> a"), [], "a marked flow back is fine");
+  assert.deepEqual(warningsOf("processor a\nprocessor b\na <-> b"), []);
+});
+
+test("the view box holds long flows routed around other shapes", () => {
+  const { light } = render("trigger t E\nprocessor a\nprocessor b\nprocessor c\nstore s S3\nstore x S3\nstore y S3\nt -> a -> b -> c -> s\na -> x\nb -> y\nt -> s");
+  const [, y, , h] = light.match(/viewBox="([^"]+)"/)[1].split(" ").map(Number);
+  const ys = [...light.matchAll(/C([-\d. ]+)/g)].flatMap((m) => m[1].trim().split(/\s+/).map(Number).filter((_, i) => i % 2 === 1));
+  assert.ok(Math.max(...ys) <= y + h - 8, `a curve reaches ${Math.max(...ys)}, the image ends at ${y + h}`);
+});
+
+test("Secrets Manager and SSM are known store codes", () => {
+  assert.deepEqual(warningsOf("store secrets SM\nstore params SSM"), []);
+});
+
 test("a flow to itself is a warning", () => {
   assert.match(warningsOf("processor a\na -> a")[0], /to itself is not drawn/);
 });

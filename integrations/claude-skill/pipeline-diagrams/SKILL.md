@@ -25,7 +25,7 @@ Shape kinds (the code is optional; the name goes below the shape and defaults to
 | ---- | ----- | ---- |
 | `processor` | circle | language: `P` `PY` `PHP` `R` `RB` `J` `JS` `J.` `C` `C.` `C+` `C#`, or `Q` query, `K` Kafka stream |
 | `lambda` | circle with a big λ | language, as above |
-| `store` | data store | `S3` `D` (DynamoDB) `P` (Postgres) `M` (MySQL) `RS` (Redshift) `RD` (Redis) `MC` (Memcached) `A` (Aurora) `O` (Oracle) |
+| `store` | data store | `S3` `D` (DynamoDB) `P` (Postgres) `M` (MySQL) `RS` (Redshift) `RD` (Redis) `MC` (Memcached) `SM` (Secrets Manager) `SSM` (SSM Parameter Store) `A` (Aurora) `O` (Oracle) |
 | `trigger` | triangle | `manual`, `timed` or `event` (or `M`, `L`, `E`) |
 | `other` | rectangle | the system name, drawn inside, e.g. `other kafka KAFKA "clicks"` |
 | `external` | grey box, a black box outside your boundary | none |
@@ -41,7 +41,7 @@ Flows (the arrow head is where the data goes):
 | `a <-> b` | synchronous (request and response) |
 | `a -A-> b` | asynchronous |
 | `a -N-> b` | streaming or evented (Kinesis, Kafka, DynamoDB streams) |
-| `a -Q-> b` | queued (SQS) |
+| `a -Q-> b` | queued (SQS); a queue is a flow, not a store: `a -Q-> "orders queue" b` |
 
 Every arrow can also be written reversed: `a <- b` is the same flow as `b -> a` (also `<-A-`, `<-N-`, `<-Q-`).
 
@@ -86,6 +86,8 @@ note export "m5.large"
 - One kind of thing per shape: a data store per table or bucket, a processor per program.
 - Keep names short; put details in a note.
 - When a flow points the wrong way, reverse its arrow (`->` becomes `<-`).
+- A call that gets an answer back (an API call, a database query) is one synchronous flow: `api <-> db`. Don't draw the response as a second arrow back: it loops across the diagram. The checker warns about plain flows both ways.
+- For a large system, draw several diagrams (one per pipeline, or one per group) rather than one huge one.
 - Errors name the line and say how to fix it, e.g. `line 4: "users" is not declared. Add e.g.: processor users "users"`. Fix them and try again.
 - If you can run commands, check a diagram before showing it: `npx -y pipeline-diagrams diagram.pipeline --check` (or render it: `npx -y pipeline-diagrams diagram.pipeline out/`). With the MCP server, use `check_pipeline` and `render_pipeline`.
 

@@ -98,3 +98,9 @@ GitHub, most chats and many wikis show Mermaid, but not `pipeline` blocks. The g
 - **Ids, not coordinates.** An agent never has to place anything. The layout is automatic, so diagrams stay readable however they were written.
 - **Errors that say how to fix them.** Every error has a line number and a suggestion, including "did you mean …?" for typos.
 - **Diffs a person can review.** One statement per line, so a change made by an agent is easy to check in a pull request.
+
+## Tips for large diagrams
+
+- **Requests and responses are one flow.** An API call or a database query that answers is `api <-> db`. A separate arrow back loops across the whole diagram; the checker warns about it.
+- **Queues and streams are flows.** SQS is `-Q->` and Kinesis or Kafka is `-N->`, with the name of the queue or stream on the line.
+- **Split by pipeline.** One diagram per pipeline, or per group, reads better than one diagram of everything. Flows to a group (`crm -> group "billing"`) connect them.
