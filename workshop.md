@@ -6,7 +6,7 @@ nav_order: 4
 
 # Workshop: pipelines on paper
 
-A hands-on workshop for teams: model your own data pipelines with pen and paper, name them, colour in the details, and find out what would break first. No laptops and no agents, just whiteboards, paper and markers.
+A hands-on workshop of two and a half hours for teams: model your own data pipelines with pen and paper, name them, colour in the details, and find out what would break first. No laptops and no agents, just whiteboards, paper and markers.
 
 This page is the whole workshop: read it to prepare, or present it as slides with the button above. Notes marked *Facilitator* are only on the page, not on the slides.
 {: .page-only }
@@ -15,12 +15,13 @@ This page is the whole workshop: read it to prepare, or present it as slides wit
 
 | Time | Part | Minutes |
 | ---- | ---- | ------- |
-| 0:00 | [The shapes](#the-shapes) | 30 |
-| 0:30 | [Exercise 1: sketch a full pipeline](#exercise-1-sketch-a-full-pipeline) | 30 |
-| 1:00 | [Review in pairs](#review-in-pairs) | 15 |
-| 1:15 | [Exercise 2: name it, colour it in, ask what if](#exercise-2-name-it-colour-it-in-ask-what-if) | 60 |
-| 2:15 | [Central review](#central-review) | 30 |
-| 2:45 | [Questions](#questions) | 15 |
+| 0:00 | [The shapes](#the-shapes) | 20 |
+| 0:20 | [Exercise 1: sketch a full pipeline](#exercise-1-sketch-a-full-pipeline) | 30 |
+| 0:50 | [Review in pairs](#review-in-pairs) | 15 |
+| 1:05 | [Exercise 2: name it, colour it in, ask what if](#exercise-2-name-it-colour-it-in-ask-what-if) | 45 |
+| 1:50 | [Central review](#central-review) | 30 |
+| 2:20 | [Questions](#questions) | 10 |
+|      | **Total** | **2 h 30** |
 
 **You need:** a whiteboard or A3 paper per group, markers in three colours (black for the structure, blue for details, red for "what if"), sticky notes, and a printed [shape sheet](notation.html). Groups of 2 to 4 people, each with a real system they know.
 
@@ -35,9 +36,9 @@ Ask every group before the workshop to bring a system they work on: a reporting 
 - **Sketch first:** where does data come from, what processes it, where does it end up?
 - **Colour in later:** once the team agrees, add the details.
 
-<span class="timebox">30 minutes</span>
+<span class="timebox">20 minutes</span>
 
-Keep the introduction short and visual. People learn the shapes by using them in the first exercise, not by listening. Aim to start sketching within 30 minutes.
+Keep the introduction short and visual: about two minutes per slide. People learn the shapes by using them in the first exercise, not by listening. Aim to start sketching within 20 minutes.
 {: .notes }
 
 ### Shapes
@@ -165,7 +166,7 @@ Pair groups that work on different systems: explaining a pipeline to outsiders s
 
 ## Exercise 2: name it, colour it in, ask what if
 
-<span class="timebox">60 minutes</span> Same groups, same drawing. Blue marker for details, red for "what if".
+<span class="timebox">45 minutes</span> Same groups, same drawing. Blue marker for details, red for "what if".
 
 ### 1. Name the paths
 
@@ -189,7 +190,7 @@ For every named path, ask:
 
 ### 3. Colour it in: what is this really?
 
-<span class="timebox">15 minutes</span>
+<span class="timebox">10 minutes</span>
 
 Look at **every box, circle, arrow and trigger** in the current situation and ask: *"What is this really?"*
 
@@ -203,7 +204,7 @@ Add the answers as [letter codes](processors.html#letter-codes), flow marks and 
 
 ### 4. What if?
 
-<span class="timebox">10 minutes</span>
+<span class="timebox">5 minutes</span>
 
 With the full overview in front of you, ask, in red:
 
@@ -213,7 +214,7 @@ With the full overview in front of you, ask, in red:
 
 ### 5. Ten times the data
 
-<span class="timebox">10 minutes</span>
+<span class="timebox">5 minutes</span>
 
 - What if we had to process **10x more data**?
 - **Which line or circle** would have to change first?
@@ -248,7 +249,7 @@ Questions to ask each group: Where is the bottleneck? Which line would you chang
 
 ## Questions
 
-<span class="timebox">15 minutes</span>
+<span class="timebox">10 minutes</span>
 
 - Questions, and what to try next week.
 - **Take a photo** of every whiteboard.

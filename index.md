@@ -108,7 +108,7 @@ There are also symbols for [user facing apps, humans, annotations, lists and gro
 
 ## Training {#training}
 
-Teach your team the method in one session, with pen and paper. The [workshop](workshop.html) takes groups from the basic shapes to their own pipelines: sketch a full pipeline, name every path, colour in what it really is, and ask what happens at ten times the data. The page doubles as the slides.
+Teach your team the method in one session of two and a half hours, with pen and paper. The [workshop](workshop.html) takes groups from the basic shapes to their own pipelines: sketch a full pipeline, name every path, colour in what it really is, and ask what happens at ten times the data. The page doubles as the slides.
 
 <div class="shape-grid">
   <a class="shape-card" href="{{ '/workshop.html' | relative_url }}">
