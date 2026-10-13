@@ -315,7 +315,8 @@ td img {
 
 // --- Callouts -----------------------------------------------------------------
 
-blockquote.origin {
+blockquote.origin,
+blockquote.note {
   background: var(--accent-soft);
   border-left: 3px solid var(--link);
   border-radius: 0 8px 8px 0;

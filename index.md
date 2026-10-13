@@ -27,7 +27,7 @@ The notation is *whiteboard proof*: everything can be drawn by hand in seconds, 
 
 Models gradually stiffen during a design. Start at a high level with a couple of simple symbols, and add detail, like processor and data store types, once your architecture settles. That keeps the focus at the right level of abstraction.
 
-The method started in 2016 in a fast-growing data team at trivago, and is now revived for the age of AI agents. Read the [origin story](origin.html).
+The method started in 2016 in a fast-growing data team, and is now revived for the age of AI agents. Read the [origin story](origin.html).
 
 ## Diagrams as code {#diagrams-as-code}
 

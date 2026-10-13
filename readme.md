@@ -63,7 +63,7 @@ There are also symbols for user facing apps, humans, annotations, lists and grou
 
 ## Origin
 
-The method started in 2016 as the "whiteboard friendly modelling method" in trivago's content department in Amsterdam, a fast-growing team that built many data pipelines on a greenfield. Wilco van Duinkerken started it, Joost Ronkes Agerbeek documented it and trained people in it, and dozens of team members perfected it. We're reviving it now because it's a great fit for AI agents and architecture discussions. Read the [origin story](https://pipeline-diagrams.com/origin.html).
+The method started in 2016 as the "whiteboard friendly modelling method", in a fast-growing team in Amsterdam that built many data pipelines on a greenfield. Wilco van Duinkerken started it, Joost Ronkes Agerbeek documented it and trained people in it, and dozens of team members perfected it. Wilco is reviving it now, as an independent open source project, because it's a great fit for AI agents and architecture discussions. Read the [origin story](https://pipeline-diagrams.com/origin.html).
 
 ## Drawing tools
 
