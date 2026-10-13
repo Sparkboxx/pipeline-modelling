@@ -33,6 +33,8 @@ The whole renderer is one small JavaScript file that runs in your browser. Nothi
 
 The script makes no network requests of its own, and has no tracking or telemetry. The one exception is when you ask for it: `<pipeline-diagram src="diagram.pipeline">` loads that file from wherever you point it.
 
+This website itself counts page views with [GoatCounter](https://www.goatcounter.com), without cookies. It sees which page you visit, never what you type into a diagram. The offline viewer and the script on your own pages count nothing.
+
 **Check it yourself:** open your browser's developer tools on the Network tab and edit a diagram. Nothing is sent. Or open the offline viewer with your network switched off: it keeps working.
 
 ## The offline viewer
