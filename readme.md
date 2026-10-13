@@ -64,7 +64,7 @@ There are also symbols for user facing apps, humans, annotations, lists and grou
 
 ## Origin
 
-The method started in 2016 as the "whiteboard friendly modelling method", in a fast-growing team in Amsterdam that built many data pipelines on a greenfield. Wilco van Duinkerken started it, Joost Ronkes Agerbeek documented it and trained people in it, and dozens of team members perfected it. Wilco is reviving it now, as an independent open source project, because it's a great fit for AI agents and architecture discussions. Read the [origin story](https://pipeline-diagrams.com/origin.html).
+The method started in 2016 as the "whiteboard friendly modelling method", in a fast-growing team in Amsterdam that built many data pipelines on a greenfield. [Wilco van Duinkerken](https://www.sparkboxx.com) started it, Joost Ronkes Agerbeek documented it and trained people in it, and dozens of team members perfected it. Wilco is reviving it now, as an independent open source project, because it's a great fit for AI agents and architecture discussions. Read the [origin story](https://pipeline-diagrams.com/origin.html).
 
 ## Drawing tools
 
@@ -98,6 +98,10 @@ bundle exec jekyll serve --livereload   # the website on http://localhost:4000
 ```
 
 To release a new version of the package, raise `version` in `package.json` and run `npm publish --access public --auth-type=web`.
+
+## Contact
+
+Questions, ideas or a bug? [Open an issue on GitHub](https://github.com/Sparkboxx/pipeline-modelling/issues). Pipeline Diagrams is made by [Wilco van Duinkerken](https://www.sparkboxx.com).
 
 ## License
 
