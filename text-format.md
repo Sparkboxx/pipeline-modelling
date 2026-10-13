@@ -1,7 +1,9 @@
 ---
 layout: page
 title: Text format
-nav_order: 9
+nav_order: 4
+has_children: true
+has_toc: false
 ---
 
 # Text format
@@ -9,7 +11,7 @@ nav_order: 9
 
 A small text language for Pipeline Diagrams. You write the diagram as plain text, in a code block marked `pipeline` in Markdown or in an agent conversation, and a renderer draws it with the shapes from this site.
 
-**Version 0.2.** Every example on this page is rendered live, right below its text, by the same code that renders it everywhere else.
+**Version 0.2.** Every example on this page is rendered live, right below its text, by the same code that renders it everywhere else. To render diagrams yourself, see [Install & tools](install.html): `npm install pipeline-diagrams`.
 
 1. TOC
 {:toc}
@@ -366,97 +368,11 @@ Warnings don't stop rendering:
 
 ## Tools
 
-### On a web page
-
-Load the script once, then write diagrams in a `<pipeline-diagram>` element, or point it at a file:
-
-```html
-<script src="https://pipeline-diagrams.com/assets/js/pipeline-diagrams.js"></script>
-
-<pipeline-diagram>
-  processor a PY "collector"
-  store b S3 "reports"
-  a -> b
-</pipeline-diagram>
-
-<pipeline-diagram src="reporting.pipeline"></pipeline-diagram>
-```
-
-The diagram follows the reader's light or dark mode (set `theme="light"` or `theme="dark"` to fix it), shows errors in place, and lists warnings in its tooltip. Its styles live in a shadow root, so they never mix with the page's.
-
-To turn ```` ```pipeline ```` code blocks into diagrams, call `PipelineDiagrams.renderAll()` after the page has loaded. This page does exactly that. The script also exposes `parse`, `check`, `render` and `toMermaid`.
-
-### Command line
-
-```sh
-node scripts/render-pipeline.mjs diagram.pipeline out/        # out/diagram.svg and out/diagram-dark.svg
-node scripts/render-pipeline.mjs diagram.pipeline --check     # errors and warnings only
-node scripts/render-pipeline.mjs diagram.pipeline --mermaid   # print the Mermaid version
-cat diagram.pipeline | node scripts/render-pipeline.mjs -     # SVG to stdout
-```
-
-### Markdown
-
-- **markdown-it:** `md.use(pipelineDiagrams)`, from `integrations/markdown-it.mjs`.
-- **remark:** `.use(remarkPipelineDiagrams)`, from `integrations/remark.mjs`. Keep raw HTML, e.g. with `rehype-raw`.
-
-Both replace a `pipeline` block with a `<picture>` holding the light and the dark SVG.
-
-For other Markdown tools, load the script on the page and call `renderAll`. These two setups are untested:
-
-- **MkDocs Material:** add a `pipeline` custom fence with `fence_div_format` to `pymdownx.superfences`. Add the script to `extra_javascript`, plus one line: `document$.subscribe(() => PipelineDiagrams.renderAll("div.pipeline", { replace: true }))`.
-- **Docusaurus:** add the script to `scripts`, and a client module whose `onRouteDidUpdate` calls `PipelineDiagrams.renderAll()`.
-
-### GitHub
-
-GitHub renders Mermaid, but not this format. The GitHub Action in this repository fixes that. It renders every `pipeline` block in your Markdown files to SVG files, and puts a `<picture>` right after each block, between two HTML comments. Running it again updates them in place. With `mermaid: true` it inserts a Mermaid version instead, so no image files are needed.
-
-```yaml
-name: Diagrams
-on:
-  push:
-    paths: ["**.md"]
-permissions:
-  contents: write
-jobs:
-  render:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: Sparkboxx/pipeline-modelling@master
-        with:
-          paths: docs        # files or folders, default: the whole repository
-          out: docs/diagrams # where the SVG files go
-      - run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          git diff --cached --quiet || (git commit -m "Render pipeline diagrams" && git push)
-```
-
-With `check: true` the action changes nothing, and fails when a diagram has errors or its images are out of date. That's useful for pull requests. Locally: `node scripts/render-markdown.mjs docs --out docs/diagrams`.
-
-### Obsidian
-
-Copy `integrations/obsidian/` to `.obsidian/plugins/pipeline-diagrams/` in your vault, and turn the plugin on under Community plugins. The plugin renders `pipeline` code blocks, and follows Obsidian's light or dark theme.
-
-### Agents
-
-- **The guide:** [pipeline-diagrams-agent-guide.md]({{ '/downloads/pipeline-diagrams-agent-guide.md' | relative_url }}) explains the format in about a page, with an example and a fallback to Mermaid. Give it to any agent.
-- **A Claude skill:** `integrations/claude-skill/pipeline-diagrams/` holds the same guide as a skill. Copy it to `~/.claude/skills/` (or a project's `.claude/skills/`), and Claude uses it when asked to draw a pipeline.
-- **An MCP server:** `integrations/mcp/server.mjs` gives any MCP client four tools: `render_pipeline`, `check_pipeline`, `pipeline_to_mermaid` and `pipeline_guide`. The checks let an agent fix its own mistakes before showing a diagram. For Claude Code:
-
-```sh
-claude mcp add pipeline-diagrams -- node /path/to/pipeline-modelling/integrations/mcp/server.mjs
-```
-
-### npm
-
-`package.json` makes the repository an npm package called `pipeline-diagrams`. It has the parser and renderer, the Mermaid converter, the browser bundle, the Markdown plugins, the command line tools and the MCP server. It isn't published yet.
+The npm package [`pipeline-diagrams`](https://www.npmjs.com/package/pipeline-diagrams) renders the format everywhere: in JavaScript, on the command line, on web pages (`<pipeline-diagram>`), in Markdown (markdown-it, remark, Obsidian), on GitHub, and for agents (a guide, a Claude skill and an MCP server). [Install & tools](install.html) has the details, and a box to try the format.
 
 ## Mermaid
 
-The converter turns a `pipeline` block into a Mermaid flowchart, for places that render Mermaid but not this format. It's available on the command line (`--mermaid`), from the MCP server, as `PipelineDiagrams.toMermaid(text)` in the browser, and in the GitHub Action. There are two levels:
+The converter turns a `pipeline` block into a Mermaid flowchart, for places that render Mermaid but not this format. It's available as `toMermaid` in the [package](install.html#in-javascript), on the command line (`--mermaid`), from the MCP server, and in the Markdown renderer for GitHub. There are two levels:
 
 | Level | Mermaid used | Looks like | Works on |
 | ----- | ------------ | ---------- | -------- |
@@ -488,7 +404,7 @@ To use the icons, register the pack before rendering:
 ```js
 mermaid.registerIconPacks([{
   name: "pd",
-  loader: () => fetch("https://pipeline-diagrams.com/downloads/pipeline-diagrams-icons.json").then((r) => r.json()),
+  loader: () => fetch("https://cdn.jsdelivr.net/npm/pipeline-diagrams@0.2/downloads/pipeline-diagrams-icons.json").then((r) => r.json()),
 }]);
 ```
 

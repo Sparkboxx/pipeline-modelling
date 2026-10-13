@@ -37,6 +37,7 @@ defaults:
       layout: "page"
 
 aux_links:
+  npm: https://www.npmjs.com/package/pipeline-diagrams
   GitHub: https://github.com/sparkboxx/pipeline-modelling
 
 # Theme options

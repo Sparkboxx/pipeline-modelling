@@ -1,12 +1,12 @@
 ---
 layout: page
-title: Templates & tools
-nav_order: 8
+title: Drawing tools
+nav_order: 3
 ---
 
-# Templates & tools
+# Drawing tools
 
-Pipeline Diagrams are made to be drawn by hand. But sooner or later a diagram ends up in a slide deck, a wiki or a design doc. This page lists the templates you can download, a text format you (or an AI agent) can write diagrams in, and how the notation fits in other tools.
+Pipeline Diagrams are made to be drawn by hand. But sooner or later a diagram ends up in a slide deck, a wiki or a design doc. This page has the shape libraries and icons you can download, and how the notation fits in other tools. To write diagrams as text instead, see [Text format](text-format.html).
 
 Everything here is generated from the same shape definitions as the diagrams on this site (`scripts/shapes.mjs`), so all templates look the same and stay in sync.
 
@@ -55,71 +55,7 @@ Plain SVG files without names: just the shapes. `dark-lines/` is for light backg
 
 ## Diagrams as text
 
-Drawing tools are great for people. For docs in git, and for AI agents, text works better: it diffs, it can be reviewed, and an agent can write it. So we made a small text format for Pipeline Diagrams, and a renderer that lays the diagram out and draws it with the same shapes as this site.
-
-```text
-title "Reporting pipeline"
-
-trigger report M "create report"
-store items D "items"
-store stats R "statistics"
-store users P "user data"
-processor collector PY "data collector"
-lambda generator JS "html_report_generator"
-store reports S3 "reports"
-app portal "report portal"
-human analyst "analyst"
-
-report -> collector
-items, stats, users -> collector
-collector -A-> generator -> reports
-reports <-> portal
-analyst -> portal
-
-group "reporting pipeline": collector generator reports
-```
-{: #pipeline-example }
-
-Edit the text and the diagram follows:
-
-<div class="playground">
-  <textarea id="pipeline-source" spellcheck="false" aria-label="Pipeline diagram source"></textarea>
-  <p class="pipeline-error" id="pipeline-error" role="status"></p>
-  <div class="pipeline-output" id="pipeline-output"></div>
-  <p><button class="btn" type="button" id="pipeline-download">Download SVG</button></p>
-</div>
-
-### The format
-
-One statement per line: declare the shapes, then connect them. The [Text format](text-format.html) page has the full specification with live examples.
-
-| Statement | Example |
-| --------- | ------- |
-| Shape: `kind id [CODE] ["name"]` | `store items S3 "items"`, `trigger nightly timed "nightly"` |
-| Flows: `->` `<->` `-A->` `-N->` `-Q->`, or reversed: `<-` `<-A-` … | `items, stats -> collector -A-> "nightly" generator` |
-| Group | `group "streaming": kafka enrich`, or a block `group "AWS" { … }` |
-| Note | `note collector "m4.xlarge"`, `note left a "…"`, `note a -> b "hourly"` |
-| Layout | `title "Reporting pipeline"`, `direction TB` |
-
-Kinds: `processor`, `lambda`, `store`, `trigger`, `other`, `external`, `app` (user facing app), `human` and `list`.
-
-### Where you can use it
-
-- **This site and any web page:** the `<pipeline-diagram>` element.
-- **Markdown tools:** plugins for markdown-it and remark, and Obsidian.
-- **GitHub:** a GitHub Action that renders the diagrams to images, or converts them to Mermaid.
-- **Agents:** a guide and a Claude skill, and an MCP server that renders and checks diagrams.
-
-See [Tools](text-format.html#tools) for how to set each one up.
-
-### What about Mermaid?
-
-Mermaid is rendered by GitHub, GitLab, Notion and many wikis, and agents already know it. The converter turns a `pipeline` block into Mermaid in two ways:
-
-- **Standard Mermaid shapes**, which work everywhere: a triangle, a circle and a "divided rectangle" come close to our trigger, processor and data store. Names sit inside the shapes, though.
-- **Our own icons**, with names below the shapes. These look much closer to the notation, but only work where you can load the icon pack.
-
-See [Mermaid](text-format.html#mermaid) for details.
+Drawing tools are great for people. For docs in git, and for AI agents, text works better: it diffs, it can be reviewed, and an agent can write it. The [text format](text-format.html) describes a diagram in a few lines, and the npm package [`pipeline-diagrams`](install.html) lays it out and draws it with the same shapes as this site. It also converts diagrams to Mermaid, for places that only render Mermaid. [Try it](install.html#try-it).
 
 ## All options compared
 
@@ -157,8 +93,8 @@ If the text format proves popular, a small editor that shows the text and the di
 
 ## Recommendation
 
-1. **Now:** the draw.io library, the Excalidraw library and the icon pack (all on this page). Point the draw.io link on the home page to the new library.
-2. **Next:** the text format with its tools and the Mermaid converter are done (see [Text format](text-format.html)). Still to do: submit the Excalidraw library to libraries.excalidraw.com for one-click install, and publish the npm package.
+1. **Done:** the draw.io library, the Excalidraw library and the icon pack (all on this page), and the [text format](text-format.html) with its [npm package](install.html) and Mermaid converter.
+2. **Next:** submit the Excalidraw library to libraries.excalidraw.com for one-click install.
 3. **Later, if there's demand:** a Figma Community file, a generated PowerPoint template, a Miro template board.
 4. **Only if the text format takes off:** our own editor, based on Excalidraw or React Flow.
 
@@ -170,38 +106,3 @@ The templates are generated. After changing a shape in `scripts/shapes.mjs`, run
 node scripts/diagrams.mjs images
 node scripts/templates.mjs downloads
 ```
-
-<script src="{{ '/assets/js/pipeline-diagrams.js' | relative_url }}"></script>
-<script>
-(function () {
-  var block = document.querySelector("#pipeline-example code");
-  var source = document.getElementById("pipeline-source");
-  var output = document.getElementById("pipeline-output");
-  var error = document.getElementById("pipeline-error");
-  var dark = window.matchMedia("(prefers-color-scheme: dark)");
-  var last = null;
-  if (!source || !window.PipelineDiagrams) return;
-  source.value = block ? block.textContent.trim() + "\n" : "";
-
-  function draw() {
-    try {
-      last = window.PipelineDiagrams.render(source.value);
-      output.innerHTML = dark.matches ? last.dark : last.light;
-      error.textContent = last.warnings.map(function (w) { return "line " + w.line + ": " + w.message; }).join("\n");
-    } catch (e) {
-      error.textContent = e.message;
-    }
-  }
-  var timer;
-  source.addEventListener("input", function () { clearTimeout(timer); timer = setTimeout(draw, 150); });
-  if (dark.addEventListener) dark.addEventListener("change", draw);
-  document.getElementById("pipeline-download").addEventListener("click", function () {
-    if (!last) return;
-    var a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([last.light], { type: "image/svg+xml" }));
-    a.download = "pipeline.svg";
-    a.click();
-  });
-  draw();
-})();
-</script>

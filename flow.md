@@ -1,7 +1,8 @@
 ---
 layout: page
 title: Flow
-nav_order: 5
+parent: Notation
+nav_order: 4
 ---
 
 # Flow

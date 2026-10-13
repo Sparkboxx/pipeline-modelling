@@ -169,7 +169,7 @@ function human(cx, top, { name } = {}) {
 //   note left reports "kept 90 days"       sides: left, right, above, below
 //   note collector -> reports "hourly"     a note on a flow
 
-const VERSION = "0.2.0";
+const VERSION = "0.2.1";
 const KINDS = ["processor", "lambda", "store", "trigger", "other", "external", "app", "human", "list"];
 const KEYWORDS = [...KINDS, "title", "direction", "group", "note"];
 const SIDES = ["left", "right", "above", "below"];
@@ -982,6 +982,7 @@ function render(src, { pad = 24 } = {}) {
   }
 
   // fit the view box around everything, with the title on top
+  if (!bounds.length) bounds.push([0, 0, 0, 0]); // an empty diagram
   let minX = Math.min(...bounds.map((b) => b[0])) - pad, minY = Math.min(...bounds.map((b) => b[1])) - pad;
   const maxX = Math.max(...bounds.map((b) => b[2])) + pad, maxY = Math.max(...bounds.map((b) => b[3])) + pad;
   if (model.title) {

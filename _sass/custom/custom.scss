@@ -273,7 +273,10 @@ th {
   background-color: var(--bg-soft);
   color: var(--heading);
   font-weight: 600;
-  text-transform: capitalize;
+
+  &::first-letter {
+    text-transform: uppercase;
+  }
 }
 
 tbody tr:last-child td {
@@ -283,7 +286,8 @@ tbody tr:last-child td {
 td img {
   display: block;
   margin: 0 auto;
-  max-width: none;
+  max-width: min(240px, 100%);
+  height: auto;
 }
 
 // --- Diagrams -----------------------------------------------------------------
@@ -569,4 +573,43 @@ pre:has(> code.language-pipeline) + pipeline-diagram {
   border-top-right-radius: 0;
   margin: 0 0 1.5rem;
   padding: 1rem;
+}
+
+// --- Code blocks ------------------------------------------------------------------
+// One background for every code block, and syntax colors that work on it in
+// both themes (the theme's own colors are for a light background only).
+
+.main-content {
+  div.highlighter-rouge,
+  figure.highlight {
+    background-color: var(--code);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  div.highlighter-rouge div.highlight,
+  pre.highlight,
+  .highlight pre {
+    background-color: transparent;
+  }
+
+  pre code,
+  .highlight code {
+    background: none;
+    border: 0;
+    padding: 0;
+    color: var(--heading);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .highlight {
+    .c, .c1, .cm, .cs, .cp { color: #8b949e; font-style: italic; }
+    .k, .kd, .kn, .kr, .kt, .kc, .kv, .ow { color: #ff7b72; }
+    .s, .s1, .s2, .sb, .sh, .sd, .se, .sr, .ss, .dl { color: #a5d6ff; }
+    .nb, .bp, .nx, .nf, .fm, .na, .nv, .vi { color: #d2a8ff; }
+    .m, .mi, .mf, .mh, .mo, .il { color: #79c0ff; }
+    .nt, .nl, .nc, .nn { color: #7ee787; }
+    .o, .p, .pi, .w, .n, .err { color: var(--heading); background: none; }
+  }
 }
