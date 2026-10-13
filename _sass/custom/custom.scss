@@ -866,3 +866,19 @@ html.deck-open {
   max-height: none;
   height: 1.6em;
 }
+
+// QR code: always dark on white, with the white margin scanners need
+.qr img {
+  display: block;
+  width: 240px;
+  height: auto;
+  padding: 18px;
+  background: #fafaf9;
+  border-radius: 10px;
+}
+
+.deck .slide .qr img {
+  width: min(48vh, 60vw);
+  max-height: none;
+  margin: 0 auto 0.5em;
+}

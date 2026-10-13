@@ -6,8 +6,9 @@
     the title slide. An h2 that is directly followed by an h3 becomes a
     section divider.
   - Elements with the class "notes" are facilitator notes: on the page, not on
-    the slides. Elements with "page-only" are left out of the slides too;
-    elements with "slides-only" appear only on the slides.
+    the slides. Elements with "page-only" are left out of the slides too (a
+    heading with "page-only" leaves out its whole section); elements with
+    "slides-only" appear only on the slides.
   - Keys: right arrow, space or page down for the next slide, left arrow or
     page up for the previous one, Home and End, F for full screen, Esc to stop.
 
@@ -40,7 +41,12 @@
     }
     start("slide-title");
     var nodes = Array.prototype.slice.call(main.children);
+    var skipping = 0; // the level of a page-only heading whose section we leave out
     nodes.forEach(function (node, i) {
+      var level = /^H[1-6]$/.test(node.tagName) ? Number(node.tagName[1]) : 0;
+      if (skipping && (!level || level > skipping)) return;
+      skipping = level && node.matches(".page-only") ? level : 0;
+      if (skipping) return;
       if (node.matches("script, #markdown-toc, .notes, .page-only, .slides-start, hr")) return;
       if (node.tagName === "H2") start(nodes[i + 1] && nodes[i + 1].tagName === "H3" ? "slide-section" : "");
       else if (node.tagName === "H3") start("");
