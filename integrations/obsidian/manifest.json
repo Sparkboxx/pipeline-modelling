@@ -1,7 +1,7 @@
 {
   "id": "pipeline-diagrams",
   "name": "Pipeline Diagrams",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "minAppVersion": "1.0.0",
   "description": "Draw data pipelines from ```pipeline code blocks, with the shapes from pipeline-diagrams.com.",
   "author": "Sparkboxx",

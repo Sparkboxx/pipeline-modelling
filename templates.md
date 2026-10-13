@@ -1,12 +1,12 @@
 ---
 layout: page
 title: Drawing tools
-nav_order: 3
+nav_order: 4
 ---
 
 # Drawing tools
 
-Pipeline Diagrams are made to be drawn by hand. But sooner or later a diagram ends up in a slide deck, a wiki or a design doc. This page has the shape libraries and icons you can download, and how the notation fits in other tools. To write diagrams as text instead, see [Text format](text-format.html).
+Pipeline Diagrams are made to be drawn by hand. But sooner or later a diagram ends up in a slide deck, a wiki or a design doc. This page has the shape libraries and icons you can download, and how the notation fits in other tools. To generate diagrams from text instead, see [Diagrams as code](diagrams-as-code.html).
 
 Everything here is generated from the same shape definitions as the diagrams on this site (`scripts/shapes.mjs`), so all templates look the same and stay in sync.
 
@@ -53,9 +53,9 @@ Plain SVG files without names: just the shapes. `dark-lines/` is for light backg
 * **Lucidchart**: `Shapes` › `Import SVG` into a custom shape library.
 * **Figma and FigJam**: drag the SVGs in, or paste them.
 
-## Diagrams as text
+## Diagrams as code
 
-Drawing tools are great for people. For docs in git, and for AI agents, text works better: it diffs, it can be reviewed, and an agent can write it. The [text format](text-format.html) describes a diagram in a few lines, and the npm package [`pipeline-diagrams`](install.html) lays it out and draws it with the same shapes as this site. It also converts diagrams to Mermaid, for places that only render Mermaid. [Try it](install.html#try-it).
+Drawing tools are great for people. For docs in git, and for AI agents, text works better: it diffs, it can be reviewed, and an agent can write it. With [diagrams as code](diagrams-as-code.html) you describe a diagram in a few lines, and the npm package [`pipeline-diagrams`](install.html) lays it out and draws it with the same shapes as this site. It also converts diagrams to Mermaid, for places that only render Mermaid. [Try it](install.html#try-it).
 
 ## All options compared
 
@@ -64,14 +64,14 @@ Drawing tools are great for people. For docs in git, and for AI agents, text wor
 | **draw.io library** | Shape library, opened by URL | Yes: native shapes, text, attached arrows | Yes, free, no account | Done | Use it |
 | **Excalidraw library** | Hand-drawn shapes for a whiteboard tool | Yes: native elements, bound text | Yes, free, no account | Done | Use it |
 | **Icon pack (SVG)** | Files for slides and other tools | Partly: PowerPoint and Keynote can convert SVG to shapes; codes and names are text boxes | Yes | Done | Use it |
-| **Text format** | Diagrams in markdown, written by people or agents | It's text | Yes | Done | Use it |
+| **Diagrams as code** | Diagrams in markdown, written by people, scripts or agents | It's text | Yes | Done | Use it |
 | **Mermaid** | Rendered on GitHub, Notion and wikis | It's text | Yes | Done: a converter and an icon pack | Use it as the fallback |
 | **Miro** | Custom shape pack or a template board | Shape packs: only recolor and resize | Shape packs need Business or Enterprise | Small | Icon pack is enough |
 | **Figma / FigJam** | Components in a Community file | Yes, as components | Anyone can duplicate a Community file; publishing a team library needs a paid plan | Medium, manual | Later, if asked for |
 | **PowerPoint template (.pptx)** | Slides with native, editable shapes | Yes | Yes | Medium (generate with a library like PptxGenJS) | Later, if asked for |
 | **Lucidchart** | SVG import into a custom library | Recolor and resize only | Depends on the plan | Small | Icon pack is enough |
 | **Visio (.vssx)** | Stencil | Yes | Needs Visio; creating stencils needs Visio desktop on Windows | Large | Skip |
-| **Own editor** | A whiteboard made for this notation | Yes | Yes, if we host it | Large | Only if the text format takes off |
+| **Own editor** | A whiteboard made for this notation | Yes | Yes, if we host it | Large | Only if diagrams as code takes off |
 
 ### Notes per tool
 
@@ -84,19 +84,19 @@ Drawing tools are great for people. For docs in git, and for AI agents, text wor
 
 ### Building our own editor
 
-If the text format proves popular, a small editor that shows the text and the diagram side by side, and lets you drag things around, is the next step. Options:
+If diagrams as code proves popular, a small editor that shows the text and the diagram side by side, and lets you drag things around, is the next step. Options:
 
-* **Excalidraw** (MIT): embed the editor, preload our library, export to and from our text format. Keeps the whiteboard feel. Small to medium effort.
-* **React Flow** (MIT): nodes are React components, so the shapes and letter codes become real, structured objects. Best fit for round-tripping with the text format. Medium effort.
+* **Excalidraw** (MIT): embed the editor, preload our library, export to and from our language. Keeps the whiteboard feel. Small to medium effort.
+* **React Flow** (MIT): nodes are React components, so the shapes and letter codes become real, structured objects. Best fit for round-tripping with diagrams as code. Medium effort.
 * **maxGraph** (Apache 2.0, the successor of the engine behind draw.io) and **JointJS** (MPL 2.0, with a paid JointJS+): solid diagram engines, less whiteboard.
 * **tldraw**: the nicest whiteboard SDK with custom shapes, but production use needs a license key (paid, or a free hobby license on request), so less suited for a free public tool.
 
 ## Recommendation
 
-1. **Done:** the draw.io library, the Excalidraw library and the icon pack (all on this page), and the [text format](text-format.html) with its [npm package](install.html) and Mermaid converter.
+1. **Done:** the draw.io library, the Excalidraw library and the icon pack (all on this page), and [diagrams as code](diagrams-as-code.html) with its [npm package](install.html) and Mermaid converter.
 2. **Next:** submit the Excalidraw library to libraries.excalidraw.com for one-click install.
 3. **Later, if there's demand:** a Figma Community file, a generated PowerPoint template, a Miro template board.
-4. **Only if the text format takes off:** our own editor, based on Excalidraw or React Flow.
+4. **Only if diagrams as code takes off:** our own editor, based on Excalidraw or React Flow.
 
 ## Regenerating the templates
 

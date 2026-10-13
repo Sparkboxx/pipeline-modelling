@@ -1,14 +1,14 @@
 ---
 layout: page
 title: Install & tools
-parent: Text format
-nav_order: 1
+parent: Diagrams as code
+nav_order: 2
 ---
 
 # Install & tools
 {: .no_toc }
 
-Everything for the [text format](text-format.html) is in one npm package, [`pipeline-diagrams`](https://www.npmjs.com/package/pipeline-diagrams). It has no dependencies, and works in Node 20 or newer and in the browser.
+Everything for [diagrams as code](diagrams-as-code.html) is in one npm package, [`pipeline-diagrams`](https://www.npmjs.com/package/pipeline-diagrams). It has no dependencies, and works in Node 20 or newer and in the browser.
 
 ```sh
 npm install pipeline-diagrams
@@ -104,7 +104,7 @@ Load the script once, then write diagrams in a `<pipeline-diagram>` element, or 
 
 The diagram follows the reader's light or dark mode (set `theme="light"` or `theme="dark"` to fix it), shows errors in place, and lists warnings in its tooltip. Its styles live in a shadow root, so they never mix with the page's.
 
-To turn `pipeline` code blocks into diagrams, call `PipelineDiagrams.renderAll()` after the page has loaded. The [Text format](text-format.html) page does exactly that. The script also exposes `parse`, `check`, `render` and `toMermaid` on `window.PipelineDiagrams`.
+To turn `pipeline` code blocks into diagrams, call `PipelineDiagrams.renderAll()` after the page has loaded. The [Language reference](text-format.html) does exactly that. The script also exposes `parse`, `check`, `render` and `toMermaid` on `window.PipelineDiagrams`.
 
 With a bundler, `import "pipeline-diagrams/browser"` defines the element and gives you `renderAll`.
 
@@ -162,28 +162,7 @@ The plugin is in the package, in `integrations/obsidian/`. Copy that folder to `
 
 ## Agents
 
-- **The guide:** [pipeline-diagrams-agent-guide.md]({{ '/downloads/pipeline-diagrams-agent-guide.md' | relative_url }}) explains the format in about a page, with an example and a fallback to Mermaid. Give it to any agent.
-- **A Claude skill:** the same guide as a skill, in `integrations/claude-skill/pipeline-diagrams/` in the package. Copy that folder to `~/.claude/skills/` (or a project's `.claude/skills/`), and Claude uses it when asked to draw a pipeline.
-- **An MCP server:** gives any MCP client four tools: `render_pipeline`, `check_pipeline`, `pipeline_to_mermaid` and `pipeline_guide`. The checks let an agent fix its own mistakes before showing a diagram.
-
-For Claude Code:
-
-```sh
-claude mcp add pipeline-diagrams -- npx -y -p pipeline-diagrams pipeline-diagrams-mcp
-```
-
-For other clients, add it to their MCP configuration:
-
-```json
-{
-  "mcpServers": {
-    "pipeline-diagrams": {
-      "command": "npx",
-      "args": ["-y", "-p", "pipeline-diagrams", "pipeline-diagrams-mcp"]
-    }
-  }
-}
-```
+The package has everything for AI agents: a one-page guide, a Claude skill and an MCP server that checks and renders diagrams. See [For AI agents](agents.html) for the setup.
 
 ## Mermaid
 

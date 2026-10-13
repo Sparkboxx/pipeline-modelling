@@ -8,11 +8,11 @@ permalink: /
 <div class="hero">
   <p class="hero-eyebrow">Whiteboard-proof diagrams for data pipelines</p>
   <h1 class="hero-title">Draw data pipelines<br>everyone can read.</h1>
-  <p class="hero-lede">A handful of simple shapes (circles, squares, triangles and arrows) to design, describe and explain data pipelines. Sketch it on a whiteboard, refine it in draw.io, or write it as text and let it draw itself.</p>
+  <p class="hero-lede">A handful of simple shapes (circles, squares, triangles and arrows) to design, describe and explain data pipelines. Sketch it on a whiteboard, or describe it in a few lines and let your docs, your CI or your AI agent draw it.</p>
   <div class="hero-actions">
     <a class="btn btn-primary" href="{{ '/notation.html' | relative_url }}">Learn the shapes</a>
-    <a class="btn" href="#write-it-as-text">Write it as text</a>
-    <a class="btn" href="#draw-it-in-a-tool">Get the drawing tools</a>
+    <a class="btn btn-primary" href="{{ '/diagrams-as-code.html' | relative_url }}">Diagrams as code</a>
+    <a class="btn" href="#draw-it-in-a-tool">Drawing tools</a>
   </div>
   <figure class="hero-figure">
     {% include diagram.html name="example_pipeline" alt="Example pipeline: a 'create report' trigger starts a data collector that reads items, statistics and user data, then an html_report_generator writes to the reports store" %}
@@ -26,6 +26,36 @@ Diagrams help when designing, describing or explaining how systems work. Pipelin
 The notation is *whiteboard proof*: everything can be drawn by hand in seconds, but it works just as well in Keynote, PowerPoint, OmniGraffle, Visio or draw.io.
 
 Models gradually stiffen during a design. Start at a high level with a couple of simple symbols, and add detail, like processor and data store types, once your architecture settles. That keeps the focus at the right level of abstraction.
+
+## Diagrams as code {#diagrams-as-code}
+
+Describe a diagram in a few lines, and let it draw itself: in Markdown next to your code, in CI from your own scripts, or in a chat with an AI agent.
+
+```pipeline
+trigger report manual "create report"
+store items D "items"
+processor collector PY "data collector"
+lambda generator JS "html_report_generator"
+store reports S3 "reports"
+
+report, items -> collector -A-> generator -> reports
+note collector "m4.xlarge"
+```
+
+<div class="shape-grid">
+  <a class="shape-card" href="{{ '/agents.html' | relative_url }}">
+    <span class="shape-name">For AI agents</span>
+    <span class="shape-desc">Claude and other agents draw, check and fix pipeline diagrams with an MCP server or a skill.</span>
+  </a>
+  <a class="shape-card" href="{{ '/install.html' | relative_url }}">
+    <span class="shape-name">npm install pipeline-diagrams</span>
+    <span class="shape-desc">JavaScript, command line, web pages, Markdown, GitHub and Obsidian. <em>Try it</em> in the browser.</span>
+  </a>
+  <a class="shape-card" href="{{ '/text-format.html' | relative_url }}">
+    <span class="shape-name">Language reference</span>
+    <span class="shape-desc">Every shape, flow, group and note, with live examples.</span>
+  </a>
+</div>
 
 ## What is a pipeline
 
@@ -69,29 +99,6 @@ If you can slap a name on a process between two data stores, it probably is, or 
 </div>
 
 There are also symbols for [user facing apps, humans, annotations, lists and grouping](misc.html), and a few [rules](rules.html) that keep diagrams readable. The [notation](notation.html) section has them all.
-
-## Write it as text {#write-it-as-text}
-
-Describe a diagram in a few lines, in Markdown, in a pull request or in a chat with an AI agent, and it draws itself:
-
-```pipeline
-trigger report manual "create report"
-store items D "items"
-processor collector PY "data collector"
-lambda generator JS "html_report_generator"
-store reports S3 "reports"
-
-report, items -> collector -A-> generator -> reports
-note collector "m4.xlarge"
-```
-
-The [text format](text-format.html) has every shape, flow, group and note of the notation. The npm package renders it:
-
-```sh
-npm install pipeline-diagrams
-```
-
-It works in JavaScript, on the command line, on any web page, in Markdown and Obsidian, on GitHub, and for agents through an MCP server. It also converts diagrams to Mermaid, for places that only render Mermaid. See [Install & tools](install.html), or [try it](install.html#try-it) right away.
 
 ## Draw it in a tool {#draw-it-in-a-tool}
 

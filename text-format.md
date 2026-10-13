@@ -1,15 +1,14 @@
 ---
 layout: page
-title: Text format
-nav_order: 4
-has_children: true
-has_toc: false
+title: Language reference
+parent: Diagrams as code
+nav_order: 3
 ---
 
-# Text format
+# Language reference
 {: .no_toc }
 
-A small text language for Pipeline Diagrams. You write the diagram as plain text, in a code block marked `pipeline` in Markdown or in an agent conversation, and a renderer draws it with the shapes from this site.
+The language of [diagrams as code](diagrams-as-code.html). You, a script or an AI agent describe the diagram as plain text, in a code block marked `pipeline`, and a renderer draws it with the shapes from this site.
 
 **Version 0.2.** Every example on this page is rendered live, right below its text, by the same code that renders it everywhere else. To render diagrams yourself, see [Install & tools](install.html): `npm install pipeline-diagrams`.
 

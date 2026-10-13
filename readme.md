@@ -1,14 +1,14 @@
 # Pipeline Diagrams
 
-Whiteboard-proof diagrams for data pipelines. A handful of simple shapes (circles, squares, triangles and arrows) to design, describe and explain how data moves through your systems. Sketch it on a whiteboard, refine it in draw.io, or write it as text and let it draw itself.
+Whiteboard-proof diagrams for data pipelines. A handful of simple shapes (circles, squares, triangles and arrows) to design, describe and explain how data moves through your systems. Sketch it on a whiteboard, or describe it in a few lines and let your docs, your CI or your AI agent draw it.
 
 <picture><source srcset="https://pipeline-diagrams.com/images/example_pipeline-dark.svg" media="(prefers-color-scheme: dark)"><img src="https://pipeline-diagrams.com/images/example_pipeline.svg" alt="Example pipeline: a 'create report' trigger starts a data collector that reads items, statistics and user data, then an html_report_generator writes to the reports store"></picture>
 
-**[pipeline-diagrams.com](https://pipeline-diagrams.com)** has the notation, the [text format](https://pipeline-diagrams.com/text-format.html), [install & tools](https://pipeline-diagrams.com/install.html) and the [drawing tools](https://pipeline-diagrams.com/templates.html).
+**[pipeline-diagrams.com](https://pipeline-diagrams.com)** has the notation, [diagrams as code](https://pipeline-diagrams.com/diagrams-as-code.html) (with [AI agents](https://pipeline-diagrams.com/agents.html), [install & tools](https://pipeline-diagrams.com/install.html) and the [language reference](https://pipeline-diagrams.com/text-format.html)), and the [drawing tools](https://pipeline-diagrams.com/templates.html).
 
-## Diagrams as text
+## Diagrams as code
 
-Describe a diagram in a few lines, in Markdown, in a pull request or in a chat with an AI agent:
+Describe a diagram in a few lines, and let it draw itself: in Markdown next to your code, in CI from your own scripts, or in a chat with an AI agent:
 
 ```pipeline
 trigger report manual "create report"
@@ -40,7 +40,7 @@ npx pipeline-diagrams diagram.pipeline out/       # out/diagram.svg and out/diag
 npx pipeline-diagrams diagram.pipeline --check    # errors and warnings only
 ```
 
-It also has a `<pipeline-diagram>` web component, markdown-it and remark plugins, an Obsidian plugin, a Markdown renderer for GitHub, and an MCP server for agents. See [Install & tools](https://pipeline-diagrams.com/install.html), and the [specification](https://pipeline-diagrams.com/text-format.html) for every feature of the format.
+It also has a `<pipeline-diagram>` web component, markdown-it and remark plugins, an Obsidian plugin, a Markdown renderer for GitHub, and an MCP server so AI agents can draw, check and fix diagrams themselves. See [For AI agents](https://pipeline-diagrams.com/agents.html), [Install & tools](https://pipeline-diagrams.com/install.html), and the [language reference](https://pipeline-diagrams.com/text-format.html) for every feature.
 
 ## The notation
 
@@ -75,7 +75,7 @@ This repository holds the website (Jekyll, deployed to [pipeline-diagrams.com](h
 | ---- | ---- |
 | `*.md` | the pages of the website |
 | `scripts/shapes.mjs` | the shapes, the single source for every image, template and diagram |
-| `scripts/pipeline-dsl.mjs` | the text format: parser, layout and SVG renderer |
+| `scripts/pipeline-dsl.mjs` | diagrams as code: parser, layout and SVG renderer |
 | `scripts/pipeline-mermaid.mjs` | the Mermaid converter and icon pack |
 | `scripts/pipeline-browser.mjs` | the `<pipeline-diagram>` element |
 | `scripts/render-pipeline.mjs`, `scripts/render-markdown.mjs` | the command line tools |
