@@ -23,3 +23,8 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+
+# Claude Code: .claude/ is shared (settings.json, CLAUDE.md, skills);
+# personal settings and agent worktrees stay local
+.claude/settings.local.json
+.claude/worktrees/
