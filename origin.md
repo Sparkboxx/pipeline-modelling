@@ -7,14 +7,14 @@ nav_order: 5
 # Origin story
 {: .no_toc }
 
-Pipeline Diagrams started as the "whiteboard friendly modelling method" in a team at trivago that built a lot of data pipelines, fast. After years of quiet use, we're reviving it, because it turns out to be just what AI agents and architecture discussions need.
+Pipeline Diagrams started more than ten years ago as the "whiteboard friendly modelling method", in a team at trivago that built a lot of data pipelines, fast. After years of quiet use, we're reviving it, because it turns out to be just what AI agents and architecture discussions need.
 
 1. TOC
 {:toc}
 
 ## A greenfield at trivago
 
-In 2019 trivago started a team in Amsterdam with one job: collect as much information about hotels as possible, and prepare it to feed the search engine. That meant many different data flows: extraction, text analysis, transformation, ranking, scoring, vectorising, and all kinds of other ways to improve the hotel search.
+In 2016 trivago started a team in Amsterdam with one job: collect as much information about hotels as possible, and prepare it to feed the search engine. That meant many different data flows: extraction, text analysis, transformation, ranking, scoring, vectorising, and all kinds of other ways to improve the hotel search.
 
 The content department that built these pipelines was in a unique position. Our work added to the core trivago systems, so we had something close to a greenfield in technology. Building up a large team from scratch, on a greenfield, was amazing. But it also meant we needed a good way to quickly sketch and organise our thoughts about pipelines and architectures.
 
