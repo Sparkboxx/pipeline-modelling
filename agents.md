@@ -2,7 +2,7 @@
 layout: page
 title: For AI agents
 parent: Diagrams as code
-nav_order: 1
+nav_order: 2
 ---
 
 # For AI agents
@@ -22,6 +22,10 @@ AI agents are good at reading code, infrastructure and docs, and explaining how 
 {: .steps }
 
 With the MCP server, the agent runs this loop on its own. Without it, it can run the same checks on the command line, or you paste the errors back.
+
+## In any chat, without tools
+
+An agent doesn't need tools, an MCP server or an install to draw a pipeline: it only writes the text. Give it the [guide](#any-other-agent-or-chat), and paste its `pipeline` block into the [offline viewer](browser.html#the-offline-viewer): one HTML file that draws the diagram on your own computer, with nothing sent anywhere. In chats that can show HTML pages, the agent can also [show the diagram itself](browser.html#in-an-agent-chat). This works in ordinary chat apps, and in environments where you can't install anything.
 
 ## Claude Code
 

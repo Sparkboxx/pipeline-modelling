@@ -2,7 +2,7 @@
 layout: page
 title: Language reference
 parent: Diagrams as code
-nav_order: 3
+nav_order: 4
 ---
 
 # Language reference

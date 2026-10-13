@@ -2,7 +2,7 @@
 layout: page
 title: Install & tools
 parent: Diagrams as code
-nav_order: 2
+nav_order: 3
 ---
 
 # Install & tools
@@ -13,6 +13,8 @@ Everything for [diagrams as code](diagrams-as-code.html) is in one npm package, 
 ```sh
 npm install pipeline-diagrams
 ```
+
+**Don't want to install anything?** The renderer also runs straight in your browser: the [offline viewer](browser.html#the-offline-viewer) is one HTML file, and one script tag works on any page. Your diagram never leaves your computer. See [In your browser](browser.html).
 
 1. TOC
 {:toc}

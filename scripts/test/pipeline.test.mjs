@@ -234,7 +234,7 @@ test("an empty diagram is a valid, empty SVG", () => {
 
 // every pipeline block in the docs must parse and render without errors
 test("all documented examples render", () => {
-  const files = ["text-format.md", "templates.md", "install.md", "index.md", "diagrams-as-code.md", "agents.md", "readme.md", "integrations/agent-guide.md"];
+  const files = ["text-format.md", "templates.md", "install.md", "index.md", "diagrams-as-code.md", "agents.md", "browser.md", "readme.md", "integrations/agent-guide.md"];
   let count = 0;
   for (const f of files) {
     const md = readFileSync(join(root, f), "utf8");
@@ -363,6 +363,15 @@ test("MCP server: initialize, list and call tools", async () => {
   assert.match(replies.get(5).result.content[0].text, /flowchart LR/);
   assert.match(replies.get(6).result.content[0].text, /# Pipeline Diagrams/);
   assert.equal(replies.get(7).error.code, -32601);
+});
+
+test("the offline viewer holds the renderer and loads nothing from outside", () => {
+  const html = readFileSync(join(root, "downloads/pipeline-diagrams-viewer.html"), "utf8");
+  assert.ok(html.includes(readFileSync(join(root, "assets/js/pipeline-diagrams.js"), "utf8")), "the bundle is inlined and up to date");
+  assert.doesNotMatch(html, /<(script|link|img|iframe)[^>]+(src|href)=/i, "no external scripts, styles, images or frames");
+  const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+  assert.equal(scripts.length, 2);
+  for (const js of scripts) new vm.Script(js); // both parse
 });
 
 test("generated files are up to date", () => {

@@ -88,7 +88,11 @@ note export "m5.large"
 
 ## When the diagram can't be rendered
 
-If the place you write to doesn't render `pipeline` blocks (GitHub, most chats), also give a Mermaid version, or only the Mermaid version. Convert it with the `pipeline_to_mermaid` tool when it is available, or by hand:
+If the place you write to doesn't render `pipeline` blocks (GitHub, most chats):
+
+- In a chat that can show HTML pages with scripts (artifacts, canvases), make a small HTML page that loads `https://cdn.jsdelivr.net/npm/pipeline-diagrams@0.2/assets/js/pipeline-diagrams.js` and puts the diagram text inside a `<pipeline-diagram>` element. It is drawn in the user's browser; nothing is sent anywhere.
+- Otherwise, tell the user they can paste the block into the offline viewer, https://pipeline-diagrams.com/downloads/pipeline-diagrams-viewer.html: one HTML file that draws it on their own computer.
+- Where Mermaid is shown (GitHub, many wikis), also give a Mermaid version. Convert it with the `pipeline_to_mermaid` tool when it is available, or by hand:
 
 - `processor x PY "name"` becomes `x@{ shape: circle, label: "PY<br>name" }`
 - `store x S3 "name"` becomes `x@{ shape: div-rect, label: "S3<br>name" }`
