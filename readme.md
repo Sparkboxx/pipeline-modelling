@@ -61,6 +61,10 @@ The notation is whiteboard proof: everything can be drawn by hand in seconds, bu
 
 There are also symbols for user facing apps, humans, annotations, lists and grouping, and letter codes for languages and data stores. See [the notation](https://pipeline-diagrams.com/notation.html).
 
+## Origin
+
+The method started in 2016 as the "whiteboard friendly modelling method" in trivago's content department in Amsterdam, a fast-growing team that built many data pipelines on a greenfield. Wilco van Duinkerken started it, Joost Ronkes Agerbeek documented it and trained people in it, and dozens of team members perfected it. We're reviving it now because it's a great fit for AI agents and architecture discussions. Read the [origin story](https://pipeline-diagrams.com/origin.html).
+
 ## Drawing tools
 
 - **draw.io:** [open draw.io with the shapes loaded](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fpipeline-diagrams.com%2Fdownloads%2Fpipeline-diagrams.drawio.xml), or use `File` > `Open Library from` > `URL` with `https://pipeline-diagrams.com/downloads/pipeline-diagrams.drawio.xml`.
