@@ -159,6 +159,12 @@
     "store-o": {
       "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">O</text>"
     },
+    "store-sm": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"17\" font-weight=\"700\" fill=\"currentColor\">SM</text>"
+    },
+    "store-ssm": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"10\" y=\"5\" width=\"44\" height=\"54\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M10 16H54\"/><text x=\"32\" y=\"38\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"Helvetica, Arial, sans-serif\" font-size=\"14\" font-weight=\"700\" fill=\"currentColor\">SSM</text>"
+    },
     "trigger": {
       "body": "<path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M32 5L60 58H4Z\"/>"
     },

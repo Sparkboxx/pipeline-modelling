@@ -154,9 +154,15 @@ A flow connects two shapes. The data flows in the direction of the arrow: `items
 | `<->` | Synchronous | Arrow heads on both ends |
 | `-A->` | Asynchronous | "A" on the line |
 | `-N->` | Streaming or evented | "N" on the line |
-| `-Q->` | Queued | Tick across the line |
+| `-Q->` | Queued, e.g. SQS | Tick across the line |
 
 Spaces around arrows are optional: `a->b` works too.
+
+A queue (like SQS) or a stream (like Kinesis) is a flow, not a shape: `orders -Q-> "order queue" billing`.
+
+### Requests and responses
+
+A call that gets an answer back is one synchronous flow, `api <-> db`, not two arrows. Two separate arrows make the answer loop back across the diagram. Plain flows both ways between the same two shapes give a warning that suggests `<->`.
 
 ### Reversed arrows
 
@@ -359,7 +365,8 @@ Warnings don't stop rendering:
 
 | Situation | Message |
 | --------- | ------- |
-| Unknown code | `line 3: unknown store code "S4". Known codes: D P S3 R RD RS M M. MC MS A MA PA O` |
+| Unknown code | `line 3: unknown store code "S4". Known codes: D P S3 R RD RS M M. MC MS A MA PA O SM SSM` |
+| Plain flows both ways | `line 4: flows go both ways between "api" and "db". For a request and its response, use one synchronous flow: api <-> db` |
 | Code on a kind that doesn't use one | `line 1: external doesn't use a code, so "X" is ignored` |
 | Extra words | `line 4: extra words are ignored: extra` |
 | Flow to itself | `line 2: a flow from "a" to itself is not drawn` |
