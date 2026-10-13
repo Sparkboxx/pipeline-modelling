@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Origin story
-nav_order: 5
+nav_order: 6
 ---
 
 # Origin story

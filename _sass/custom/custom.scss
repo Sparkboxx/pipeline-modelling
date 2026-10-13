@@ -614,3 +614,195 @@ pre:has(> code.language-pipeline) + pipeline-diagram {
     .o, .p, .pi, .w, .n, .err { color: var(--heading); background: none; }
   }
 }
+
+// --- Workshop: facilitator notes and slides (assets/js/slides.js) ----------------
+
+.main-content .notes {
+  border-left: 3px solid var(--border);
+  padding: 0.1rem 0 0.1rem 1rem;
+  color: var(--muted);
+
+  &::before {
+    content: "Facilitator";
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+.slides-only {
+  display: none;
+}
+
+.slides-start {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+
+  .slides-hint {
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+}
+
+pre.hidden-source {
+  display: none;
+
+  + pipeline-diagram {
+    border-top: 1px solid var(--border);
+    border-radius: 12px;
+    margin-top: 1rem;
+  }
+}
+
+.timebox {
+  display: inline-block;
+  background: var(--accent-soft);
+  color: var(--link);
+  border-radius: 999px;
+  padding: 0.1rem 0.7rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+html.deck-open {
+  overflow: hidden;
+}
+
+.deck {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.deck-stage {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  padding: 4vh 6vw 2vh;
+}
+
+.deck .slide {
+  --pd-max-height: 56vh;
+
+  margin: auto;
+  width: min(1150px, 100%);
+  font-size: clamp(18px, 1.9vw, 30px);
+  line-height: 1.45;
+
+  // the theme sets heading and table sizes with !important
+  h1 {
+    font-size: 2.6em !important;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin: 0 0 0.5em;
+  }
+
+  h2,
+  h3 {
+    font-size: 1.8em !important;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin: 0 0 0.6em;
+    padding: 0;
+    border: 0;
+  }
+
+  p,
+  li {
+    max-width: none;
+    font-size: 1em !important;
+  }
+
+  li {
+    margin-bottom: 0.35em;
+  }
+
+  .slides-only {
+    display: block;
+  }
+
+  table {
+    font-size: 1em !important;
+  }
+
+  th,
+  td {
+    font-size: 0.8em !important;
+  }
+
+  th,
+  td {
+    padding: 0.25em 0.8em;
+  }
+
+  td strong {
+    font-size: inherit;
+  }
+
+  img {
+    max-height: 52vh;
+  }
+
+  td img {
+    max-height: 11vh;
+    max-width: 16vw;
+  }
+
+  pipeline-diagram {
+    margin: 0 auto;
+  }
+
+  .timebox {
+    font-size: 0.7em;
+  }
+}
+
+.deck .slide-title,
+.deck .slide-section {
+  h1,
+  h2 {
+    font-size: 2.8em !important;
+  }
+}
+
+.deck .slide-section {
+  h2 {
+    color: var(--link);
+  }
+}
+
+.deck-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+
+  button {
+    font: inherit;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .deck-count {
+    min-width: 5em;
+    text-align: center;
+    color: var(--muted);
+  }
+}

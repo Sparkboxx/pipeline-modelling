@@ -1137,12 +1137,15 @@ function iconPack() {
 
 // Browser helpers for the text format, bundled into assets/js/pipeline-diagrams.js:
 //   <pipeline-diagram> ... text ... </pipeline-diagram>   or   <pipeline-diagram src="file.pipeline">
+//   <pipeline-diagram fit>  fills the available width (and at most --pd-max-height high)
 //   renderAll()  turns ```pipeline code blocks on a page into diagrams
 // The diagram lives in a shadow root, so its styles and the page's never mix.
 // It follows the reader's light or dark mode, and Obsidian's theme-dark class.
 
 const prefersDark = () => typeof matchMedia === "function" && matchMedia("(prefers-color-scheme: dark)").matches;
+// With the "fit" attribute the diagram fills the width, up to --pd-max-height.
 const SHADOW_CSS = ":host{display:block;overflow-x:auto}svg{display:block;max-width:100%;height:auto}"
+  + ":host([fit]) svg{width:100%;max-height:var(--pd-max-height,none)}"
   + ".pipeline-error{color:#cf222e;font:0.85rem/1.4 ui-monospace,monospace;white-space:pre-wrap;margin:0}"
   + "@media (prefers-color-scheme:dark){.pipeline-error{color:#f85149}}";
 

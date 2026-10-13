@@ -106,6 +106,17 @@ If you can slap a name on a process between two data stores, it probably is, or 
 
 There are also symbols for [user facing apps, humans, annotations, lists and grouping](misc.html), and a few [rules](rules.html) that keep diagrams readable. The [notation](notation.html) section has them all.
 
+## Training {#training}
+
+Teach your team the method in one session of two and a half hours, with pen and paper. The [workshop](workshop.html) takes groups from the basic shapes to their own pipelines: sketch a full pipeline, name every path, colour in what it really is, and ask what happens at ten times the data. The page doubles as the slides.
+
+<div class="shape-grid">
+  <a class="shape-card" href="{{ '/workshop.html' | relative_url }}">
+    <span class="shape-name">Workshop: pipelines on paper</span>
+    <span class="shape-desc">A hands-on session for teams: shapes, two sketching exercises, reviews and questions. Read it, or present it as slides.</span>
+  </a>
+</div>
+
 ## Draw it in a tool {#draw-it-in-a-tool}
 
 - **draw.io:** [open draw.io with the shapes loaded](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fpipeline-diagrams.com%2Fdownloads%2Fpipeline-diagrams.drawio.xml), or add the library to a diagram with `File` › `Open Library from` › `URL`, using `https://pipeline-diagrams.com/downloads/pipeline-diagrams.drawio.xml`.
