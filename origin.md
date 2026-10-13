@@ -7,12 +7,17 @@ nav_order: 5
 # Origin story
 {: .no_toc }
 
-Pipeline Diagrams started more than ten years ago as the "whiteboard friendly modelling method", in a team at trivago that built a lot of data pipelines, fast. After years of quiet use, we're reviving it, because it turns out to be just what AI agents and architecture discussions need.
+Pipeline Diagrams started more than ten years ago as the "whiteboard friendly modelling method", in a team at trivago that built a lot of data pipelines, fast. After years of quiet use, Wilco van Duinkerken is reviving it as an independent open source project, because it turns out to be just what AI agents and architecture discussions need.
+
+{: .note }
+> **Not a trivago product.** Pipeline Diagrams is an independent open source project by Wilco van Duinkerken. It is not trivago software, and it is not affiliated with, endorsed by or sponsored by trivago. trivago is mentioned on this page only because the method was first used there, and trivago is a trademark of its owner.
 
 1. TOC
 {:toc}
 
 ## A greenfield at trivago
+
+In this story, "we" is that team at trivago, back then.
 
 In 2016 trivago started a team in Amsterdam with one job: collect as much information about hotels as possible, and prepare it to feed the search engine. That meant many different data flows: extraction, text analysis, transformation, ranking, scoring, vectorising, and all kinds of other ways to improve the hotel search.
 
@@ -74,13 +79,15 @@ We also got good at spotting problems in the drawings: scalability issues, synch
 
 The first push for the method came from Wilco van Duinkerken. Joost Ronkes Agerbeek then documented it and trained people in it. Dozens of team members adopted it and perfected it. To this day, former team members use it to talk about data flows and architecture.
 
-## Why we're reviving it now
+Today, Pipeline Diagrams is maintained by Wilco van Duinkerken as an independent open source project, under the MIT license. Contributions are welcome on [GitHub](https://github.com/Sparkboxx/pipeline-modelling).
 
-After several years of rest, we're bringing the method back, for two reasons.
+## Why it's coming back now
+
+After several years of rest, the method is back as an independent open source project, for two reasons.
 
 **It's a great fit for AI agents.** Ask an agent to analyse a code base, or explain how data moves through it, and a pipeline diagram is the answer you can actually read. Because the method works at different depths, from a rough sketch to every queue and language, it isn't as overpowering as broader modelling methods. You can ask for the sketch first, and the details where you need them.
 
-**Architecture is the next frontier.** In many cases we're past writing all the code ourselves; agents do a lot of it. They happily build and add things in all kinds of directions. To give your agents direction, and keep them on the right path, you need to be able to draw and express an architecture, in a way that both you and the agent understand. A visual language that is also simple text does exactly that. That's why the notation now comes with [diagrams as code](diagrams-as-code.html), and works [with AI agents](agents.html).
+**Architecture is the next frontier.** Many developers no longer write all the code themselves; agents do a lot of it. They happily build and add things in all kinds of directions. To give your agents direction, and keep them on the right path, you need to be able to draw and express an architecture, in a way that both you and the agent understand. A visual language that is also simple text does exactly that. That's why the notation now comes with [diagrams as code](diagrams-as-code.html), and works [with AI agents](agents.html).
 
 <script src="{{ '/assets/js/pipeline-diagrams.js' | relative_url }}"></script>
 <script>

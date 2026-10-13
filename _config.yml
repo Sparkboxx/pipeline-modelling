@@ -56,3 +56,6 @@ callouts:
   origin:
     title: Origin of the symbol
     color: purple
+  note:
+    title: Note
+    color: blue
