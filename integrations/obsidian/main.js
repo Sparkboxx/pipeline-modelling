@@ -135,6 +135,16 @@ function external(cx, top, { w = 60, h = 60, name } = {}) {
   return s;
 }
 
+// internal system: (cx, top) anchored rectangle with one diagonal. Like an
+// external system it's a box we don't go into now, but it's ours: we can change it.
+function internal(cx, top, { w = 60, h = 60, name } = {}) {
+  const x = cx - w / 2;
+  let s = `<rect class="s" x="${f(x)}" y="${top}" width="${w}" height="${h}"/>`;
+  s += `<path class="s" d="M${f(x)} ${top}L${f(x + w)} ${top + h}"/>`;
+  if (name) s += label(cx, top + h + 18, name);
+  return s;
+}
+
 // user facing app: (cx, top) anchored square with a cross
 function app(cx, top, { w = 60, h = 60, name } = {}) {
   const x = cx - w / 2;
@@ -172,7 +182,7 @@ function human(cx, top, { name } = {}) {
 //   note collector -> reports "hourly"     a note on a flow
 
 const VERSION = "0.2.4";
-const KINDS = ["processor", "lambda", "store", "trigger", "other", "external", "app", "human", "list"];
+const KINDS = ["processor", "lambda", "store", "trigger", "other", "external", "internal", "app", "human", "list"];
 const KEYWORDS = [...KINDS, "title", "direction", "group", "note"];
 const SIDES = ["left", "right", "above", "below"];
 const ARROWS = {
@@ -192,7 +202,7 @@ const CODES = {
   trigger: ["M", "L", "E"],
 };
 const TRIGGER_ALIASES = { manual: "M", timed: "L", event: "E" };
-const NO_CODE = new Set(["external", "app", "human", "list"]);
+const NO_CODE = new Set(["external", "internal", "app", "human", "list"]);
 
 // --- helpers -------------------------------------------------------------------------
 
@@ -509,7 +519,7 @@ function measure(nd) {
   const [w, h] = {
     processor: [56, 56], lambda: [56, 56], store: [52, 60], trigger: [64, 60],
     other: [Math.max(108, textWidth(nd.code || "") * 1.3 + 28), 60],
-    external: [60, 60], app: [60, 60], human: [56, 62], list: [94, 40],
+    external: [60, 60], internal: [60, 60], app: [60, 60], human: [56, 62], list: [94, 40],
   }[nd.kind];
   const nameLines = nd.name ? nd.name.split("\n").length : 0;
   const list = nd.items?.length ? noteSize(nd.items) : null; // a list's members, in brackets below it
@@ -799,6 +809,7 @@ function shape(nd) {
     case "trigger": return trigger(cx, top, { w, h, ...o });
     case "other": return other(cx, top, { w, h, ...o });
     case "external": return external(cx, top, { w, h, name: nd.name });
+    case "internal": return internal(cx, top, { w, h, name: nd.name });
     case "app": return app(cx, top, { w, h, name: nd.name });
     case "human": return human(cx, top, { name: nd.name });
     case "list": {
@@ -1030,7 +1041,7 @@ const codeSlug = (code) =>
 
 // icon name in the pack for a shape, or null when the pack has no icon for it
 function iconName(nd) {
-  const base = { processor: "processor", lambda: "lambda", store: "store", trigger: "trigger", external: "external", app: "app", human: "human", list: "list" }[nd.kind];
+  const base = { processor: "processor", lambda: "lambda", store: "store", trigger: "trigger", external: "external", internal: "internal", app: "app", human: "human", list: "list" }[nd.kind];
   if (!base) return null;
   if (!nd.code) return base;
   return CODES[nd.kind]?.includes(nd.code) ? `${base}-${codeSlug(nd.code)}` : null;
@@ -1070,6 +1081,7 @@ function toMermaid(src, { icons = false } = {}) {
       case "trigger": return `${ind}${id}@{ shape: tri, label: ${q(textOf(nd) || " ")} }`;
       case "other": return `${ind}${id}@{ shape: rect, label: ${q(textOf(nd) || " ")} }`;
       case "external": return `${ind}${id}@{ shape: rect, label: ${q(nd.name || " ")} }\n${ind}class ${id} external`;
+      case "internal": return `${ind}${id}@{ shape: lin-rect, label: ${q(nd.name || " ")} }`;
       case "app": return `${ind}${id}@{ shape: win-pane, label: ${q(nd.name || " ")} }`;
       case "human": return `${ind}${id}@{ shape: stadium, label: ${q("👤 " + (nd.name || ""))} }`;
       case "list": return `${ind}${id}@{ shape: procs, label: ${q([nd.name, nd.items?.join(", ")].filter(Boolean).join("\n") || " ")} }`;
@@ -1121,6 +1133,7 @@ const BODIES = {
   store: (c) => `<rect ${S} x="10" y="5" width="44" height="54"/><path ${S} d="M10 16H54"/>${c ? text(c, 32, 38) : ""}`,
   trigger: (c) => `<path ${S} d="M32 5L60 58H4Z"/>${c ? text(c, 32, 42) : ""}`,
   external: () => `<rect x="7" y="7" width="50" height="50" fill="currentColor" fill-opacity="0.25" stroke="currentColor" stroke-width="2"/>`,
+  internal: () => `<rect ${S} x="7" y="7" width="50" height="50"/><path ${S} d="M7 7L57 57"/>`,
   app: () => `<rect ${S} x="7" y="7" width="50" height="50"/><path ${S} d="M7 7L57 57M57 7L7 57"/>`,
   human: () => `<circle ${S} cx="32" cy="17" r="12"/><path ${S} d="M9 59V50A23 18 0 0 1 55 50V59Z"/>`,
   list: () => [14, 26, 38, 50].map((x) => `<circle ${S} cx="${x}" cy="32" r="12"/>`).join(""),

@@ -73,6 +73,14 @@ test("trigger aliases", () => {
   assert.deepEqual(m.nodes.map((n) => n.code), ["M", "L", "E"]);
 });
 
+test("internal system: a kind without a code, drawn as a box with one diagonal", () => {
+  const m = parse('internal billing "billing service"\nexternal psp "payment provider"\nbilling -> psp');
+  assert.deepEqual(m.nodes.map((n) => [n.kind, n.name]), [["internal", "billing service"], ["external", "payment provider"]]);
+  assert.match(warningsOf("internal x X")[0], /internal doesn't use a code/);
+  const { light } = render('internal billing "billing service"');
+  assert.match(light, /<rect class="s"[^>]*\/><path class="s" d="M[-\d.]+ [-\d.]+L[-\d.]+ [-\d.]+"\/>/, "a rectangle plus one diagonal");
+});
+
 test("warnings: unknown codes, codes that are not used, extra words", () => {
   const w = warningsOf('external e X "e"\nprocessor p ZZ\nstore s S4\nprocessor q PY "q" extra');
   assert.match(w[0], /external doesn't use a code/);
@@ -269,7 +277,8 @@ test("Mermaid, icons: icon nodes for known codes, shapes otherwise", () => {
   assert.match(m, /k@\{ shape: rect, label: "KAFKA" \}/);
   const pack = iconPack();
   assert.equal(pack.prefix, "pd");
-  for (const name of ["processor", "processor-py", "processor-csharp", "lambda-js", "store-s3", "trigger-l", "external", "app", "human", "list"])
+  assert.match(toMermaid("internal billing"), /billing@\{ shape: lin-rect, label: "billing" \}/);
+  for (const name of ["processor", "processor-py", "processor-csharp", "lambda-js", "store-s3", "trigger-l", "external", "internal", "app", "human", "list"])
     assert.ok(pack.icons[name], name);
 });
 

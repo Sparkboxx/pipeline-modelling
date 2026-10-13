@@ -97,11 +97,16 @@ If you can slap a name on a process between two data stores, it probably is, or 
     <span class="shape-name">Other</span>
     <span class="shape-desc">A rectangle with the name of the system inside.</span>
   </a>
-  <div class="shape-card">
+  <a class="shape-card" href="{{ '/misc.html#external-and-internal-systems' | relative_url }}">
     <div class="shape-img">{% include diagram.html name="def_external" alt="" %}</div>
     <span class="shape-name">External</span>
-    <span class="shape-desc">A filled rectangle. A black box outside your boundaries.</span>
-  </div>
+    <span class="shape-desc">A box filled grey. Not the topic now, and you can't change it.</span>
+  </a>
+  <a class="shape-card" href="{{ '/misc.html#external-and-internal-systems' | relative_url }}">
+    <div class="shape-img">{% include diagram.html name="def_internal" alt="" %}</div>
+    <span class="shape-name">Internal</span>
+    <span class="shape-desc">A box with one diagonal line. Not the topic now, but yours: you can change it if you have to.</span>
+  </a>
 </div>
 
 There are also symbols for [user facing apps, humans, annotations, lists and grouping](misc.html), and a few [rules](rules.html) that keep diagrams readable. The [notation](notation.html) section has them all.

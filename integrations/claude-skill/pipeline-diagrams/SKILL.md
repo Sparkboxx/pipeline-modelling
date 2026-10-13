@@ -28,7 +28,8 @@ Shape kinds (the code is optional; the name goes below the shape and defaults to
 | `store` | data store | `S3` `D` (DynamoDB) `P` (Postgres) `M` (MySQL) `RS` (Redshift) `RD` (Redis) `MC` (Memcached) `SM` (Secrets Manager) `SSM` (SSM Parameter Store) `A` (Aurora) `O` (Oracle) |
 | `trigger` | triangle | `manual`, `timed` or `event` (or `M`, `L`, `E`) |
 | `other` | rectangle | the system name, drawn inside, e.g. `other kafka KAFKA "clicks"` |
-| `external` | grey box, a black box outside your boundary | none |
+| `external` | grey box: a system you don't go into and can't change (a payment provider, a partner API) | none |
+| `internal` | box with one diagonal line: a system of your own you don't go into now, but could change | none |
 | `app` | user facing app | none |
 | `human` | person | none |
 | `list` | several identical processors: `list workers "workers": a, b, c` | none |

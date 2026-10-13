@@ -18,7 +18,7 @@ Everything here is generated from the same shape definitions as the diagrams on 
 | Excalidraw library | excalidraw.com, Excalidraw+, Obsidian Excalidraw | [pipeline-diagrams.excalidrawlib]({{ '/downloads/pipeline-diagrams.excalidrawlib' | relative_url }}) |
 | Icon pack (SVG) | PowerPoint, Keynote, Miro, Lucidchart, Figma, FigJam, anything that takes SVG | [pipeline-diagrams-icons.zip]({{ '/downloads/pipeline-diagrams-icons.zip' | relative_url }}) |
 
-All three contain the same 19 shapes: processor, lambda processor, data store, the four triggers, the five flows, other, external, user facing app, human, annotation, list and grouping.
+All three contain the same 20 shapes: processor, lambda processor, data store, the four triggers, the five flows, other, external, internal, user facing app, human, annotation, list and grouping.
 
 ### draw.io
 

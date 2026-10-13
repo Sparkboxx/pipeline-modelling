@@ -26,6 +26,18 @@ By writing the name of the system in the rectangle you can use the label for an 
 
 {% include diagram.html name="def_misc_kafka" alt="Other" %}
 
+## External and internal systems
+
+Sometimes you don't want to go into a system right now: it's a box in the drawing, nothing more. There are two kinds, and the difference is whether you can change it.
+
+- **External system:** a box filled grey. You can't change it: a payment provider, a partner's API, another company's service.
+- **Internal system:** a box with one diagonal line. It's yours, and you could change it if you really had to: another team's service, a legacy application, the core platform.
+
+{% include diagram.html name="def_external" alt="External system: a box filled grey" %}
+{% include diagram.html name="def_internal" alt="Internal system: a box with one diagonal line" %}
+
+Both need a name. Don't confuse an internal system with a [user facing app](#user-facing-app): that box has a full cross, an internal system has only one diagonal.
+
 ## Humans
 
 It’s nice to be able to put some humans in a picture, especially when you add names or roles to the picture.

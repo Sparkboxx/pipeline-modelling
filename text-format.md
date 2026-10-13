@@ -110,7 +110,8 @@ kind id [CODE] ["name"]
 | `store` | Data store | Store type, e.g. `S3`, `D`, `RS` | `store raw S3 "raw clicks"` |
 | `trigger` | Triangle | `manual`, `timed`, `event` (or `M`, `L`, `E`) | `trigger nightly timed "nightly"` |
 | `other` | Rectangle | The system name, drawn inside | `other kafka KAFKA "clicks"` |
-| `external` | Grey filled rectangle | Not used | `external crm "CRM"` |
+| `external` | Grey filled rectangle: not the topic now, and you can't change it | Not used | `external crm "CRM"` |
+| `internal` | Rectangle with one diagonal line: not the topic now, but yours to change | Not used | `internal billing "billing service"` |
 | `app` | User facing app (square with a cross) | Not used | `app portal "report portal"` |
 | `human` | Human | Not used | `human analyst "analyst"` |
 | `list` | Overlapping circles, optionally with its members | Not used | `list workers "workers": a, b, c` |
@@ -122,11 +123,12 @@ store s S3 "store"
 trigger t timed "timed trigger"
 other k KAFKA "stream name"
 external e "external"
+internal i "internal"
 app a "user facing app"
 human h "human"
 list x "list"
 p -> l -> s
-t -> k -> e
+t -> k -> e -> i
 a -> h -> x
 ```
 
@@ -395,6 +397,7 @@ How the shapes translate:
 | `trigger x timed "name"` | `x@{ shape: tri, label: "L<br>name" }` |
 | `other x KAFKA "name"` | `x@{ shape: rect, label: "KAFKA<br>name" }` |
 | `external x "name"` | a grey `rect` |
+| `internal x "name"` | `lin-rect` |
 | `app x "name"` | `win-pane` |
 | `human x "name"` | `stadium` with 👤 |
 | `list x "name": a, b` | `procs`, with the members in the label |
@@ -426,7 +429,7 @@ title       = "title" string ;
 direction   = "direction" ( "LR" | "TB" | "TD" ) ;
 declaration = kind id [ code ] [ string ] [ ":" item { [ "," ] item } ] ;   (* code and string in any order; items only for list *)
 kind        = "processor" | "lambda" | "store" | "trigger" | "other"
-            | "external" | "app" | "human" | "list" ;
+            | "external" | "internal" | "app" | "human" | "list" ;
 flow        = ends arrow [ string ] ends { arrow [ string ] ends } [ string ] ;
 ends        = end { "," end } ;
 end         = id | "group" string ;

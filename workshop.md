@@ -37,6 +37,7 @@ Ask every group to bring a real system: a reporting job, an import, an event str
 | {% include diagram.html name="def_data_store" alt="Data store" %} | Data store: one table, bucket or collection |
 | {% include diagram.html name="def_trigger" alt="Trigger" %} | Trigger: what starts a pipeline |
 | {% include diagram.html name="def_external" alt="External system" %} | External system: something you don't own (a payment provider, a partner API) |
+| {% include diagram.html name="def_internal" alt="Internal system" %} | Internal system: yours, but not the topic now (you can change it if you have to) |
 | {% include diagram.html name="def_misc_human" alt="Human" %} | Human: someone who starts, reads or changes something |
 
 Keep the introduction short and visual: about two minutes per slide. People learn the shapes by using them in the first exercise, not by listening. Aim to start drawing within 20 minutes.
@@ -57,8 +58,8 @@ The read direction is the one people get wrong: code that queries a database fee
 
 {% include diagram.html name="example_pipeline" alt="Example pipeline: a 'create report' trigger starts a data collector that reads items, statistics and user data, then a report generator writes to the reports store" %}
 
-- Starts: trigger, human, external system or data store.
-- Ends: data store or external system.
+- Starts: trigger, human, data store, external or internal system.
+- Ends: data store, external or internal system.
 - A full pipeline solves one clear problem.
 
 ### Sketch first, colour in later
@@ -105,11 +106,11 @@ Exercise 1 is black only: no codes, no arrow marks yet.
 
 <span class="dot black" aria-label="black marker"></span><span class="timebox">30 minutes</span> Black marker.
 
-- <span class="icons">{% include icon.html name="trigger" alt="trigger" %}{% include icon.html name="human" alt="human" %}{% include icon.html name="external" alt="external system" %}{% include icon.html name="data-store" alt="data store" %}</span> Start: trigger, human, external system or data store.
+- <span class="icons">{% include icon.html name="trigger" alt="trigger" %}{% include icon.html name="human" alt="human" %}{% include icon.html name="data-store" alt="data store" %}{% include icon.html name="external" alt="external system" %}{% include icon.html name="internal" alt="internal system" %}</span> Start: trigger, human, data store, external or internal system.
 - <span class="icons">{% include icon.html name="processor" alt="processor" %}</span> Processed? Processor.
 - <span class="icons">{% include icon.html name="data-store" alt="data store" %}</span> Stored? One data store per table.
 - Too messy? One data store for the whole database first, split later.
-- <span class="icons">{% include icon.html name="data-store" alt="data store" %}{% include icon.html name="external" alt="external system" %}</span> End: data store or external system.
+- <span class="icons">{% include icon.html name="data-store" alt="data store" %}{% include icon.html name="external" alt="external system" %}{% include icon.html name="internal" alt="internal system" %}</span> End: data store, external or internal system.
 - Done when: it starts and ends right, and you can say what problem it solves.
 {: .icon-list }
 

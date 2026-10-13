@@ -11,7 +11,7 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { deflateRawSync, crc32 } from "node:zlib";
-import { THEMES, f, processor, store, trigger, flow, other, external, app, human, MARKS } from "./shapes.mjs";
+import { THEMES, f, processor, store, trigger, flow, other, external, internal, app, human, MARKS } from "./shapes.mjs";
 import { iconPack } from "./pipeline-mermaid.mjs";
 
 const out = process.argv[2] || "downloads";
@@ -37,6 +37,7 @@ const CATALOG = [
   { id: "flow-queued", title: "Queued flow", kind: "flow", mark: "Q" },
   { id: "other", title: "Other system", kind: "other" },
   { id: "external", title: "External system", kind: "external" },
+  { id: "internal", title: "Internal system", kind: "internal" },
   { id: "user-facing-app", title: "User facing app", kind: "app" },
   { id: "human", title: "Human", kind: "human" },
   { id: "annotation", title: "Annotation", kind: "annotation" },
@@ -46,7 +47,7 @@ const CATALOG = [
 
 // Placeholder text used in the editable libraries. Letter codes and names are
 // meant to be overwritten by the user.
-const NAME = { processor: "name", store: "name", external: "name", other: "name", app: "name", human: "name" };
+const NAME = { processor: "name", store: "name", external: "name", internal: "name", other: "name", app: "name", human: "name" };
 
 // --- icon pack -----------------------------------------------------------------
 // Clean SVGs without names: the shape only. Colors are inline attributes, not
@@ -76,6 +77,8 @@ function iconBody(e) {
       return [112, 64, other(56, 2, { w: 108, h: 60 })];
     case "external":
       return [64, 64, external(32, 2)];
+    case "internal":
+      return [64, 64, internal(32, 2)];
     case "app":
       return [64, 64, app(32, 2)];
     case "human":
@@ -245,6 +248,11 @@ function excalidrawItem(e) {
       base("rectangle", "shape", 0, 0, 60, 60, { backgroundColor: GREY, fillStyle: "solid" });
       name(30, 68);
       break;
+    case "internal":
+      base("rectangle", "shape", 0, 0, 60, 60);
+      line("diagonal", [[0, 0], [60, 60]]);
+      name(30, 68);
+      break;
     case "app":
       base("rectangle", "shape", 0, 0, 60, 60);
       line("x1", [[0, 0], [60, 60]]);
@@ -295,6 +303,7 @@ const STENCILS = {
   store: stencil(`<shape w="52" h="60" aspect="variable" strokewidth="inherit"><background><rect x="0" y="0" w="52" h="60"/></background><foreground><fillstroke/><path><move x="0" y="12"/><line x="52" y="12"/></path><stroke/></foreground></shape>`),
   lambda: stencil(`<shape w="60" h="60" aspect="fixed" strokewidth="inherit"><background><ellipse x="0" y="0" w="60" h="60"/></background><foreground><fillstroke/><path><move x="8.79" y="8.79"/><line x="51.21" y="51.21"/><move x="30" y="30"/><line x="8.79" y="51.21"/></path><stroke/></foreground></shape>`),
   app: stencil(`<shape w="60" h="60" aspect="variable" strokewidth="inherit"><background><rect x="0" y="0" w="60" h="60"/></background><foreground><fillstroke/><path><move x="0" y="0"/><line x="60" y="60"/><move x="60" y="0"/><line x="0" y="60"/></path><stroke/></foreground></shape>`),
+  internal: stencil(`<shape w="60" h="60" aspect="variable" strokewidth="inherit"><background><rect x="0" y="0" w="60" h="60"/></background><foreground><fillstroke/><path><move x="0" y="0"/><line x="60" y="60"/></path><stroke/></foreground></shape>`),
   human: stencil(`<shape w="56" h="62" aspect="fixed" strokewidth="inherit"><background><ellipse x="13" y="0" w="30" h="30"/></background><foreground><fillstroke/><path><move x="0" y="62"/><line x="0" y="50"/><arc rx="28" ry="22" x-axis-rotation="0" large-arc-flag="0" sweep-flag="1" x="56" y="50"/><line x="56" y="62"/><close/></path><fillstroke/></foreground></shape>`),
   list: stencil(`<shape w="102" h="48" aspect="fixed" strokewidth="inherit"><background><ellipse x="0" y="0" w="48" h="48"/></background><foreground><fillstroke/><ellipse x="18" y="0" w="48" h="48"/><fillstroke/><ellipse x="36" y="0" w="48" h="48"/><fillstroke/><ellipse x="54" y="0" w="48" h="48"/><fillstroke/></foreground></shape>`),
 };
@@ -331,6 +340,9 @@ function drawioEntry(e) {
       break;
     case "external":
       size = shape("", `rounded=0;fillColor=#d0d7de;${COMMON}`, 60, 60, 100);
+      break;
+    case "internal":
+      size = shape("", `${STENCILS.internal};${COMMON}`, 60, 60, 100);
       break;
     case "app":
       size = shape("", `${STENCILS.app};${COMMON}`, 60, 60, 100);

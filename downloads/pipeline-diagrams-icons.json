@@ -180,6 +180,9 @@
     "external": {
       "body": "<rect x=\"7\" y=\"7\" width=\"50\" height=\"50\" fill=\"currentColor\" fill-opacity=\"0.25\" stroke=\"currentColor\" stroke-width=\"2\"/>"
     },
+    "internal": {
+      "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"7\" y=\"7\" width=\"50\" height=\"50\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M7 7L57 57\"/>"
+    },
     "app": {
       "body": "<rect fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" x=\"7\" y=\"7\" width=\"50\" height=\"50\"/><path fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linejoin=\"round\" d=\"M7 7L57 57M57 7L7 57\"/>"
     },
