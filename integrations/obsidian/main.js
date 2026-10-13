@@ -181,7 +181,7 @@ function human(cx, top, { name } = {}) {
 //   note left reports "kept 90 days"       sides: left, right, above, below
 //   note collector -> reports "hourly"     a note on a flow
 
-const VERSION = "0.2.4";
+const VERSION = "0.2.5";
 const KINDS = ["processor", "lambda", "store", "trigger", "other", "external", "internal", "app", "human", "list"];
 const KEYWORDS = [...KINDS, "title", "direction", "group", "note"];
 const SIDES = ["left", "right", "above", "below"];
