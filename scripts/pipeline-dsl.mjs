@@ -17,7 +17,7 @@
 //   note collector -> reports "hourly"     a note on a flow
 import { THEMES, style, f, esc, label, bracket, head, MARKS, processor, store, trigger, other, external, app, human } from "./shapes.mjs";
 
-export const VERSION = "0.2.3";
+export const VERSION = "0.2.4";
 export const KINDS = ["processor", "lambda", "store", "trigger", "other", "external", "app", "human", "list"];
 export const KEYWORDS = [...KINDS, "title", "direction", "group", "note"];
 export const SIDES = ["left", "right", "above", "below"];

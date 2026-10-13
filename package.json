@@ -1,6 +1,6 @@
 {
   "name": "pipeline-diagrams",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Diagrams as code for data pipelines: generate whiteboard-proof diagrams from text in your docs, CI and AI agents. Renderer, Mermaid converter, web component, Markdown plugins and an MCP server.",
   "license": "MIT",
   "author": "Wilco van Duinkerken",
@@ -35,7 +35,8 @@
     "./html": "./integrations/html.mjs",
     "./markdown-it": "./integrations/markdown-it.mjs",
     "./remark": "./integrations/remark.mjs",
-    "./icons.json": "./downloads/pipeline-diagrams-icons.json"
+    "./icons.json": "./downloads/pipeline-diagrams-icons.json",
+    "./viewer.html": "./downloads/pipeline-diagrams-viewer.html"
   },
   "bin": {
     "pipeline-diagrams": "scripts/render-pipeline.mjs",
@@ -51,7 +52,8 @@
     "scripts/render-markdown.mjs",
     "assets/js/pipeline-diagrams.js",
     "integrations/",
-    "downloads/pipeline-diagrams-icons.json"
+    "downloads/pipeline-diagrams-icons.json",
+    "downloads/pipeline-diagrams-viewer.html"
   ],
   "scripts": {
     "test": "node --test scripts/test/*.test.mjs",

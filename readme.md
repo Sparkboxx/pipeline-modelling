@@ -4,7 +4,7 @@ Whiteboard-proof diagrams for data pipelines. A handful of simple shapes (circle
 
 <picture><source srcset="https://pipeline-diagrams.com/images/example_pipeline-dark.svg" media="(prefers-color-scheme: dark)"><img src="https://pipeline-diagrams.com/images/example_pipeline.svg" alt="Example pipeline: a 'create report' trigger starts a data collector that reads items, statistics and user data, then an html_report_generator writes to the reports store"></picture>
 
-**[pipeline-diagrams.com](https://pipeline-diagrams.com)** has the notation, [diagrams as code](https://pipeline-diagrams.com/diagrams-as-code.html) (with [AI agents](https://pipeline-diagrams.com/agents.html), [install & tools](https://pipeline-diagrams.com/install.html) and the [language reference](https://pipeline-diagrams.com/text-format.html)), and the [drawing tools](https://pipeline-diagrams.com/templates.html).
+**[pipeline-diagrams.com](https://pipeline-diagrams.com)** has the notation, [diagrams as code](https://pipeline-diagrams.com/diagrams-as-code.html) (in [your browser](https://pipeline-diagrams.com/browser.html), with [AI agents](https://pipeline-diagrams.com/agents.html), [install & tools](https://pipeline-diagrams.com/install.html) and the [language reference](https://pipeline-diagrams.com/text-format.html)), and the [drawing tools](https://pipeline-diagrams.com/templates.html).
 
 ## Diagrams as code
 
@@ -39,6 +39,8 @@ const mermaid = toMermaid(text);                // for GitHub, Notion and chats
 npx pipeline-diagrams diagram.pipeline out/       # out/diagram.svg and out/diagram-dark.svg
 npx pipeline-diagrams diagram.pipeline --check    # errors and warnings only
 ```
+
+**No install needed:** the renderer is one JavaScript file that runs in your browser. The [offline viewer](https://pipeline-diagrams.com/downloads/pipeline-diagrams-viewer.html) is a single HTML file that works without a network, and one script tag works on any page. Your diagram text never leaves your computer. See [In your browser](https://pipeline-diagrams.com/browser.html).
 
 It also has a `<pipeline-diagram>` web component, markdown-it and remark plugins, an Obsidian plugin, a Markdown renderer for GitHub, and an MCP server so AI agents can draw, check and fix diagrams themselves. See [For AI agents](https://pipeline-diagrams.com/agents.html), [Install & tools](https://pipeline-diagrams.com/install.html), and the [language reference](https://pipeline-diagrams.com/text-format.html) for every feature.
 

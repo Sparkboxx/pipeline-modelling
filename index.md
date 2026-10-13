@@ -29,7 +29,7 @@ Models gradually stiffen during a design. Start at a high level with a couple of
 
 ## Diagrams as code {#diagrams-as-code}
 
-Describe a diagram in a few lines, and let it draw itself: in Markdown next to your code, in CI from your own scripts, or in a chat with an AI agent.
+Describe a diagram in a few lines, and let it draw itself: in Markdown next to your code, in CI from your own scripts, or in a chat with an AI agent. It runs in your browser with nothing to install, and your diagram never leaves your computer.
 
 ```pipeline
 trigger report manual "create report"
@@ -43,6 +43,10 @@ note collector "m4.xlarge"
 ```
 
 <div class="shape-grid">
+  <a class="shape-card" href="{{ '/browser.html' | relative_url }}">
+    <span class="shape-name">In your browser</span>
+    <span class="shape-desc">Nothing to install, fully local. Download the offline viewer, or add one script tag.</span>
+  </a>
   <a class="shape-card" href="{{ '/agents.html' | relative_url }}">
     <span class="shape-name">For AI agents</span>
     <span class="shape-desc">Claude and other agents draw, check and fix pipeline diagrams with an MCP server or a skill.</span>
