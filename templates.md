@@ -104,6 +104,9 @@ One statement per line. `#` starts a comment.
 | `a, b -> c -> d "name"` | `items, stats -> collector` | Lists and chains. A quoted name at the end labels the last flow. |
 | `group "name": a b c` | `group "vpc": collector reports` | Dashed grouping box around the shapes. |
 | `title "text"` | `title "Reporting pipeline"` | Title for screen readers. |
+| `note id "text"` | `note collector "m4.xlarge\nmin: 0"` | Annotation next to a shape. End the line with `:` to put the text on indented lines below. |
+
+The [Text format](text-format.html) page has the full specification.
 
 Kinds: `processor`, `lambda`, `store`, `trigger`, `other` (the code is the text inside, e.g. `other kafka KAFKA "clicks"`), `external`, `app` (user facing app), `human` and `list`.
 

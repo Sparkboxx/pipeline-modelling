@@ -86,7 +86,7 @@ processor parser "parse\nclick events"   # comment after a statement
 | `kind id [CODE] ["name"]` | `store items S3 "items"` | <span class="label label-green">Available</span> |
 | `a ARROW b ["name"]` | `collector -A-> generator "nightly"` | <span class="label label-green">Available</span> |
 | `group "name": a b c` | `group "streaming": kafka enrich` | <span class="label label-green">Available</span> |
-| `note id "text"` | `note collector "m4.xlarge\nmin: 0, max: 10"` | <span class="label label-yellow">Proposed</span> |
+| `note id "text"` | `note collector "m4.xlarge\nmin: 0, max: 10"` | <span class="label label-green">Available</span> |
 | `direction LR` | `direction TB` | <span class="label label-yellow">Proposed</span> |
 
 ### Title
@@ -223,20 +223,52 @@ group "streaming" {
 
 ## Annotations
 
-<span class="label label-yellow">Proposed</span> The [annotation](misc.html#annotations) from the notation: bracketed text, connected to a shape by a line.
+<span class="label label-green">Available</span> `note` adds an [annotation](misc.html#annotations) to a shape: text between brackets, linked to the shape by a line.
 
-```text
-note collector "m4.xlarge\nmin: 0\nmax: 10"
+For a short note, put the text in quotes. `\n` starts a new line:
+
+```pipeline
+processor collector PY "data collector"
+note collector "m4.xlarge\nmin: 0, max: 10"
 ```
 
-Or, for longer notes, one line per item:
+For a longer note, end the line with a colon and put the text on the indented lines below. Each line is shown as it is, so the dashes are up to you:
 
-```text
-note collector:
+```pipeline
+processor workers "workers"
+note workers:
   - m4.xlarge
   - min: 0
   - max: 10
+  - AMI: ami-1234abcd
 ```
+
+The note ends at the first line that isn't indented, or at an empty line.
+
+**Placement is automatic.** A note goes to the right of its shape when nothing connects on that side, as in the notation. When flows leave the shape to the right, the note goes above it instead, so it never pushes the pipeline out of line:
+
+```pipeline
+trigger report M "create report"
+store items D "items"
+processor collector PY "data collector"
+lambda generator JS "html_report_generator"
+store reports S3 "reports"
+
+report -> collector
+items -> collector -A-> generator -> reports
+
+note collector "m4.xlarge\nmin: 0, max: 10"
+note reports:
+  - kept for 90 days
+  - public read
+```
+
+A shape can have more than one note; they stack. One note per shape reads best.
+
+<span class="label label-yellow">Proposed</span> changes:
+
+- **Notes on flows**, e.g. `note collector -> generator "every hour"`. Today a flow can only have a short name.
+- **A choice of side**, e.g. `note left collector "…"`, for the rare diagram where the automatic placement doesn't fit.
 
 ## Layout
 
@@ -269,6 +301,10 @@ There are no coordinates. Changing the order of statements can change the order 
 | Group without a name | `line 3: group needs a quoted name: group "name": a b c` |
 | Group member not declared | `line 3: group member "x" is not declared` |
 | Arrow without a side | `line 4: a flow needs something on both sides of the arrow` |
+| Note without a shape | `line 5: note needs the id of a shape: note collector "text"` |
+| Note on an undeclared id | `line 5: note on "x", which is not declared` |
+| Note without text | `line 5: note c needs text: note c "text", or end the line with ":" and indent the lines below it` |
+| Empty note block | `line 5: note c has no text. Indent the lines below it, or use: note c "text"` |
 
 <span class="label label-yellow">Proposed</span> changes:
 
@@ -303,7 +339,7 @@ For example, the basic level turns `store items D "items"` into `items@{ shape: 
 file        = { line "\n" } ;
 line        = [ statement ] [ comment ] ;
 comment     = "#" { any character } ;
-statement   = title | declaration | flow | group ;
+statement   = title | declaration | flow | group | note ;
 
 title       = "title" string ;
 declaration = kind id [ code ] [ string ] ;      (* code and string in any order *)
@@ -313,6 +349,8 @@ flow        = ids arrow ids { arrow ids } [ string ] ;
 ids         = id { "," id } ;
 arrow       = "->" | "<->" | "-A->" | "-N->" | "-Q->" ;    (* spaces around arrows *)
 group       = "group" string [ ":" ] id { [ "," ] id } ;
+note        = "note" id string
+            | "note" id ":" "\n" indented { "\n" indented } ;  (* indented: a line starting with a space or tab *)
 
 id          = word ;
 code        = word ;
@@ -332,7 +370,7 @@ The questions that shape the next version:
 6. **Spaces around arrows.** Keep them required, or allow `a->b`?
 7. **Flow names in chains.** Last arrow only (today), or allow a name in the middle?
 8. **Groups.** Keep `group "name": a b`, add the block syntax, or both? Nested groups?
-9. **Annotations and list members.** Add them in the next version?
+9. **List members.** Add `list name: a, b, c` in the next version? (Annotations are now available.)
 10. **Unknown codes and extra words.** Ignore them, warn, or fail?
 11. **Mermaid fallback.** Basic level only, or also the icon pack?
 

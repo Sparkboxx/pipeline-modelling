@@ -163,6 +163,10 @@ function human(cx, top, { name } = {}) {
 //   items, stats -> collector -> reports chains and lists
 //   collector -A-> reports "nightly"     optional flow name
 //   group "reporting pipeline": collector reports
+//   note collector "m4.xlarge\nmin: 0"     annotation, or as a block:
+//   note collector:
+//     - m4.xlarge
+//     - min: 0
 
 const KINDS = ["processor", "lambda", "store", "trigger", "other", "external", "app", "human", "list"];
 const ARROWS = { "->": {}, "<->": { both: true }, "-A->": { mark: "A" }, "-N->": { mark: "N" }, "-Q->": { mark: "Q" } };
@@ -170,19 +174,35 @@ const ARROWS = { "->": {}, "<->": { both: true }, "-A->": { mark: "A" }, "-N->":
 // --- parser ------------------------------------------------------------------------
 
 function parse(src) {
-  const nodes = new Map(), edges = [], groups = [];
+  const nodes = new Map(), edges = [], groups = [], notes = [];
   let title = "Pipeline diagram";
+  let block = null; // the note whose indented lines we are reading
   const fail = (n, msg) => { throw new Error(`line ${n}: ${msg}`); };
   src.split("\n").forEach((raw, i) => {
     const n = i + 1;
     // strip comments outside quotes
     const line = raw.replace(/("[^"]*")|#.*$/g, (m, q) => q || "").trim();
+    if (block && /^\s/.test(raw) && line) { block.lines.push(line); return; }
+    if (block && !block.lines.length) fail(block.line, `note ${block.target} has no text. Indent the lines below it, or use: note ${block.target} "text"`);
+    block = null;
     if (!line) return;
     const tokens = line.match(/"[^"]*"|<->|-[ANQ]->|->|,|:|[^\s,:"]+/g);
     const unq = (t) => t.replace(/^"|"$/g, "").replace(/\\n/g, "\n");
     const head = tokens[0];
 
     if (head === "title") { title = unq(tokens[1] || ""); return; }
+    if (head === "note") {
+      const target = tokens[1];
+      if (!target || /^"/.test(target)) fail(n, 'note needs the id of a shape: note collector "text"');
+      const text = tokens.slice(2).find((t) => /^"/.test(t));
+      const note = { target, lines: text ? unq(text).split("\n") : [], line: n };
+      notes.push(note);
+      if (!text) {
+        if (tokens[2] !== ":") fail(n, `note ${target} needs text: note ${target} "text", or end the line with ":" and indent the lines below it`);
+        block = note;
+      }
+      return;
+    }
     if (head === "group") {
       if (!/^"/.test(tokens[1] || "")) fail(n, 'group needs a quoted name: group "name": a b c');
       const members = tokens.slice(2).filter((t) => t !== ":" && t !== ",");
@@ -214,16 +234,22 @@ function parse(src) {
         edges.push({ from: a, to: b, ...op, name: k === ops.length - 1 ? name : "", line: n });
     });
   });
+  if (block && !block.lines.length) fail(block.line, `note ${block.target} has no text. Indent the lines below it, or use: note ${block.target} "text"`);
   for (const e of edges)
     for (const id of [e.from, e.to])
       if (!nodes.has(id)) fail(e.line, `"${id}" is not declared. Add e.g.: processor ${id} "${id}"`);
   for (const g of groups)
     for (const id of g.members) if (!nodes.has(id)) fail(g.line, `group member "${id}" is not declared`);
+  for (const nt of notes) {
+    if (!nodes.has(nt.target)) fail(nt.line, `note on "${nt.target}", which is not declared`);
+    (nodes.get(nt.target).notes ||= []).push(nt.lines);
+  }
   return { title, nodes: [...nodes.values()], edges, groups };
 }
 
 // --- sizes -------------------------------------------------------------------------
 
+const NOTE_DX = 18, NOTE_GAP = 12;
 const textWidth = (s) => Math.max(0, ...String(s).split("\n").map((l) => l.length * 7));
 
 function size(nd) {
@@ -234,7 +260,11 @@ function size(nd) {
   }[nd.kind];
   const lines = nd.name ? nd.name.split("\n").length : 0;
   const below = lines ? 8 + lines * 15 : 0; // room for the name under the shape
-  return { w, h, below, span: Math.max(w, textWidth(nd.name || "")) };
+  // notes stack above the shape, starting a little right of its centre
+  const notes = (nd.notes || []).map((ls) => ({ lines: ls, w: Math.max(80, textWidth(ls.join("\n")) * 1.05 + 32), h: ls.length * 19 + 15 }));
+  const above = notes.reduce((sum, nt) => sum + nt.h + NOTE_GAP, 0);
+  const half = Math.max(w, textWidth(nd.name || "")) / 2;
+  return { w, h, below, above, notes, left: half, right: Math.max(half, ...notes.map((nt) => NOTE_DX + nt.w)) };
 }
 
 // --- layout ------------------------------------------------------------------------
@@ -270,6 +300,19 @@ function layout(model) {
   for (const nd of nodes)
     if (!inc.get(nd.id).length && out.get(nd.id).length) rank.set(nd.id, Math.min(...out.get(nd.id).map((t) => rank.get(t))) - 1);
 
+  // a note goes to the right of its shape when nothing connects there (like the
+  // annotation in the notation), and above it otherwise, so flows stay clear
+  for (const nd of nodes) {
+    if (!nd.notes.length) continue;
+    const r = rank.get(nd.id);
+    if (edges.some((e) => (e.from === nd.id && rank.get(e.to) > r) || (e.to === nd.id && rank.get(e.from) > r))) continue;
+    const total = nd.notes.reduce((sum, nt) => sum + nt.h, 0) + NOTE_GAP * (nd.notes.length - 1);
+    nd.noteX = Math.max(nd.w / 2 + 40, nd.left + 12);
+    nd.above = Math.max(0, total / 2 - nd.h / 2);
+    nd.below = Math.max(nd.below, total / 2 - nd.h / 2);
+    nd.right = nd.noteX + Math.max(...nd.notes.map((nt) => nt.w));
+  }
+
   const nr = Math.max(0, ...rank.values()) + 1;
   const cols = Array.from({ length: nr }, () => []);
   nodes.forEach((nd) => cols[rank.get(nd.id)].push(nd));
@@ -287,15 +330,15 @@ function layout(model) {
   const GAP_X = 64, GAP_Y = 34;
   let x = 0;
   for (const c of cols) {
-    const w = Math.max(...c.map((nd) => nd.span), 40);
-    c.forEach((nd) => (nd.cx = x + w / 2));
-    x += w + GAP_X;
+    const wl = Math.max(...c.map((nd) => nd.left), 20), wr = Math.max(...c.map((nd) => nd.right), 20);
+    c.forEach((nd) => (nd.cx = x + wl));
+    x += wl + wr + GAP_X;
   }
   // y: stack, then relax toward neighbours while keeping order and spacing
-  const ext = (nd) => [nd.h / 2, nd.h / 2 + nd.below];
+  const ext = (nd) => [nd.h / 2 + nd.above, nd.h / 2 + nd.below];
   for (const c of cols) {
     let y = 0;
-    for (const nd of c) { nd.cy = y + nd.h / 2; y += nd.h + nd.below + GAP_Y; }
+    for (const nd of c) { nd.cy = y + nd.above + nd.h / 2; y += nd.above + nd.h + nd.below + GAP_Y; }
     const mid = (y - GAP_Y) / 2;
     c.forEach((nd) => (nd.cy -= mid));
   }
@@ -339,11 +382,11 @@ function layout(model) {
     if (!next) return;
     const steep = Math.max(0, ...dag.filter((e) => c.includes(by.get(e.from)) && next.includes(by.get(e.to)))
       .map((e) => Math.abs(by.get(e.from).cy - by.get(e.to).cy)));
-    const left = Math.max(...c.map((nd) => nd.span)) / 2, right = Math.max(...next.map((nd) => nd.span)) / 2;
+    const left = Math.max(...c.map((nd) => nd.right)), right = Math.max(...next.map((nd) => nd.left));
     shift += Math.max(0, steep * 0.75 - (GAP_X + left + right) + 60);
   });
   // move to the origin and snap to whole pixels, so straight chains stay straight
-  const x0 = Math.min(...nodes.map((nd) => nd.cx - nd.span / 2)), y0 = Math.min(...nodes.map((nd) => nd.cy - nd.h / 2));
+  const x0 = Math.min(...nodes.map((nd) => nd.cx - nd.left)), y0 = Math.min(...nodes.map((nd) => nd.cy - nd.h / 2 - nd.above));
   nodes.forEach((nd) => { nd.cx = Math.round(nd.cx - x0); nd.cy = Math.round(nd.cy - y0); });
   return model;
 }
@@ -397,8 +440,8 @@ function render(src, { pad = 24 } = {}) {
   // groups first, so they sit behind everything
   const boxes = model.groups.map((g) => {
     const ms = g.members.map((id) => by.get(id));
-    const x0 = Math.min(...ms.map((m) => m.cx - m.span / 2)) - 16, x1 = Math.max(...ms.map((m) => m.cx + m.span / 2)) + 16;
-    const y0 = Math.min(...ms.map((m) => m.cy - m.h / 2)) - 16, y1 = Math.max(...ms.map((m) => m.cy + m.h / 2 + m.below)) + 12;
+    const x0 = Math.min(...ms.map((m) => m.cx - m.left)) - 16, x1 = Math.max(...ms.map((m) => m.cx + m.right)) + 16;
+    const y0 = Math.min(...ms.map((m) => m.cy - m.h / 2 - m.above)) - 16, y1 = Math.max(...ms.map((m) => m.cy + m.h / 2 + m.below)) + 12;
     return { g, x0, x1, y0, y1 };
   });
   for (const { g, x0, x1, y0, y1 } of boxes) {
@@ -406,6 +449,21 @@ function render(src, { pad = 24 } = {}) {
     body += `<text class="t" x="${f(x1)}" y="${f(y0 - 8)}" text-anchor="end" style="font-weight:600">${esc(g.name)}</text>`;
   }
   for (const nd of model.nodes) body += shape(nd);
+  // notes: brackets to the right of the shape or stacked above it, each linked
+  // to the shape by a plain line
+  for (const nd of model.nodes) {
+    const total = nd.notes.reduce((sum, nt) => sum + nt.h, 0) + NOTE_GAP * (nd.notes.length - 1);
+    let top = nd.cy - total / 2, bottom = nd.cy - nd.h / 2 - NOTE_GAP;
+    for (const nt of nd.notes) {
+      const right = nd.noteX !== undefined;
+      const x = nd.cx + (right ? nd.noteX : NOTE_DX), y0 = right ? top : bottom - nt.h, y = y0 + nt.h / 2;
+      body += bracket(x, y0, nt.w, nt.h, nt.lines);
+      const [x1, y1] = boundary(nd, x, y, 2);
+      body += flow(x1, y1, x, y, { none: true });
+      top += nt.h + NOTE_GAP;
+      bottom = y0 - NOTE_GAP;
+    }
+  }
   for (const e of model.edges) {
     const a = by.get(e.from), b = by.get(e.to);
     if (a === b) continue;
@@ -416,7 +474,7 @@ function render(src, { pad = 24 } = {}) {
 
   // fit the view box around everything
   const xs = [], ys = [];
-  for (const nd of model.nodes) xs.push(nd.cx - nd.span / 2, nd.cx + nd.span / 2), ys.push(nd.cy - nd.h / 2, nd.cy + nd.h / 2 + nd.below);
+  for (const nd of model.nodes) xs.push(nd.cx - nd.left, nd.cx + nd.right), ys.push(nd.cy - nd.h / 2 - nd.above, nd.cy + nd.h / 2 + nd.below);
   for (const b of boxes) xs.push(b.x0, b.x1), ys.push(b.y0 - 24, b.y1);
   const minX = Math.min(...xs) - pad, minY = Math.min(...ys) - pad;
   const W = Math.ceil(Math.max(...xs) + pad - minX), H = Math.ceil(Math.max(...ys) + pad - minY);
