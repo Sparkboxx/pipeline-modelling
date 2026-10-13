@@ -1,7 +1,8 @@
 ---
 layout: page
 title: Data Storage
-nav_order: 4
+parent: Notation
+nav_order: 3
 ---
 
 # Data Storage

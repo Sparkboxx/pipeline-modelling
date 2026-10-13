@@ -1,7 +1,8 @@
 ---
 layout: page
 title: Processors
-nav_order: 2
+parent: Notation
+nav_order: 1
 ---
 
 # Processors

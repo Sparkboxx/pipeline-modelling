@@ -8,10 +8,11 @@ permalink: /
 <div class="hero">
   <p class="hero-eyebrow">Whiteboard-proof diagrams for data pipelines</p>
   <h1 class="hero-title">Draw data pipelines<br>everyone can read.</h1>
-  <p class="hero-lede">A handful of simple shapes (circles, squares, triangles and arrows) to design, describe and explain data pipelines. Sketch it on a whiteboard, refine it in draw.io.</p>
+  <p class="hero-lede">A handful of simple shapes (circles, squares, triangles and arrows) to design, describe and explain data pipelines. Sketch it on a whiteboard, refine it in draw.io, or write it as text and let it draw itself.</p>
   <div class="hero-actions">
-    <a class="btn btn-primary" href="{{ '/processors.html' | relative_url }}">Learn the shapes</a>
-    <a class="btn" href="#use-it-in-drawio">Get the draw.io library</a>
+    <a class="btn btn-primary" href="{{ '/notation.html' | relative_url }}">Learn the shapes</a>
+    <a class="btn" href="#write-it-as-text">Write it as text</a>
+    <a class="btn" href="#draw-it-in-a-tool">Get the drawing tools</a>
   </div>
   <figure class="hero-figure">
     {% include diagram.html name="example_pipeline" alt="Example pipeline: a 'create report' trigger starts a data collector that reads items, statistics and user data, then an html_report_generator writes to the reports store" %}
@@ -67,17 +68,40 @@ If you can slap a name on a process between two data stores, it probably is, or 
   </div>
 </div>
 
-There are also symbols for [user facing apps, humans, annotations, lists and grouping](misc.html), and a few [rules](rules.html) that keep diagrams readable.
+There are also symbols for [user facing apps, humans, annotations, lists and grouping](misc.html), and a few [rules](rules.html) that keep diagrams readable. The [notation](notation.html) section has them all.
 
-## Use it in draw.io {#use-it-in-drawio}
+## Write it as text {#write-it-as-text}
 
-All shapes are available as a [draw.io](https://app.diagrams.net) library. The quickest way: [open draw.io with the library loaded](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fpipeline-diagrams.com%2Fdownloads%2Fpipeline-diagrams.drawio.xml).
+Describe a diagram in a few lines, in Markdown, in a pull request or in a chat with an AI agent, and it draws itself:
 
-Or add it to a diagram yourself:
+```pipeline
+trigger report manual "create report"
+store items D "items"
+processor collector PY "data collector"
+lambda generator JS "html_report_generator"
+store reports S3 "reports"
 
-1. Go to [draw.io](https://app.diagrams.net) and create a new diagram.
-2. From the menu bar, select `File` › `Open Library from` › `URL`.
-3. Enter `https://pipeline-diagrams.com/downloads/pipeline-diagrams.drawio.xml`.
-{: .steps }
+report, items -> collector -A-> generator -> reports
+note collector "m4.xlarge"
+```
 
-The shapes appear in a new section of the shapes panel on the left. Libraries for Excalidraw and an icon pack for PowerPoint, Keynote and Miro are on the [Templates & tools](templates.html) page.
+The [text format](text-format.html) has every shape, flow, group and note of the notation. The npm package renders it:
+
+```sh
+npm install pipeline-diagrams
+```
+
+It works in JavaScript, on the command line, on any web page, in Markdown and Obsidian, on GitHub, and for agents through an MCP server. It also converts diagrams to Mermaid, for places that only render Mermaid. See [Install & tools](install.html), or [try it](install.html#try-it) right away.
+
+## Draw it in a tool {#draw-it-in-a-tool}
+
+- **draw.io:** [open draw.io with the shapes loaded](https://app.diagrams.net/?splash=0&clibs=Uhttps%3A%2F%2Fpipeline-diagrams.com%2Fdownloads%2Fpipeline-diagrams.drawio.xml), or add the library to a diagram with `File` › `Open Library from` › `URL`, using `https://pipeline-diagrams.com/downloads/pipeline-diagrams.drawio.xml`.
+- **Excalidraw:** a library for the whiteboard feel.
+- **PowerPoint, Keynote, Miro, Figma:** an icon pack.
+
+All of them are on the [Drawing tools](templates.html) page.
+
+<script src="{{ '/assets/js/pipeline-diagrams.js' | relative_url }}"></script>
+<script>
+if (window.PipelineDiagrams) window.PipelineDiagrams.renderAll("pre > code.language-pipeline");
+</script>
