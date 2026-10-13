@@ -45,7 +45,7 @@ Once everyone agrees on that design, you ask the next questions. Does the data g
 ```pipeline
 trigger arrival event "new hotel data"
 store raw S3 "raw hotel data"
-lambda analyse PY "text analysis"
+processor analyse PY "text analysis"
 list scorers "scoring": quality, location, reviews
 other search ELASTIC "search index"
 
