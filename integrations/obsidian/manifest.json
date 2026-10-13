@@ -1,0 +1,10 @@
+{
+  "id": "pipeline-diagrams",
+  "name": "Pipeline Diagrams",
+  "version": "0.2.0",
+  "minAppVersion": "1.0.0",
+  "description": "Draw data pipelines from ```pipeline code blocks, with the shapes from pipeline-diagrams.com.",
+  "author": "Sparkboxx",
+  "authorUrl": "https://pipeline-diagrams.com",
+  "isDesktopOnly": false
+}
