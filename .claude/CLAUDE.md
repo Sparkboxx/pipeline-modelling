@@ -3,15 +3,15 @@
 Whiteboard-proof diagrams for data pipelines. This repository is two things:
 
 - **The website** at https://pipeline-diagrams.com: Jekyll with the just-the-docs theme, built and deployed by GitHub Actions (`.github/workflows/pages.yml`) on every push to `master`.
-- **The npm package** [`pipeline-diagrams`](https://www.npmjs.com/package/pipeline-diagrams): the text format's parser, layout and SVG renderer, a Mermaid converter, a web component, Markdown plugins, command line tools and an MCP server. No dependencies.
+- **The npm package** [`pipeline-diagrams`](https://www.npmjs.com/package/pipeline-diagrams): diagrams as code: the parser, layout and SVG renderer, a Mermaid converter, a web component, Markdown plugins, command line tools and an MCP server. No dependencies.
 
 ## Where things are
 
 | Path | What |
 | ---- | ---- |
-| `*.md` | the website's pages; `text-format.md` is the specification of the text format |
+| `*.md` | the website's pages; `diagrams-as-code.md` introduces diagrams as code, `agents.md` covers AI agents, `install.md` the package and tools, and `text-format.md` is the language reference |
 | `scripts/shapes.mjs` | the shapes: the single source for every image, template and rendered diagram |
-| `scripts/pipeline-dsl.mjs` | the text format: parser, layout, SVG renderer |
+| `scripts/pipeline-dsl.mjs` | the language: parser, layout, SVG renderer |
 | `scripts/pipeline-mermaid.mjs` | Mermaid converter and the "pd" icon pack |
 | `scripts/pipeline-browser.mjs` | `<pipeline-diagram>` element and `renderAll` |
 | `scripts/render-pipeline.mjs`, `scripts/render-markdown.mjs` | command line tools (also the package's `bin`) |
@@ -35,7 +35,7 @@ A test fails when the browser bundle is out of date, and every `pipeline` block 
 - **Diagrams on the site:** every image exists as `name.svg` (light) and `name-dark.svg`. Show them with `{% include diagram.html name="..." alt="..." %}`, never with `![]()`: Safari ignores dark-mode media queries inside an SVG used as an image, so the page picks the file with `<picture>`.
 - **Inline scripts in pages:** the theme compresses each page's HTML onto very few lines. A `//` comment then comments out the rest of the script: use `/* */`. Line breaks survive in `<pre>` and code blocks, but not in a `<textarea>`: put starting text in a hidden code block and copy it in with JavaScript (see `install.md`).
 - **Live examples:** a ```` ```pipeline ```` block on a page is drawn by `PipelineDiagrams.renderAll()` when the page loads the bundle and calls it (see `text-format.md`).
-- **Text format changes:** update the parser, the specification (`text-format.md`, including the grammar and the error tables), the agent guide, and the tests together.
+- **Language changes:** update the parser, the language reference (`text-format.md`, including the grammar and the error tables), the agent guide, and the tests together.
 - **Writing:** plain, short sentences, as on the existing pages. Name things the way the notation does: processor, data store, trigger, flow.
 - **Commits and pull requests:** work on a branch and open a pull request against `master`; CI builds the site and runs the tests.
 

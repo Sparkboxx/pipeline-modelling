@@ -3,9 +3,9 @@ name: pipeline-diagrams
 description: Draw data pipeline diagrams (processors, data stores, triggers, flows, groups) with the Pipeline Diagrams text format in a ```pipeline code block. Use when asked to draw, sketch, model or explain a data pipeline, ETL job, event stream or data flow between systems.
 ---
 
-# Pipeline Diagrams: text format for agents
+# Pipeline Diagrams: diagrams as code for agents
 
-Use this format to draw data pipelines: where data comes from, what processes it, and where it is stored. Write it in a code block marked `pipeline`. The full specification is at https://pipeline-diagrams.com/text-format.html.
+Use this language to draw data pipelines: where data comes from, what processes it, and where it is stored. Write it in a code block marked `pipeline`. The full language reference is at https://pipeline-diagrams.com/text-format.html.
 
 ## The format
 
