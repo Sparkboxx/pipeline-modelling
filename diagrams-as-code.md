@@ -59,6 +59,10 @@ The renderer is one small JavaScript file that runs in your browser. You don't n
     <span class="shape-name">For AI agents</span>
     <span class="shape-desc">Let Claude or any other agent draw and check pipelines, with an MCP server, a skill or a one-page guide.</span>
   </a>
+  <a class="shape-card" href="{{ '/prompts.html' | relative_url }}">
+    <span class="shape-name">Useful prompts</span>
+    <span class="shape-desc">Copy a prompt, and get a map of every data flow in a repository from one agentic loop.</span>
+  </a>
   <a class="shape-card" href="{{ '/install.html' | relative_url }}">
     <span class="shape-name">Install &amp; tools</span>
     <span class="shape-desc">The npm package: JavaScript, command line, web pages, Markdown, GitHub and Obsidian. Try it in the browser.</span>

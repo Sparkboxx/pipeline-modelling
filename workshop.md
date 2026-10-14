@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Workshop
-nav_order: 4
+nav_order: 5
 ---
 
 # Workshop: pipelines on paper
