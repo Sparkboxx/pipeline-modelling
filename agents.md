@@ -86,6 +86,8 @@ npx -y pipeline-diagrams diagram.pipeline out/      # out/diagram.svg and out/di
 
 ## Things to ask
 
+For a full map of every data flow in a repository from one prompt, see [Useful prompts](prompts.html#one-shot-value).
+
 - "Read the jobs in `pipelines/` and draw how data flows between them as a `pipeline` diagram in `docs/architecture.md`."
 - "Here is our Airflow DAG. Draw it as a pipeline diagram, with the schedule of each task as a note."
 - "Draw the services in `infra/` that touch customer data, and group them by AWS account."
