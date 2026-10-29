@@ -1,0 +1,19 @@
+{
+  "name": "pipeline-diagrams",
+  "owner": {
+    "name": "Wilco van Duinkerken",
+    "url": "https://www.sparkboxx.com"
+  },
+  "metadata": {
+    "description": "Whiteboard-proof diagrams for data pipelines, as code."
+  },
+  "plugins": [
+    {
+      "name": "pipeline-diagrams",
+      "source": "./integrations/claude-plugin",
+      "description": "Draw, check and render data pipeline diagrams as code: a skill with the language, and an MCP server that checks and renders diagrams.",
+      "category": "documentation",
+      "homepage": "https://pipeline-diagrams.com/agents.html"
+    }
+  ]
+}

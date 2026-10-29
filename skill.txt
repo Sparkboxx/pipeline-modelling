@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /SKILL.md
+---
+{% include_relative integrations/claude-skill/pipeline-diagrams/SKILL.md %}

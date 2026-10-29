@@ -13,6 +13,7 @@ color_scheme: pipeline
 # Include/exclude files
 exclude:
   - readme.md
+  - AGENTS.md
   - scripts/
   - Gemfile
   - Gemfile.lock

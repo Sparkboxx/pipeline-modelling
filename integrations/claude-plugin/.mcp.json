@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "pipeline-diagrams": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "-p",
+        "pipeline-diagrams",
+        "pipeline-diagrams-mcp"
+      ]
+    }
+  }
+}
