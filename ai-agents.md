@@ -3,6 +3,7 @@ layout: page
 title: For AI agents
 parent: Diagrams as code
 nav_order: 2
+permalink: /agents.html
 ---
 
 # For AI agents
@@ -23,27 +24,51 @@ AI agents are good at reading code, infrastructure and docs, and explaining how 
 
 With the MCP server, the agent runs this loop on its own. Without it, it can run the same checks on the command line, or you paste the errors back.
 
+## Start with one prompt
+
+Any agent that can read a web page can pick up the language by itself. Start your request with:
+
+```text
+Read https://pipeline-diagrams.com/llms.txt, then draw how data flows through this repository as a pipeline diagram.
+```
+
+[`llms.txt`]({{ '/llms.txt' | relative_url }}) is the site's index for agents: it points to the guide, the skill, the language reference and the tools.
+
 ## In any chat, without tools
 
 An agent doesn't need tools, an MCP server or an install to draw a pipeline: it only writes the text. Give it the [guide](#any-other-agent-or-chat), and paste its `pipeline` block into the [offline viewer](browser.html#the-offline-viewer): one HTML file that draws the diagram on your own computer, with nothing sent anywhere. In chats that can show HTML pages, the agent can also [show the diagram itself](browser.html#in-an-agent-chat). This works in ordinary chat apps, and in environments where you can't install anything.
 
 ## Claude Code
 
-Add the skill, so Claude knows the language and uses it when you ask for a pipeline diagram:
+Install the plugin. It has the skill, so Claude knows the language and uses it when you ask for a pipeline diagram, and the MCP server, so Claude can check and render the diagrams it writes:
+
+```text
+/plugin install pipeline-diagrams --marketplace Sparkboxx/pipeline-modelling
+```
+
+On older versions of Claude Code, add the marketplace first:
+
+```text
+/plugin marketplace add Sparkboxx/pipeline-modelling
+/plugin install pipeline-diagrams@pipeline-diagrams
+```
+
+### Without the plugin
+
+Add the skill on its own:
 
 ```sh
 mkdir -p ~/.claude/skills/pipeline-diagrams
-curl -fsSL https://cdn.jsdelivr.net/npm/pipeline-diagrams@0.2/integrations/claude-skill/pipeline-diagrams/SKILL.md \
-  -o ~/.claude/skills/pipeline-diagrams/SKILL.md
+curl -fsSL https://pipeline-diagrams.com/SKILL.md -o ~/.claude/skills/pipeline-diagrams/SKILL.md
 ```
 
-And the MCP server, so Claude can check and render the diagrams it writes:
+And the MCP server:
 
 ```sh
 claude mcp add pipeline-diagrams -- npx -y -p pipeline-diagrams pipeline-diagrams-mcp
 ```
 
-For one project only, put the skill in the project's `.claude/skills/` instead, and commit it, so everyone on the project has it.
+For one project only, put the skill in the project's `.claude/skills/` instead, and commit it, so everyone on the project has it. Other agents that load skills (`SKILL.md` files) use the same file.
 
 ## Other MCP clients
 
@@ -71,7 +96,7 @@ The server has four tools:
 
 ## Any other agent or chat
 
-Give the agent the [guide]({{ '/downloads/pipeline-diagrams-agent-guide.md' | relative_url }}): one page with the shapes, the flows, an example and the rules. Paste it into the conversation, add it to the agent's instructions, or point the agent at its URL:
+Give the agent the [guide]({{ '/downloads/pipeline-diagrams-agent-guide.md' | relative_url }}): one page with the shapes, the flows, an example and the rules. Paste it into the conversation, add it to the agent's instructions (`AGENTS.md`, `.cursor/rules`, a custom GPT), or point the agent at its URL:
 
 ```text
 https://pipeline-diagrams.com/downloads/pipeline-diagrams-agent-guide.md

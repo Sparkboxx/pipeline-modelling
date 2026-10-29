@@ -242,7 +242,7 @@ test("an empty diagram is a valid, empty SVG", () => {
 
 // every pipeline block in the docs must parse and render without errors
 test("all documented examples render", () => {
-  const files = ["text-format.md", "templates.md", "install.md", "index.md", "diagrams-as-code.md", "agents.md", "browser.md", "origin.md", "workshop.md", "readme.md", "integrations/agent-guide.md"];
+  const files = ["text-format.md", "templates.md", "install.md", "index.md", "diagrams-as-code.md", "ai-agents.md", "browser.md", "origin.md", "workshop.md", "readme.md", "integrations/agent-guide.md"];
   let count = 0;
   for (const f of files) {
     const md = readFileSync(join(root, f), "utf8");
@@ -390,4 +390,9 @@ test("generated files are up to date", () => {
     assert.ok(bundle.includes(body), `assets/js/pipeline-diagrams.js is out of date (${f}); run node scripts/templates.mjs downloads`);
   }
   assert.ok(existsSync(join(root, "integrations/claude-skill/pipeline-diagrams/SKILL.md")));
+  const skill = readFileSync(join(root, "integrations/claude-skill/pipeline-diagrams/SKILL.md"), "utf8");
+  assert.equal(readFileSync(join(root, "integrations/claude-plugin/skills/pipeline-diagrams/SKILL.md"), "utf8"), skill, "the plugin's skill is out of date");
+  const plugin = JSON.parse(readFileSync(join(root, "integrations/claude-plugin/.claude-plugin/plugin.json"), "utf8"));
+  const pkg = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
+  assert.equal(plugin.version, pkg.version, "the plugin's version is out of date; run node scripts/templates.mjs downloads");
 });

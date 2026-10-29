@@ -1,0 +1,18 @@
+{
+  "name": "pipeline-diagrams",
+  "version": "0.2.5",
+  "description": "Draw, check and render data pipeline diagrams as code: a skill with the language, and an MCP server that checks and renders diagrams.",
+  "author": {
+    "name": "Wilco van Duinkerken",
+    "url": "https://www.sparkboxx.com"
+  },
+  "homepage": "https://pipeline-diagrams.com",
+  "repository": "https://github.com/Sparkboxx/pipeline-modelling",
+  "license": "MIT",
+  "keywords": [
+    "diagrams-as-code",
+    "data-pipeline",
+    "architecture",
+    "mermaid"
+  ]
+}

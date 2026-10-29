@@ -7,6 +7,7 @@
 //   - downloads/pipeline-diagrams-viewer.html: an offline viewer, the renderer in one HTML file
 //   - the "pd" icon pack for Mermaid, and the agent guide as a download and as a
 //     Claude skill (integrations/claude-skill/, and .claude/skills/ for this repository)
+//   - the Claude Code plugin (integrations/claude-plugin/): the skill and the MCP server
 // Usage: node scripts/templates.mjs downloads
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
@@ -548,11 +549,29 @@ description: Draw data pipeline diagrams (processors, data stores, triggers, flo
 ---
 
 ${guide}`;
-  for (const dir of ["../integrations/claude-skill/pipeline-diagrams/", "../.claude/skills/pipeline-diagrams/"]) {
+  for (const dir of ["../integrations/claude-skill/pipeline-diagrams/", "../integrations/claude-plugin/skills/pipeline-diagrams/", "../.claude/skills/pipeline-diagrams/"]) {
     const skillDir = new URL(dir, here);
     mkdirSync(skillDir, { recursive: true });
     writeFileSync(new URL("SKILL.md", skillDir), skill);
   }
+
+  // the Claude Code plugin: the skill above plus the MCP server, installed from
+  // the marketplace in .claude-plugin/marketplace.json
+  const claudePlugin = new URL("../integrations/claude-plugin/", here);
+  mkdirSync(new URL(".claude-plugin/", claudePlugin), { recursive: true });
+  writeFileSync(new URL(".claude-plugin/plugin.json", claudePlugin), JSON.stringify({
+    name: "pipeline-diagrams",
+    version: pkg.version,
+    description: "Draw, check and render data pipeline diagrams as code: a skill with the language, and an MCP server that checks and renders diagrams.",
+    author: pkg.author,
+    homepage: pkg.homepage,
+    repository: "https://github.com/Sparkboxx/pipeline-modelling",
+    license: pkg.license,
+    keywords: ["diagrams-as-code", "data-pipeline", "architecture", "mermaid"],
+  }, null, 2) + "\n");
+  writeFileSync(new URL(".mcp.json", claudePlugin), JSON.stringify({
+    mcpServers: { "pipeline-diagrams": { command: "npx", args: ["-y", "-p", "pipeline-diagrams", "pipeline-diagrams-mcp"] } },
+  }, null, 2) + "\n");
 }
 
 // --- a minimal zip writer (stored, no compression) ------------------------------

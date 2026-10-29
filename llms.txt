@@ -1,0 +1,52 @@
+---
+layout: null
+permalink: /llms.txt
+---
+# Pipeline Diagrams
+
+> Whiteboard-proof diagrams for data pipelines. A handful of shapes (processors, data stores, triggers, flows) to design, describe and explain how data moves between systems. Diagrams as code: write a few lines of text in a ```pipeline code block, and the npm package `pipeline-diagrams` checks it, lays it out and draws it as SVG or Mermaid. No dependencies; it runs in a browser, on the command line, in Markdown and in AI agents.
+
+To draw a diagram, read the agent guide first: it has the whole language on one page. Write the diagram in a ```pipeline code block. Where `pipeline` blocks aren't rendered (GitHub, most chats), add a Mermaid version as well.
+
+Check and render a diagram from the command line, without installing anything first:
+
+```sh
+npx -y pipeline-diagrams diagram.pipeline --check   # errors and warnings, with line numbers and fixes
+npx -y pipeline-diagrams diagram.pipeline out/      # out/diagram.svg and out/diagram-dark.svg
+```
+
+## For agents
+
+- [Agent guide]({{ site.url }}/downloads/pipeline-diagrams-agent-guide.md): the language on one page, with the shapes, the flows, an example and the rules
+- [Skill]({{ site.url }}/SKILL.md): the agent guide as an Agent Skill (SKILL.md), for Claude Code and other agents that load skills
+- [For AI agents]({{ site.url }}/agents.html): the Claude Code plugin, the MCP server, and setup for other agents
+- [Useful prompts]({{ site.url }}/prompts.html): prompts that get a map of every data flow in a repository
+
+## Docs
+
+- [Language reference]({{ site.url }}/text-format.html): every statement, the grammar, and every error and warning
+- [The notation]({{ site.url }}/notation.html): the shapes and what they mean
+- [Install & tools]({{ site.url }}/install.html): the npm package, command line tools, Markdown plugins and the GitHub renderer
+- [In your browser]({{ site.url }}/browser.html): the `<pipeline-diagram>` element and the offline viewer
+
+## Install for Claude Code
+
+The plugin has the skill and the MCP server:
+
+```text
+/plugin install pipeline-diagrams --marketplace Sparkboxx/pipeline-modelling
+```
+
+## MCP server
+
+```sh
+npx -y -p pipeline-diagrams pipeline-diagrams-mcp
+```
+
+Tools: `pipeline_guide`, `check_pipeline`, `render_pipeline`, `pipeline_to_mermaid`.
+
+## Optional
+
+- [npm package](https://www.npmjs.com/package/pipeline-diagrams)
+- [Source on GitHub](https://github.com/Sparkboxx/pipeline-modelling)
+- [Origin story]({{ site.url }}/origin.html)

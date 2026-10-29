@@ -44,6 +44,14 @@ npx pipeline-diagrams diagram.pipeline --check    # errors and warnings only
 
 It also has a `<pipeline-diagram>` web component, markdown-it and remark plugins, an Obsidian plugin, a Markdown renderer for GitHub, and an MCP server so AI agents can draw, check and fix diagrams themselves. See [For AI agents](https://pipeline-diagrams.com/agents.html), [Install & tools](https://pipeline-diagrams.com/install.html), and the [language reference](https://pipeline-diagrams.com/text-format.html) for every feature.
 
+For Claude Code, install the plugin. It adds the skill and the MCP server:
+
+```text
+/plugin install pipeline-diagrams --marketplace Sparkboxx/pipeline-modelling
+```
+
+Other agents start at [pipeline-diagrams.com/llms.txt](https://pipeline-diagrams.com/llms.txt).
+
 ## The notation
 
 A pipeline is any path that manipulates and stores data. It starts at a trigger or event, data gets processed, and it ends in a data store. If you can slap a name on a process between two data stores, it probably is, or should become, a pipeline.
